@@ -1,12 +1,18 @@
 ﻿# Week 14
-### qsort 
 
-Reference:
-
-http://www.gnu.org/software/libc/manual/html_node/Array-Sort-Function.html#Array-Sort-Function
+## qsort
+*   [C referecne of qsort](http://en.cppreference.com/w/c/algorithm/qsort)
 
 使用 qsort
-void qsort (void *array, size_t count, size_t size, comparison_fn_t compare);
+`void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`
+*   *ptr*
+    指向要排序的陣列的起始位置的指標
+*   *count*
+    在陣列中有幾個元素要排序
+*   *size*
+    在陣列中每個元素的大小，以 byte 為單位
+*   *comp*
+    比較用的函數，回傳正數代表第一個引數比第二個引數小，回傳負數代表第一個引數比第二個引數大，回傳0代表兩個引數相等
 
 ```C
 #include <stdio.h>
@@ -36,7 +42,7 @@ int main(void)
 
     for (i=0; i<SIZE; i++) {
         data1[i] = rand()%SIZE;
-        data2[i] = (double) rand()/RAND_MAX;
+        data2[i] = (double)rand()/RAND_MAX;
     }
 
     printf("original: ");
@@ -69,8 +75,11 @@ int main(void)
 }
 ```
 
-### 對固定長度的字元陣列排序
+> Note:
+> `rand()` 會回傳一個偽亂數，型別是int，其值介於 0 到`RAND_MAX`之間。
+> [維基百科對於偽亂數的解釋](https://zh.wikipedia.org/wiki/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7)
 
+## 對固定長度的字元陣列排序
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -98,13 +107,9 @@ int main(void)
 }
 ```
 
-上面的方法可以正確運作的原因是字串長度固定而且規律地放置
-strs[SIZE][4] 這個二維陣列的內容
-strs[0] 對應到 "aab"
-strs[1] 對應到 "abc"
-但是其實這樣的二維陣列
-在記憶體中仍然是用一維方式循序放置
-
+上面的方法可以正確運作的原因是字串長度固定而且連續地被放置在記憶體中  
+`strs[SIZE][4]`這個二維陣列的內容如下表，`strs[0]`對應到`"aab"`，`strs[1]`對應到`"abc"`  
+但是其實這樣的二維陣列，在記憶體中仍然是用一維方式循序放置  
 table           |   ptr[0]  |   ptr[1]  |   ptr[2]  |   ptr[3]  
 ----------------|-----------|-----------|-----------|-----------
 ptr = strs[0]   |   `'a'`   |   `'a'`   |   `'b'`   |   `'0'`   
