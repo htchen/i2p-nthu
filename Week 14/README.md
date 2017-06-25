@@ -1,7 +1,7 @@
-﻿# Week 14
+﻿### Week 14
 
 ## qsort
-*   [C referecne of qsort](http://en.cppreference.com/w/c/algorithm/qsort)
+[C referecne of qsort](http://en.cppreference.com/w/c/algorithm/qsort)
 
 使用 qsort
 `void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`
@@ -110,13 +110,14 @@ int main(void)
 上面的方法可以正確運作的原因是字串長度固定而且連續地被放置在記憶體中  
 `strs[SIZE][4]`這個二維陣列的內容如下表，`strs[0]`對應到`"aab"`，`strs[1]`對應到`"abc"`  
 但是其實這樣的二維陣列，在記憶體中仍然是用一維方式循序放置  
-table           |   ptr[0]  |   ptr[1]  |   ptr[2]  |   ptr[3]  
+
+table           |   ptr[0]  |   ptr[1]  |   ptr[2]  |   ptr[3]
 ----------------|-----------|-----------|-----------|-----------
-ptr = strs[0]   |   `'a'`   |   `'a'`   |   `'b'`   |   `'0'`   
+ptr = strs[0]   |   `'a'`   |   `'a'`   |   `'b'`   |   `'0'`    
 ptr = strs[1]   |   `'a'`   |   `'b'`   |   `'c'`   |   `'0'`   
 ptr = strs[2]   |   `'a'`   |   `'a'`   |   `'a'`   |   `'0'`   
 ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`   
-......          |           |           |           |           
+......          |    ...    |    ...    |    ...    |    ...    
 
 陣列總共有10個元素，每個陣列的元素包含三個英文字元外加後面跟著一個 '\0' 字元 總共 4 bytes
 因此我們可以用 qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp);
