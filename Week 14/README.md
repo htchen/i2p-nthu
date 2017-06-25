@@ -5,7 +5,7 @@
 Reference:
 http://www.gnu.org/software/libc/manual/html_node/Array-Sort-Function.html#Array-Sort-Function
 
-¨Ï¥Î qsort
+ä½¿ç”¨ qsort
 void qsort (void *array, size_t count, size_t size, comparison_fn_t compare);
 
 ```C
@@ -69,7 +69,7 @@ int main(void)
 }
 ```
 
-### ¹ï©T©wªø«×ªº¦r¤¸°}¦C±Æ§Ç
+### å°å›ºå®šé•·åº¦çš„å­—å…ƒé™£åˆ—æ’åº
 
 ```C
 #include <stdio.h>
@@ -98,12 +98,12 @@ int main(void)
 }
 ```
 
-¤W­±ªº¤èªk¥i¥H¥¿½T¹B§@ªº­ì¦]¬O¦r¦êªø«×©T©w¦Ó¥B³W«ß¦a©ñ¸m
-strs[SIZE][4] ³o­Ó¤Gºû°}¦Cªº¤º®e
-strs[0] ¹ïÀ³¨ì "aab"
-strs[1] ¹ïÀ³¨ì "abc"
-¦ı¬O¨ä¹ê³o¼Ëªº¤Gºû°}¦C
-¦b°O¾ĞÅé¤¤¤´µM¬O¥Î¤@ºû¤è¦¡´`§Ç©ñ¸m
+ä¸Šé¢çš„æ–¹æ³•å¯ä»¥æ­£ç¢ºé‹ä½œçš„åŸå› æ˜¯å­—ä¸²é•·åº¦å›ºå®šè€Œä¸”è¦å¾‹åœ°æ”¾ç½®
+strs[SIZE][4] é€™å€‹äºŒç¶­é™£åˆ—çš„å…§å®¹
+strs[0] å°æ‡‰åˆ° "aab"
+strs[1] å°æ‡‰åˆ° "abc"
+ä½†æ˜¯å…¶å¯¦é€™æ¨£çš„äºŒç¶­é™£åˆ—
+åœ¨è¨˜æ†¶é«”ä¸­ä»ç„¶æ˜¯ç”¨ä¸€ç¶­æ–¹å¼å¾ªåºæ”¾ç½®
 
 table           |   ptr[0]  |   ptr[1]  |   ptr[2]  |   ptr[3]  
 ----------------|-----------|-----------|-----------|-----------
@@ -113,18 +113,18 @@ ptr = strs[2]   |   `'a'`   |   `'a'`   |   `'a'`   |   `'0'`
 ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`   
 ......          |           |           |           |           
 
-°}¦CÁ`¦@¦³10­Ó¤¸¯À¡A¨C­Ó°}¦Cªº¤¸¯À¥]§t¤T­Ó­^¤å¦r¤¸¥~¥[«á­±¸òµÛ¤@­Ó '\0' ¦r¤¸ Á`¦@ 4 bytes
-¦]¦¹§Ú­Ì¥i¥H¥Î qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp);
-Åı qsort ¥H°}¦C¤¸¯À¬°°ò¥»³æ¦ì´À§Ú­Ì±Æ§Ç ¤]´N¬O¥H 4 bytes ¬°³æ¦ì¶i¦æ­Ó§O¤¸¯À¤ñ¹ï·h°Ê
-³Ì«á strs °}¦Cªº¤º®e·|ª½±µ³Q­×§ï ¨Ã·h°Ê¦¨¥Ñ¤p±Æ¨ì¤j
-qsort ²Ä¥|­Ó°Ñ¼Æ­n±j¨î«¬§OÂà´«
-Åı strcmp ÅÜ¦¨²Å¦X«¬§O
-­ì¥» strcmp ªº«¬§O int strcmp (const char *s1, const char *s2);
-¸g¹L«¬§OÂà´«¤§«áÅÜ¦¨ int strcmp (const void *s1, const void *s2);
+é™£åˆ—ç¸½å…±æœ‰10å€‹å…ƒç´ ï¼Œæ¯å€‹é™£åˆ—çš„å…ƒç´ åŒ…å«ä¸‰å€‹è‹±æ–‡å­—å…ƒå¤–åŠ å¾Œé¢è·Ÿè‘—ä¸€å€‹ '\0' å­—å…ƒ ç¸½å…± 4 bytes
+å› æ­¤æˆ‘å€‘å¯ä»¥ç”¨ qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp);
+è®“ qsort ä»¥é™£åˆ—å…ƒç´ ç‚ºåŸºæœ¬å–®ä½æ›¿æˆ‘å€‘æ’åº ä¹Ÿå°±æ˜¯ä»¥ 4 bytes ç‚ºå–®ä½é€²è¡Œå€‹åˆ¥å…ƒç´ æ¯”å°æ¬å‹•
+æœ€å¾Œ strs é™£åˆ—çš„å…§å®¹æœƒç›´æ¥è¢«ä¿®æ”¹ ä¸¦æ¬å‹•æˆç”±å°æ’åˆ°å¤§
+qsort ç¬¬å››å€‹åƒæ•¸è¦å¼·åˆ¶å‹åˆ¥è½‰æ›
+è®“ strcmp è®Šæˆç¬¦åˆå‹åˆ¥
+åŸæœ¬ strcmp çš„å‹åˆ¥ int strcmp (const char *s1, const char *s2);
+ç¶“éå‹åˆ¥è½‰æ›ä¹‹å¾Œè®Šæˆ int strcmp (const void *s1, const void *s2);
 
-¥t¤@ºØ¤è¦¡
-³z¹L«ü¼Ğ°}¦C
-¥i¥H¥Î¦b¤£¦Pªø«×ªº¦r¦ê±Æ§Ç
+å¦ä¸€ç¨®æ–¹å¼
+é€éæŒ‡æ¨™é™£åˆ—
+å¯ä»¥ç”¨åœ¨ä¸åŒé•·åº¦çš„å­—ä¸²æ’åº
 
 ```C
 #include <stdio.h>
@@ -173,19 +173,19 @@ int main(void)
 }
 ```
 
-ptrs ¬O¤@­Ó«ü¼Ğ°}¦C
-¦]¦¹ ptrs ªº¨C­Ó¤¸¯À³£¬O¤@­Ó«ü¼Ğ  ³£¥i¥H¥Î¨Ó°O¿ı¬Y­Ó°O¾ĞÅé¦ì¸m
-§Ú­Ì¥ı¥Î ptrs ªº¨C­Ó¤¸¯À ptrs[i] ¤À§O°O¦í¨C­Ó¦r¦êªº¶}©l¦ì§}
+ptrs æ˜¯ä¸€å€‹æŒ‡æ¨™é™£åˆ—
+å› æ­¤ ptrs çš„æ¯å€‹å…ƒç´ éƒ½æ˜¯ä¸€å€‹æŒ‡æ¨™  éƒ½å¯ä»¥ç”¨ä¾†è¨˜éŒ„æŸå€‹è¨˜æ†¶é«”ä½ç½®
+æˆ‘å€‘å…ˆç”¨ ptrs çš„æ¯å€‹å…ƒç´  ptrs[i] åˆ†åˆ¥è¨˜ä½æ¯å€‹å­—ä¸²çš„é–‹å§‹ä½å€
 for (i=0; i<SIZE; i++) {
     ptrs[i] = strs[i];
 }
 
-±µ¤U¨Ó¹ï«ü¼Ğ°}¦C°µ qsort
-¨Ì·Ó ptrs ªº¨C­Ó¤¸¯À©Ò«ü¨ìªº¦r¦ê¤j¤p
-±N ptrs ªº¤¸¯À·h°Ê 
-©Ò¥H¥u¬O½Õ´««ü¼Ğªº¶¶§Ç
-¹ê»Úªº¸ê®Æ strs ¤£·|³Q§ó§ï
-½Ğª`·N³o®É­Ô compare ¨ç¼Æªº¼gªk
+æ¥ä¸‹ä¾†å°æŒ‡æ¨™é™£åˆ—åš qsort
+ä¾ç…§ ptrs çš„æ¯å€‹å…ƒç´ æ‰€æŒ‡åˆ°çš„å­—ä¸²å¤§å°
+å°‡ ptrs çš„å…ƒç´ æ¬å‹• 
+æ‰€ä»¥åªæ˜¯èª¿æ›æŒ‡æ¨™çš„é †åº
+å¯¦éš›çš„è³‡æ–™ strs ä¸æœƒè¢«æ›´æ”¹
+è«‹æ³¨æ„é€™æ™‚å€™ compare å‡½æ•¸çš„å¯«æ³•
 int compare_str_ptr(const void *a, const void *b)
 {
     char * *pa;
@@ -195,11 +195,11 @@ int compare_str_ptr(const void *a, const void *b)
     return strcmp(*pa, *pb);
 }
 
-½Ğ°O¦í¤U­±¨â­Ó­«ÂI:
-1. ³Q·h°ÊªºªF¦è¬O«ü¼Ğ
-2. ¥Î¨Ó¤ñ¸û«h¬O«ü¼Ğ©Ò«ü¨ìªº¦r¦ê
-§Ú­Ì¥i¥H´«­Ó®æ¦¡Åã¥Ü°}¦C¤º®e
-°õ¦æ©³¤Uªşªºµ{¦¡½X·|¿é¥X
+è«‹è¨˜ä½ä¸‹é¢å…©å€‹é‡é»:
+1. è¢«æ¬å‹•çš„æ±è¥¿æ˜¯æŒ‡æ¨™
+2. ç”¨ä¾†æ¯”è¼ƒå‰‡æ˜¯æŒ‡æ¨™æ‰€æŒ‡åˆ°çš„å­—ä¸²
+æˆ‘å€‘å¯ä»¥æ›å€‹æ ¼å¼é¡¯ç¤ºé™£åˆ—å…§å®¹
+åŸ·è¡Œåº•ä¸‹é™„çš„ç¨‹å¼ç¢¼æœƒè¼¸å‡º
 strs: aab0|abc0|aaa0|abb0|acb0|aab0|abc0|aaa0|abb0|acb0|
 ptrs: 0028FEE4|0028FEE8|0028FEEC|0028FEF0|0028FEF4|0028FEF8|0028FEFC|0028FF00|0028FF04|0028FF08|
 after sorting
@@ -207,7 +207,7 @@ ptrs: 0028FF00|0028FEEC|0028FEE4|0028FEF8|0028FEF0|0028FF04|0028FEE8|0028FEFC|00
 ptrs: aaa0|aaa0|aab0|aab0|abb0|abb0|abc0|abc0|acb0|acb0|
 strs: aab0|abc0|aaa0|abb0|acb0|aab0|abc0|aaa0|abb0|acb0|
 
-¹ï·Ó°O¾ĞÅé¦ì§}¥H¤Î strs ªº¤º®e´N·|¬İ¥Xºİ­Ù
+å°ç…§è¨˜æ†¶é«”ä½å€ä»¥åŠ strs çš„å…§å®¹å°±æœƒçœ‹å‡ºç«¯å€ª
 
 ```C
 #include <stdio.h>
@@ -314,7 +314,7 @@ int main(void)
 }
 ```
 
-### ¦bµ{¦¡°õ¦æ´Á¶¡¨ú±o°O¾ĞÅé
+### åœ¨ç¨‹å¼åŸ·è¡ŒæœŸé–“å–å¾—è¨˜æ†¶é«”
 
 ```C
 /* E10_15.c */
@@ -380,20 +380,20 @@ memory leak
 
 dangling pointer
 
-¦r¤¸°}¦C©M¦r¦ê
+å­—å…ƒé™£åˆ—å’Œå­—ä¸²
 
 Reference:
 https://stackoverflow.com/questions/2245664/what-is-the-type-of-string-literals-in-c-and-c
 http://en.cppreference.com/w/c/language/string_literal
 http://en.cppreference.com/w/cpp/language/string_literal
 
-Â²­n¨Ó»¡¡A¹ï©óC»y¨¥¡G
-1.  string literalªº«¬§O¬Ochar[]
-2.  ¦pªG¬O¥Î«ü¼Ğ¥h«ü¦V¬Y­Óstring literal¡A¨º»ò¨ä«ü¦Vªº¤º®e¬O¤£¥i¼gªº
+ç°¡è¦ä¾†èªªï¼Œå°æ–¼Cèªè¨€ï¼š
+1.  string literalçš„å‹åˆ¥æ˜¯char[]
+2.  å¦‚æœæ˜¯ç”¨æŒ‡æ¨™å»æŒ‡å‘æŸå€‹string literalï¼Œé‚£éº¼å…¶æŒ‡å‘çš„å…§å®¹æ˜¯ä¸å¯å¯«çš„
     `char* str = "Test"; str[0] = 't'; // Undefined behavior`
-3.  ¬°¤FÁ×§KÃş¦ü¿ù»~µo¥Í¡A³q±`·|«ØÄ³¥Î¡G
-    *  `const char* str = "string"; // ¦pªG¼g¥X str[0]='t'¡A¦b½sÄ¶®É´N·|¥X¿ù`
-    *  `char str[] = "string"; // str[0]='S' ¬O¥i¥Hªº`
+3.  ç‚ºäº†é¿å…é¡ä¼¼éŒ¯èª¤ç™¼ç”Ÿï¼Œé€šå¸¸æœƒå»ºè­°ç”¨ï¼š
+    *  `const char* str = "string"; // å¦‚æœå¯«å‡º str[0]='t'ï¼Œåœ¨ç·¨è­¯æ™‚å°±æœƒå‡ºéŒ¯`
+    *  `char str[] = "string"; // str[0]='S' æ˜¯å¯ä»¥çš„`
 
 ```
 #include <stdio.h>
@@ -432,7 +432,7 @@ int main(void)
 }
 ```
 
-### ¨â­Ó¬P¸¹
+### å…©å€‹æ˜Ÿè™Ÿ
 
 ```C
 #include <stdio.h>
@@ -470,8 +470,8 @@ struct t_point {
 typedef struct t_point Point;
 ```
 
-¤W­±ªº¼gªk
-¤]¥i¥H¦X¨Ö¦¨
+ä¸Šé¢çš„å¯«æ³•
+ä¹Ÿå¯ä»¥åˆä½µæˆ
 
 ```C
 typedef struct {
@@ -480,9 +480,9 @@ typedef struct {
 } Point;
 ```
 
-¦³¤F Point ³o­Ó struct «¬§O¤§«á
-´N¯à¥Î¥¦²£¥ÍÅÜ¼Æ
-¨Ò¦p
+æœ‰äº† Point é€™å€‹ struct å‹åˆ¥ä¹‹å¾Œ
+å°±èƒ½ç”¨å®ƒç”¢ç”Ÿè®Šæ•¸
+ä¾‹å¦‚
 Point pt = {5, 7};
 Point *pp;
 
@@ -490,23 +490,23 @@ pp = &pt;
 (*pp).x = 10;
 pp->x = 10;
 
-©³¤U¬O¤@­Ó¸û§¹¾ãªº½d¨Ò
+åº•ä¸‹æ˜¯ä¸€å€‹è¼ƒå®Œæ•´çš„ç¯„ä¾‹
 
 ```C
 #include <stdio.h>
 #include <stdlib.h>
-/* ©w¸q¤@­Ó·sªº«¬§O */
-/* ¨ú¦W¥s°µ Point */
-/* ¸Ì­±¥]§t x ©M y ¨â­Ó members */ 
-/* ©w¸q¹L¤§«á   Point ¥i¥H³Q®³¨Ó·í§@¤@¯ëªº«¬§O¨Ó¨Ï¥Î */
-/* ¥]¬A«Å§i·sªºÅÜ¼Æ   ©Î¬O«Å§i function */ 
+/* å®šç¾©ä¸€å€‹æ–°çš„å‹åˆ¥ */
+/* å–åå«åš Point */
+/* è£¡é¢åŒ…å« x å’Œ y å…©å€‹ members */ 
+/* å®šç¾©éä¹‹å¾Œ   Point å¯ä»¥è¢«æ‹¿ä¾†ç•¶ä½œä¸€èˆ¬çš„å‹åˆ¥ä¾†ä½¿ç”¨ */
+/* åŒ…æ‹¬å®£å‘Šæ–°çš„è®Šæ•¸   æˆ–æ˜¯å®£å‘Š function */ 
 typedef struct {
     int x;
     int y;
 } Point;
 
-/* ones_vec_1() ·|¶Ç¦^¬Y­Ó Point µ²ºcªº¦ì§} */
-/* ³o­Ó¦ì§}¬O¥Ñ Point µ²ºc²Õ¦¨ªº°}¦Cªº¶}ÀY¦ì§} */ 
+/* ones_vec_1() æœƒå‚³å›æŸå€‹ Point çµæ§‹çš„ä½å€ */
+/* é€™å€‹ä½å€æ˜¯ç”± Point çµæ§‹çµ„æˆçš„é™£åˆ—çš„é–‹é ­ä½å€ */ 
 Point * ones_vec_1(int length);
 
 void ones_vec_2(int length, Point **bp);
@@ -521,15 +521,15 @@ int main(void)
    printf("vector length: ");
    scanf("%d", &length);
 
-   /* §Q¥Î ones_vec_1 ¨ú±o¤@­Ó°}¦C */
-   /* °}¦Cªº¨C­Ó¤¸¯À¬O¤@­Ó Point */
-   /* °}¦Cªº¶}ÀY¦ì§}°O¿ı¦b«ü¼ĞÅÜ¼Æ a ¸Ì­± */    
+   /* åˆ©ç”¨ ones_vec_1 å–å¾—ä¸€å€‹é™£åˆ— */
+   /* é™£åˆ—çš„æ¯å€‹å…ƒç´ æ˜¯ä¸€å€‹ Point */
+   /* é™£åˆ—çš„é–‹é ­ä½å€è¨˜éŒ„åœ¨æŒ‡æ¨™è®Šæ•¸ a è£¡é¢ */    
    a = ones_vec_1(length);
    ones_vec_2(length, &b);
 
-   /* a ¬O­Ó«ü¼ĞÅÜ¼Æ   ¥¦°O¿ıªº¬O¬Y­Ó°}¦Cªº¶}ÀY¦ì§} */
-   /* °}¦Cªº¨C­Ó¤¸¯À¬O a[i] (¬O­Ó Point) */
-   /* ©Ò¥H¦³¨â­Ó members  ¤À§O¬O a[i].x ©M a[i].y */   
+   /* a æ˜¯å€‹æŒ‡æ¨™è®Šæ•¸   å®ƒè¨˜éŒ„çš„æ˜¯æŸå€‹é™£åˆ—çš„é–‹é ­ä½å€ */
+   /* é™£åˆ—çš„æ¯å€‹å…ƒç´ æ˜¯ a[i] (æ˜¯å€‹ Point) */
+   /* æ‰€ä»¥æœ‰å…©å€‹ members  åˆ†åˆ¥æ˜¯ a[i].x å’Œ a[i].y */   
    for (i=0; i<length; i++) 
       printf("(%d, %d) ", a[i].x, a[i].y);
    printf("\n");
