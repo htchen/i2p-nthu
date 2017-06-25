@@ -1,17 +1,16 @@
-﻿### Week 14
+﻿# Week 14
 
 ## qsort
 [C referecne of qsort](http://en.cppreference.com/w/c/algorithm/qsort)
 
-使用 qsort
 `void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`
-*   *ptr*
+*   *ptr*  
     指向要排序的陣列的起始位置的指標
-*   *count*
+*   *count*  
     在陣列中有幾個元素要排序
-*   *size*
+*   *size*  
     在陣列中每個元素的大小，以 byte 為單位
-*   *comp*
+*   *comp*  
     比較用的函數，回傳正數代表第一個引數比第二個引數小，回傳負數代表第一個引數比第二個引數大，回傳0代表兩個引數相等
 
 ```C
@@ -75,11 +74,12 @@ int main(void)
 }
 ```
 
-> Note:
-> `rand()` 會回傳一個偽亂數，型別是int，其值介於 0 到`RAND_MAX`之間。
-> [維基百科對於偽亂數的解釋](https://zh.wikipedia.org/wiki/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7)
+> Note:  
+> `rand()` 會回傳一個偽亂數，型別是`int`，其值介於 0 到`RAND_MAX`之間。  
+> [維基百科對於偽亂數的解釋](https://zh.wikipedia.org/wiki/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7)  
 
 ## 對固定長度的字元陣列排序
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -119,18 +119,23 @@ ptr = strs[2]   |   `'a'`   |   `'a'`   |   `'a'`   |   `'0'`
 ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`   
 ......          |    ...    |    ...    |    ...    |    ...    
 
-陣列總共有10個元素，每個陣列的元素包含三個英文字元外加後面跟著一個 '\0' 字元 總共 4 bytes
-因此我們可以用 qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp);
-讓 qsort 以陣列元素為基本單位替我們排序 也就是以 4 bytes 為單位進行個別元素比對搬動
-最後 strs 陣列的內容會直接被修改 並搬動成由小排到大
-qsort 第四個參數要強制型別轉換
-讓 strcmp 變成符合型別
-原本 strcmp 的型別 int strcmp (const char *s1, const char *s2);
-經過型別轉換之後變成 int strcmp (const void *s1, const void *s2);
+陣列總共有10個元素，每個陣列的元素包含 3 個英文字元外加後面跟著一個`'\0'`字元 總共 4 bytes  
+因此我們可以用`qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp);`  
+讓`qsort`以陣列元素為基本單位替我們排序，也就是以 4 bytes 為單位進行個別元素的比對與搬動  
+最後`strs`的內容會直接被修改，並由小排到大  
 
-另一種方式
-透過指標陣列
-可以用在不同長度的字串排序
+`qsort`第四個引數要強制型別轉換，讓`strcmp`符合參數型別  
+原本`strcmp`的型別是`int strcmp (const char *s1, const char *s2);`  
+經過型別轉換之後變成`int strcmp (const void *s1, const void *s2);`  
+
+> Note:  
+> 關於函數指標的型別轉換  
+> `// TODO`  
+
+
+## 對非固定長度的字串排序
+
+另一種方式，可以透過指標陣列，對不同長度的字串排序
 
 ```C
 #include <stdio.h>
@@ -179,19 +184,21 @@ int main(void)
 }
 ```
 
-ptrs 是一個指標陣列
-因此 ptrs 的每個元素都是一個指標  都可以用來記錄某個記憶體位置
-我們先用 ptrs 的每個元素 ptrs[i] 分別記住每個字串的開始位址
+`ptrs`是一個指標陣列  
+因此`ptrs`的每個元素都是一個指標  都可以用來記錄某個記憶體位置  
+我們先用`ptrs`的每個元素`ptrs[i]`分別記住每個字串的開始位址  
+```C
 for (i=0; i<SIZE; i++) {
     ptrs[i] = strs[i];
 }
+```
 
-接下來對指標陣列做 qsort
-依照 ptrs 的每個元素所指到的字串大小
-將 ptrs 的元素搬動 
-所以只是調換指標的順序
-實際的資料 strs 不會被更改
-請注意這時候 compare 函數的寫法
+接下來對指標陣列進行排序  
+依照`ptrs`的每個元素所指到的字串用`strcmp`進行比較以後，將`ptrs`的元素搬動  
+所以只是調換指標的順序(也就是`ptrs`元素的順序)，實際的資料`strs`不會被更改  
+
+請注意這時候`compare`函數的寫法
+```C
 int compare_str_ptr(const void *a, const void *b)
 {
     char * *pa;
@@ -200,20 +207,22 @@ int compare_str_ptr(const void *a, const void *b)
     pb = (char **) b;
     return strcmp(*pa, *pb);
 }
+```
 
-請記住下面兩個重點:
-1. 被搬動的東西是指標
-2. 用來比較則是指標所指到的字串
-我們可以換個格式顯示陣列內容
-執行底下附的程式碼會輸出
+*   被搬動的東西是指標
+*   用來比較則是指標所指到的字串
+
+我們可以換個格式顯示陣列內容，執行底下附的程式碼會輸出下表的內容  
+對照記憶體位址以及`strs`的內容就會看出端倪
+
+```
 strs: aab0|abc0|aaa0|abb0|acb0|aab0|abc0|aaa0|abb0|acb0|
 ptrs: 0028FEE4|0028FEE8|0028FEEC|0028FEF0|0028FEF4|0028FEF8|0028FEFC|0028FF00|0028FF04|0028FF08|
 after sorting
 ptrs: 0028FF00|0028FEEC|0028FEE4|0028FEF8|0028FEF0|0028FF04|0028FEE8|0028FEFC|0028FF08|0028FEF4|
 ptrs: aaa0|aaa0|aab0|aab0|abb0|abb0|abc0|abc0|acb0|acb0|
 strs: aab0|abc0|aaa0|abb0|acb0|aab0|abc0|aaa0|abb0|acb0|
-
-對照記憶體位址以及 strs 的內容就會看出端倪
+```
 
 ```C
 #include <stdio.h>
@@ -278,7 +287,7 @@ int main(void)
 }
 ```
 
-### Pointers to Functions
+## Pointers to Functions
 
 ```C
 #include <stdio.h>
@@ -320,7 +329,7 @@ int main(void)
 }
 ```
 
-### 在程式執行期間取得記憶體
+## 在程式執行期間取得記憶體
 
 ```C
 /* E10_15.c */
@@ -438,7 +447,7 @@ int main(void)
 }
 ```
 
-### 兩個星號
+## 兩個星號
 
 ```C
 #include <stdio.h>
@@ -466,7 +475,7 @@ int main(void)
 }
 ```
 
-### C Structures
+## C Structures
 
 ```C
 struct t_point {
