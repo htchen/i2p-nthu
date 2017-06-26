@@ -1,7 +1,7 @@
 ﻿# Week 14
 
 ## qsort
-[C referecne of qsort](http://en.cppreference.com/w/c/algorithm/qsort)
+[C referecne 對於 qsort 的說明](http://en.cppreference.com/w/c/algorithm/qsort)
 
 `void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`
 *   *ptr*  
@@ -129,8 +129,11 @@ ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`
 經過型別轉換之後變成`int strcmp (const void *s1, const void *s2);`  
 
 > Note:  
-> 關於函數指標的型別轉換  
-> `// TODO`  
+> 關於函數指標的型別轉換，其實上文的作法並非那麼妥當  
+> 這種強制轉型其實在標準是未定義行為  
+> 較為正確的作法應為再寫一個 function 包住`strcmp`，並將該 function 的指標作為引數傳入`qsort`  
+> [Stack Overflow 關於函數指標轉型的問答](https://stackoverflow.com/questions/559581/casting-a-function-pointer-to-another-type/559671#559671)  
+> [Stack Overflow 關於上文一些名詞的解釋](https://stackoverflow.com/questions/24304459/are-all-pointers-derived-from-pointers-to-structure-types-the-same)  
 
 
 ## 對非固定長度的字串排序
@@ -289,6 +292,19 @@ int main(void)
 
 ## Pointers to Functions
 
+[The GNU C Programming Tutorial 對於 function pointers 的解釋](http://www.crasseux.com/books/ctutorial/Function-pointers.html)  
+
+`void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`  
+
+以`qsort`來說，當初這個函式是被設計成對不同型別的資料都能進行排序  
+所以在這邊可以理解成，其實這個函式根本不知道它正在排序的型別是什麼 (`ptr`的型別對`qsort`內部來說是`void*`)  
+它只知道一個元素多大、總共有幾個元素和呼叫者提供的函式可以比較兩個元素的先後順序  
+所以會發現要傳入的`comp`才是實際上知道元素的型別，並如何比較兩者大小的關鍵  
+
+所以，如果想要設計一種函式，是希望能對應不同需求，執行使用者根據規定所設計出不同的函式  
+這種時候就可以用函數指標，為程式帶來更大的彈性  
+以`qsort`來說，它對使用者要求`comp`就是接收兩個只能讀取的`void*`指標，並回傳`int`代表比較結果的函式
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -329,7 +345,37 @@ int main(void)
 }
 ```
 
+從上例中，可以看出函式指標的語法：  
+*   若要宣告一個指向函式的指標，可以寫`return _type (*pointer_name) (parameter_list)`  
+    而那個指標的型別是`return _type(*)(parameter_list)`  
+*   而一個函式可以被隱式地轉換為指向該函式的指標，也可以透過`&function_name`來取得函數位址  
+    所以如下兩個都是合法的：
+    *   `run(sum, a, 4));`  
+    *   `run(&sum, a, 4));`
+*   要使用該函式指標的話，可以有如下兩種用法：
+    *   `fp(a,n);`
+    *   `(*fp)(a,n);`
+
+> Note:  
+> [Stack Overflow 關於函式指標語法的有趣問答](https://stackoverflow.com/questions/6893285/why-do-function-pointer-definitions-work-with-any-number-of-ampersands-or-as)  
+
 ## 在程式執行期間取得記憶體
+[C reference 對於 malloc 的說明](http://en.cppreference.com/w/c/memory/malloc)  
+[C reference 對於 free 的說明](http://en.cppreference.com/w/c/memory/free)  
+
+有的時候，我們需要在執行的時候動態分配記憶體  
+此時可以使用`malloc`跟`free`進行記憶體的分配與回收
+
+`void* malloc( size_t size )`  
+*   *size*  
+    要分配的記憶體大小  
+
+`void free( void* ptr )`  
+*   *ptr*  
+    要回收的記憶體的指標，必須是當初分配某塊空間時拿到的那個位址  
+    譬如呼叫`malloc(16);`以後拿到的位址是`0x8BADF00D`，之後若想要將這塊塊記憶體回收  
+    在呼叫`free`時必須傳入`0x8BADF00D`，不能是`0x8BADF00F`或其他不是由相關記憶體分配函式所回傳的位址  
+    如果`ptr`為`NULL`，則此函式不會做任何事情  
 
 ```C
 /* E10_15.c */
@@ -395,22 +441,31 @@ memory leak
 
 dangling pointer
 
-字元陣列和字串
-
-Reference:
-https://stackoverflow.com/questions/2245664/what-is-the-type-of-string-literals-in-c-and-c
-http://en.cppreference.com/w/c/language/string_literal
-http://en.cppreference.com/w/cpp/language/string_literal
+## 字元陣列和字串
+[C reference 對於 string literal in C 的說明](http://en.cppreference.com/w/c/language/string_literal)  
+[C++ reference 對於 string literal in C++ 的說明](http://en.cppreference.com/w/cpp/language/string_literal)  
+[Stack Overflow 關於 string literal 在 C 與 C++ 中的說明](https://stackoverflow.com/questions/2245664/what-is-the-type-of-string-literals-in-c-and-c)  
 
 簡要來說，對於C語言：
-1.  string literal的型別是char[]
-2.  如果是用指標去指向某個string literal，那麼其指向的內容是不可寫的
-    `char* str = "Test"; str[0] = 't'; // Undefined behavior`
-3.  為了避免類似錯誤發生，通常會建議用：
-    *  `const char* str = "string"; // 如果寫出 str[0]='t'，在編譯時就會出錯`
-    *  `char str[] = "string"; // str[0]='S' 是可以的`
+1.  string literal 的型別是char[]  
+2.  如果是用指標去指向某個 string literal，那麼其指向的內容是不可寫的  
+    `char* str = "Test"; // OK`  
+    `str[0] = 't'; // 未定義行為，但可以通過編譯，可能在執行時出錯`  
+3.  為了避免類似錯誤發生，通常會建議用：  
+    *  `const char* str = "string"; // 如果寫出 str[0]='t'，在編譯時就會出錯`  
+    *  `char str[] = "string"; // str[0]='S' 是可以的`  
 
-```
+而對於`const char* str = "string";`：  
+*   `"string"`會在程式被載入的時候，一起被載入到某塊記憶體 (常見的狀況是載入到 data segment)  
+*   而`str`指向的位址就是`"string"`被儲存到的記憶體的開頭位址  
+*   標準規定對於 string literal 的寫入是未定義行為，實際上也有實作是將`"string"`載入到一塊只允許讀取的記憶體  
+
+對於`char str[] = "string";`：  
+*   其實該句等同`char str[7] = "string"`，也等同於`char str[7] = {'s', 't', 'r', 'i', 'n', 'g', '\0'};`  
+*   相當於把記憶體中`"string"`複製一份當作`str`這個陣列的初始值  
+*   所以`str[0] = 'S';`就合法了  
+
+```C
 #include <stdio.h>
 
 int main(void)
