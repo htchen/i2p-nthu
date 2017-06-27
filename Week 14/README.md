@@ -78,6 +78,100 @@ int main(void)
 > `rand()` 會回傳一個偽亂數，型別是`int`，其值介於 0 到`RAND_MAX`之間。  
 > [維基百科對於偽亂數的解釋](https://zh.wikipedia.org/wiki/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7)  
 
+如果想要觀察排序過程，可以執行下面的程式碼看看結果  
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define SIZE 10
+
+int data1[SIZE];
+double data2[SIZE];
+int times;
+
+int compare_int (const void *a, const void *b)
+{
+    const int *va = (const int *) a;
+    const int *vb = (const int *) b;
+    int i;
+
+    times++;
+
+    printf("exchange %2d times:",times);
+    for (i=0; i<SIZE; i++) {
+        printf("%d ", data1[i]);
+    }
+    printf("\n");
+
+    return *va-*vb;
+}
+
+int compare_double (const void *a, const void *b)
+{
+    const double *da = (const double *) a;
+    const double *db = (const double *) b;
+    int i;
+
+    times++;
+
+    printf("exchange %2d times:",times);
+    for (i=0; i<SIZE; i++) {
+	printf("%.2f ", data2[i]);
+    }
+    printf("\n");
+
+    return (*da > *db) - (*da < *db);
+}
+
+int main(void)
+{
+    int i;
+    for (i=0; i<SIZE; i++) {
+        data1[i] = rand()%SIZE;
+        data2[i] = (double)rand()/RAND_MAX;
+    }
+
+    printf("  original:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%d ", data1[i]);
+    }
+    printf("\n\n");
+
+    times = 0;
+    qsort(data1, SIZE, sizeof(int), compare_int);
+
+    printf("\n");
+    printf("  sorted:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%d ", data1[i]);
+    }
+    printf("\n\n");
+
+    printf("  original:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%.2f ", data2[i]);
+    }
+    printf("\n\n");
+
+    times = 0;
+    qsort(data2, SIZE, sizeof(double), compare_double);
+
+    printf("\n");
+    printf("  sorted:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%.2f ", data2[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+> Note:  
+> 上例輸出僅僅只是觀察中間排序的過程，實際上`qsort`的實作並沒有被嚴格規範  
+> 即使是一樣的數列，可能在不同的編譯器上會有不同的結果  
+
 ## 對固定長度的字元陣列排序
 
 ```C
