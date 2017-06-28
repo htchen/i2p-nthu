@@ -176,7 +176,7 @@ void Print(unsigned int* students, size_t length)
 	size_t i;
 	for (i = 0; i < length; i++)
 	{
-		printf("Student %d: ", i);
+		printf("Student %zu: ", i);
 
 		if (students[i] & NTHU_STUDENT)
 			printf("NTHU ");
@@ -291,35 +291,81 @@ unsigned rightRotate(unsigned x, int n)
 > 以上範例均是假設`int`為 32 位元  
 
 ## C Structures
+[The GNU C Programming Tutorial 對於 structures 的解釋](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Structures)  
 
+Structures 是可以由使用者自己定義，由其他型別(甚至是 structure)的變數所組成的一個資料型別  
+這樣的方式在使用上較方便，也會讓程式更簡潔易懂  
+
+譬如要描述平面上的點座標，可以用  
+```C
+int x, y;
+```
+若使用 structures 則可以自定一個叫做 t_point 的資料型態，寫成：  
+```C
+struct t_point {
+   int x;
+   int y;
+};
+```  
+
+關鍵字`struct`後面接著的`t_point`是自己替這個型別取的名字  
+括號中間就是這個 structure 所包含的資料結構，括號後面要記得加上分號做結束  
+這邊的`x`和`y`稱做`struct t_point`的成員變數(member)
+
+定義過 structure 之後，可以用它來宣告變數  
+```C
+struct t_point pt;
+```
+
+如果不想每次寫的時候都要有`struct`關鍵字，，可以利用下面這種寫法：  
 ```C
 struct t_point {
     int x;
     int y;
 };
 typedef struct t_point Point;
+
+Point pt;
 ```
 
-
-上面的寫法
-也可以合併成
+或是這種寫法：  
 ```C
 typedef struct {
     int x;
     int y;
 } Point;
+
+Point pt;
 ```
 
-有了 Point 這個 struct 型別之後
-就能用它產生變數
-例如
-
+`pt`會包含`x`和`y`兩個 members，要更改 members 的內容，最直接的方式是使用 member operator `.` 來存取  
+如果是指標變數，則可以透過`->`來存取
 ```C
 Point pt = {5, 7};
-Point *pp;
-pp = &pt;
+pt.x = 7;
+
+Point *pp = &pt;
 (*pp).x = 10;
 pp->x = 10;
+// 上面兩行是等價的
+```
+
+又，已經宣告過的 structure 可以再拿來當成另一個 structure 的 member，例如：
+```C
+typedef struct {
+   Point pt1;
+   Point pt2;
+} Rect;
+```
+
+然後用它來產生變數  
+```C
+Rect screen;
+```
+
+以及存取 members  
+```C
+printf("%d %d\n", screen.pt1.x, screen.pt1.y);
 ```
 
 底下是一個較完整的範例
@@ -327,20 +373,24 @@ pp->x = 10;
 ```C
 #include <stdio.h>
 #include <stdlib.h>
-/* 定義一個新的型別 */
-/* 取名叫做 Point */
-/* 裡面包含 x 和 y 兩個 members */ 
-/* 定義過之後   Point 可以被拿來當作一般的型別來使用 */
-/* 包括宣告新的變數   或是宣告 function */ 
+
+// 定義一個新的型別
+// 取名叫做 Point
+// 裡面包含 x 和 y 兩個 members
+// 定義過之後 Point 可以被拿來當作一般的型別來使用
+// 包括宣告新的變數或是宣告 function
 typedef struct {
     int x;
     int y;
 } Point;
 
-/* ones_vec_1() 會傳回某個 Point 結構的位址 */
-/* 這個位址是由 Point 結構組成的陣列的開頭位址 */ 
+// ones_vec_1 會傳回某個 Point 結構的位址
+// 這個位址是由 Point 結構組成的陣列的開頭位址
 Point * ones_vec_1(int length);
 
+// 傳入一個指向 Point* 的指標，ones_vec_2 會把 Point* 的值設定成
+// 由 Point 結構組成的陣列的開頭位址
+// 可以複習 Week 14 的雙重指標
 void ones_vec_2(int length, Point **bp);
 
 int main(void)
@@ -353,19 +403,22 @@ int main(void)
    printf("vector length: ");
    scanf("%d", &length);
 
-   /* 利用 ones_vec_1 取得一個陣列 */
-   /* 陣列的每個元素是一個 Point */
-   /* 陣列的開頭位址記錄在指標變數 a 裡面 */    
+   // 利用 ones_vec_1 取得一個陣列
+   // 陣列的每個元素是一個 Point
+   // 陣列的開頭位址記錄在指標變數 a 裡面
    a = ones_vec_1(length);
+   
+   // 指標變數 b 同理
    ones_vec_2(length, &b);
 
-   /* a 是個指標變數   它記錄的是某個陣列的開頭位址 */
-   /* 陣列的每個元素是 a[i] (是個 Point) */
-   /* 所以有兩個 members  分別是 a[i].x 和 a[i].y */   
+   // a 是個指標變數，它記錄的是某個陣列的開頭位址
+   // 陣列的每個元素是 a[i] (型別為 Point)
+   // 所以有兩個 members 分別是 a[i].x 和 a[i].y
    for (i=0; i<length; i++) 
       printf("(%d, %d) ", a[i].x, a[i].y);
    printf("\n");
    
+   // 同理
    for (i=0; i<length; i++)
       printf("(%d, %d) ", b[i].x, b[i].y);
    printf("\n");
@@ -397,6 +450,11 @@ void ones_vec_2(int length, Point **bp)
    } 
 }
 ```
+
+Structures 可以使用的運算元只有`=`、`&`、`.`、`->`，其他的運算則必須自己寫 functions 來達到我們想要的功能  
+例如，想要比較兩個 structure 變數相不相等，不能直接用 == 或 !=，相加`+`和相減`–`也不能用  
+
+接下來就來看幾個自定 functions 的例子  
 
 ```C
 #include <stdio.h>
@@ -432,6 +490,30 @@ int main(void)
     return 0;
 }
 ```
+
+傳遞 structure 變數到 function，會用 call-by-value 的方式  
+所以在 function 裡改變 structure 的 members 的值，並不會影響外部的 structure 變數的內容  
+
+以`show_complex`為例，會發現這個函式其實只是需要讀取外面變數的值，不需要更改其內容  
+所以就可以利用 call-by-value 的方式傳入  
+
+但以`set_complex`為例，這樣將會是徒勞無功  
+必須如前文的程式碼，使用指標變數才有辦法更改到外面變數的內容  
+```C
+void set_complex(Complex p, double r, double i)
+{
+    p.r = r;
+    p.i = i;
+    // 這個 p 是複製而來的，並不會改變到外面變數的內容
+}
+```
+
+> Note:  
+> 如果是透過 call-by-value，傳遞過程可能需要複製整個變數的內容  
+> 相較之下效率可能會比較低  
+
+底下的程式碼，可以將`DATA`想像成是一個`int`的陣列，並包括長度資訊  
+其中的`clone_data`是為了實作類似`a = b`的效果，而自己定義出來的 function  
 
 ```C
 #include <stdio.h>
@@ -490,6 +572,8 @@ int main(void)
     return 0;
 }
 ```
+
+## Linked List
 
 ```C
 #include <stdio.h>
