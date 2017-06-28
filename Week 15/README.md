@@ -11,7 +11,7 @@ C 語言提供了一些 bitwise operators，讓我們能用更低階的方式去
     // 將 a 用二進位表示出來，會得到所有 bit 都是 1
     ```  
 *   `&` (bitwise AND)  
-    將兩個運算元對應的 bit 進行 AND 運算  
+    將兩個 operand 對應的 bit 進行 AND 運算  
     ```C
     // 假設 char 是 8 bit
     unsigned char a = 190; // 1011 1110
@@ -19,7 +19,7 @@ C 語言提供了一些 bitwise operators，讓我們能用更低階的方式去
     unsigned char c = a&b; // 1010 0010 = 162
     ```  
 *   `|` (bitwise OR)  
-    將兩個運算元對應的 bit 進行 OR 運算  
+    將兩個 operand 對應的 bit 進行 OR 運算  
     ```C
     // 假設 char 是 8 bit
     unsigned char a = 190; // 1011 1110
@@ -27,7 +27,7 @@ C 語言提供了一些 bitwise operators，讓我們能用更低階的方式去
     unsigned char c = a|b; // 1011 1110 = 190
     ```  
 *   `^` (bitwise XOR)  
-    將兩個運算元對應的 bit 進行 XOR 運算  
+    將兩個 operand 對應的 bit 進行 XOR 運算  
     ```C
     // 假設 char 是 8 bit
     unsigned char a = 190; // 1011 1110
@@ -48,12 +48,12 @@ C 語言提供了一些 bitwise operators，讓我們能用更低階的方式去
     ```  
 
 > Note:  
-> 對於 shift operators 其實要注意左右邊運算元的正負號  
+> 對於 shift operators 其實要注意 operands 的正負號  
 > 可以參考開頭的網址了解更多細節，以及整數提升的規則  
 
 有時候我們需要儲存的資訊可能只有 0 和 1 兩種值，譬如記錄某種狀態的有或無  
 當我們需要記錄大量這一類的資料時，若每個狀態都使用`int`來記錄會太浪費空間  
-這種情況就適合使用位元運算，就可以大幅地節省空間  
+這種情況就適合使用位元運算，可以大幅地節省空間  
 
 譬如一個集合中包含 100、200、300 三種數字  
 可以把不同數字的有無當成是一個狀態，藉此總共有 2^3 = 8 種子集合  
@@ -300,7 +300,7 @@ Structures 是可以由使用者自己定義，由其他型別(甚至是 structu
 ```C
 int x, y;
 ```
-若使用 structures 則可以自定一個叫做 t_point 的資料型態，寫成：  
+若使用 structures 則可以自定一個叫做 t_point 的資料型態  
 ```C
 struct t_point {
    int x;
@@ -451,10 +451,10 @@ void ones_vec_2(int length, Point **bp)
 }
 ```
 
-Structures 可以使用的運算元只有`=`、`&`、`.`、`->`，其他的運算則必須自己寫 functions 來達到我們想要的功能  
+Structures 可以使用的 operator 只有`=`、`&`、`.`、`->`，其他的運算則必須自己寫 functions 來達到我們想要的功能  
 例如，想要比較兩個 structure 變數相不相等，不能直接用 == 或 !=，相加`+`和相減`–`也不能用  
 
-接下來就來看幾個自定 functions 的例子  
+以下是幾個自訂 functions 的例子  
 
 ```C
 #include <stdio.h>
@@ -575,6 +575,22 @@ int main(void)
 
 ## Linked List
 
+linked list 是一種常見的資料結構  
+
+array 在存取元素時只需要利用起始位址及位移量，就可以算出要存取的元素在哪裡  
+但如果想要在 array 中間插入元素或是刪除元素，勢必要挪動一部分的元素以遞補或是騰出空位  
+當插入的動作相當頻繁時，array 就會花很多時間在資料的複製與搬移  
+
+而 linked list 的想法就是，元素不需要是連續地儲存在記憶體  
+每個元素自己都有個資訊可以記得下一個元素在哪裡，與自己本身要儲存的資料  
+
+![( linked list 的示意圖)](https://github.com/EqualKirby/i2p-nthu/blob/master/Week%2015/ls1.png?raw=true)
+
+透過這樣的設計，要插入元素的時候，只需改變幾個元素的「下一個元素的位址」的資訊  
+這樣就只需要簡單的幾個操作就可以插入元素，並不會因為資料規模變大而使得插入的速度變慢  
+但與此同時，如果想要從第一個元素走到最後一個，或是想要存取其中某個元素  
+勢必得從頭開始走訪，沒辦法如同 array 那般快速  
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -603,6 +619,8 @@ int main(void)
 }
 ```
 
+底下的程式碼利用迴圈來產生 node
+
 ```C
 #include <stdio.h>
 #include <stdlib.h>
@@ -610,17 +628,17 @@ typedef struct _node {
     int x;
     struct _node *next;
 } Node;
-/*
 
-head|x|next|
+/*
+head[x|next]
         |
         V
-        |x|next|
+        [x|next]
              |
              V
-        np-> |x|next|
+        np-> [x|next]
+*/
 
-              */
 int main(void)
 {
     Node head;
