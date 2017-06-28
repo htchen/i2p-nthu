@@ -1,4 +1,4 @@
-﻿﻿# Week 14
+﻿# Week 14
 
 ## qsort
 [C referecne 對於 qsort 的說明](http://en.cppreference.com/w/c/algorithm/qsort)
