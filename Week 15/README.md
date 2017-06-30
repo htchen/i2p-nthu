@@ -1,4 +1,4 @@
-﻿# Week 15
+﻿﻿# Week 15
 
 ## 位元運算
 [C reference 對於算數運算子的說明](http://en.cppreference.com/w/c/language/operator_arithmetic)  
@@ -673,3 +673,132 @@ int main(void)
     return 0;
 }
 ```
+
+透過上面的範例大致理解 linked list 以後
+接下來我們希望設計一個 linked list，存的資料順序要由小排到大，為此我們需要解決幾個問題：
+1.  如何產生一個 linked list
+2.  如何在某個位置插入一個 node
+3.  如何拿掉某個 node
+
+故可以設計這些 functions: 
+```C
+struct t_node* insert(struct t_node *np, int val);
+struct t_node* delete(struct t_node *np, char val);
+void dispList(struct t_node *np);
+```
+
+主程式從產生`head`開始
+```C
+struct t_node *head;
+head = NULL;
+```
+
+呼叫`insert`把某個值加入`head`所指到的 linked list 的適當位置 (node 的 data 值要從小排到大)
+```C
+head = insert(head, 4); /* 經過 insert() 之後， head 可能需要指到不同位址 */
+head = insert(head, 8); /* 所以要傳回新的位址給 head */
+head = insert(head, 13);
+```
+
+或是呼叫`delete`把值從`head`所指到的 linked list 中刪除
+```C
+head = delete(head, 13);
+head = delete(head, 4);
+head = delete(head, 11);
+```
+
+或是呼叫`dispList`把`head`所指到的 linked list 的內容顯示出來
+```C
+dispList(head);
+```
+
+先來看怎麼寫`dispList`
+
+```C
+void dispList(struct t_node *np)
+{ 
+   if ( np == NULL ) {
+      printf("List is empty.\n\n");
+   }  
+   else { 
+      printf("The list is:\n");
+      while (np != NULL) { 
+         printf("%d--> ", np->data);
+         np = np->nextPtr;   
+      }
+      printf("NULL\n\n");
+   }
+}
+```
+
+![( linked list 的示意圖)](https://github.com/EqualKirby/i2p-nthu/blob/master/Week%2015/ls2.png?raw=true)
+
+再來看`insert`怎麼寫
+
+```C
+struct t_node* insert(struct t_node *np, int val)
+{ 
+   struct t_node *newPtr, *previousPtr, *currentPtr; 
+
+   newPtr = (struct t_node *)malloc(sizeof(struct t_node)); 
+   if (newPtr != NULL) { 
+      newPtr->data = val; 
+      newPtr->nextPtr = NULL; 
+      previousPtr = NULL;
+      currentPtr = np;
+      while (currentPtr!=NULL && val>currentPtr->data) { 
+         previousPtr = currentPtr;    
+         currentPtr = currentPtr->nextPtr; 
+      }      
+      if (previousPtr == NULL) { 
+         newPtr->nextPtr = np;
+         np = newPtr;
+      }
+      else {
+         previousPtr->nextPtr = newPtr;
+         newPtr->nextPtr = currentPtr;
+      }   
+      return np;
+   }
+   else {
+      printf("Out of memory\n");
+      return NULL;
+   }
+}
+```
+
+![( linked list 的示意圖)](https://github.com/EqualKirby/i2p-nthu/blob/master/Week%2015/ls3.png?raw=true)
+
+最後看怎麼寫`delete`
+
+```C
+struct t_node* delete(struct t_node *np, int val)
+{ 
+   struct t_node *previousPtr, *currentPtr, *tempPtr;    
+
+   if (val == np->data) { 
+      tempPtr = np; 
+      np = np->nextPtr; 
+      free( tempPtr ); 
+      return np;
+   }
+   else { 
+      previousPtr = np;
+      currentPtr = np->nextPtr;
+      while (currentPtr != NULL && 
+                currentPtr->data != val) { 
+         previousPtr = currentPtr;         
+         currentPtr = currentPtr->nextPtr; 
+      }
+      if (currentPtr != NULL) { 
+         tempPtr = currentPtr;
+         previousPtr->nextPtr = currentPtr->nextPtr;
+         free( tempPtr );
+         return np;
+      }     
+   } 
+   return NULL;
+}
+```
+
+![( linked list 的示意圖)](https://github.com/EqualKirby/i2p-nthu/blob/master/Week%2015/ls4.png?raw=true)
