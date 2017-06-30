@@ -1,0 +1,1249 @@
+9.2
+The Shawshank Redemption
+1994
+885806
+
+9.2
+The Godfather
+1972
+641587
+
+9.0
+The Godfather: Part II
+1974
+411870
+
+8.9
+Pulp Fiction
+1994
+689721
+
+8.9
+The Good the Bad and the Ugly
+1966
+271610
+
+8.9
+12 Angry Men
+1957
+218210
+
+8.9
+The Dark Knight
+2008
+868257
+
+8.9
+Schindler's List
+1993
+457874
+
+8.8
+The Lord of the Rings: The Return of the King
+2003
+633778
+
+8.8
+Fight Club
+1999
+676591
+
+8.8
+Star Wars: Episode V - The Empire Strikes Back
+1980
+441832
+
+8.8
+One Flew Over the Cuckoo's Nest
+1975
+371313
+
+8.8
+The Lord of the Rings: The Fellowship of the Ring
+2001
+658729
+
+8.7
+Inception
+2010
+683977
+
+8.7
+Goodfellas
+1990
+389929
+
+8.7
+Star Wars
+1977
+495690
+
+8.7
+Seven Samurai
+1954
+141490
+
+8.7
+The Matrix
+1999
+645828
+
+8.7
+Forrest Gump
+1994
+577662
+
+8.7
+City of God
+2002
+291352
+
+8.7
+The Lord of the Rings: The Two Towers
+2002
+568697
+
+8.6
+Once Upon a Time in the West
+1968
+123746
+
+8.6
+Se7en
+1995
+516269
+
+8.6
+The Silence of the Lambs
+1991
+432701
+
+8.6
+Casablanca
+1942
+242690
+
+8.6
+The Usual Suspects
+1995
+412585
+
+8.6
+Raiders of the Lost Ark
+1981
+378747
+
+8.6
+Rear Window
+1954
+182337
+
+8.6
+Psycho
+1960
+227433
+
+8.6
+It's a Wonderful Life
+1946
+157200
+
+8.6
+Leon: The Professional
+1994
+377976
+
+8.6
+Sunset Blvd.
+1950
+82667
+
+8.5
+Memento
+2000
+470746
+
+8.5
+American History X
+1998
+408816
+
+8.5
+Apocalypse Now
+1979
+264643
+
+8.5
+Terminator 2: Judgment Day
+1991
+406199
+
+8.5
+Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb
+1964
+219523
+
+8.5
+Saving Private Ryan
+1998
+456808
+
+8.5
+The Dark Knight Rises
+2012
+503125
+
+8.5
+Alien
+1979
+304705
+
+8.5
+City Lights
+1931
+51866
+
+8.5
+North by Northwest
+1959
+134130
+
+8.5
+Spirited Away
+2001
+198272
+
+8.5
+Citizen Kane
+1941
+191568
+
+8.5
+Modern Times
+1936
+65357
+
+8.5
+The Shining
+1980
+315031
+
+8.5
+Back to the Future
+1985
+357858
+
+8.5
+Vertigo
+1958
+138869
+
+8.4
+The Pianist
+2002
+243203
+
+8.4
+The Departed
+2006
+451801
+
+8.4
+American Beauty
+1999
+471138
+
+8.4
+M
+1931
+59782
+
+8.4
+Taxi Driver
+1976
+270785
+
+8.4
+Paths of Glory
+1957
+67923
+
+8.4
+Life Is Beautiful
+1997
+193440
+
+8.4
+Toy Story 3
+2010
+260347
+
+8.4
+Double Indemnity
+1944
+56996
+
+8.4
+Aliens
+1986
+276958
+
+8.4
+Django Unchained
+2012
+29427
+
+8.4
+WALL¡PE
+2008
+354867
+
+8.4
+The Lives of Others
+2006
+139104
+
+8.4
+A Clockwork Orange
+1971
+303726
+
+8.4
+Amelie
+2001
+299245
+
+8.4
+Gladiator
+2000
+499247
+
+8.4
+The Intouchables
+2011
+128685
+
+8.4
+The Green Mile
+1999
+367091
+
+8.4
+Lawrence of Arabia
+1962
+113618
+
+8.4
+To Kill a Mockingbird
+1962
+123781
+
+8.4
+The Prestige
+2006
+406277
+
+8.4
+The Great Dictator
+1940
+64504
+
+8.4
+Reservoir Dogs
+1992
+347654
+
+8.4
+Das Boot
+1981
+102490
+
+8.4
+The Third Man
+1949
+71287
+
+8.4
+Requiem for a Dream
+2000
+319135
+
+8.4
+The Treasure of the Sierra Madre
+1948
+48152
+
+8.4
+Eternal Sunshine of the Spotless Mind
+2004
+369445
+
+8.3
+Cinema Paradiso
+1988
+77118
+
+8.3
+Once Upon a Time in America
+1984
+122706
+
+8.3
+Chinatown
+1974
+125134
+
+8.3
+The Lion King
+1994
+293684
+
+8.3
+L.A. Confidential
+1997
+252976
+
+8.3
+Star Wars: Episode VI - Return of the Jedi
+1983
+345099
+
+8.3
+Full Metal Jacket
+1987
+257765
+
+8.3
+Braveheart
+1995
+405262
+
+8.3
+Monty Python and the Holy Grail
+1975
+230780
+
+8.3
+Oldboy
+2003
+178717
+
+8.3
+Singin' in the Rain
+1952
+85274
+
+8.3
+Some Like It Hot
+1959
+103298
+
+8.3
+Amadeus
+1984
+155279
+
+8.3
+Metropolis
+1927
+64000
+
+8.3
+Rashomon
+1950
+59698
+
+8.3
+Bicycle Thieves
+1948
+47769
+
+8.3
+2001: A Space Odyssey
+1968
+236745
+
+8.3
+Princess Mononoke
+1997
+113031
+
+8.3
+Unforgiven
+1992
+161865
+
+8.3
+All About Eve
+1950
+50019
+
+8.3
+Indiana Jones and the Last Crusade
+1989
+285021
+
+8.3
+The Apartment
+1960
+59858
+
+8.3
+The Sting
+1973
+100651
+
+8.3
+Raging Bull
+1980
+138318
+
+8.3
+The Bridge on the River Kwai
+1957
+88727
+
+8.3
+Die Hard
+1988
+329043
+
+8.3
+Witness for the Prosecution
+1957
+29925
+
+8.3
+Batman Begins
+2005
+506879
+
+8.3
+Grave of the Fireflies
+1988
+61882
+
+8.3
+A Separation
+2011
+72272
+
+8.3
+Pan's Labyrinth
+2006
+264185
+
+8.3
+Downfall
+2004
+141619
+
+8.3
+Mr. Smith Goes to Washington
+1939
+47849
+
+8.3
+Yojimbo
+1961
+43346
+
+8.3
+For a Few Dollars More
+1965
+79236
+
+8.3
+Snatch
+2000
+324437
+
+8.3
+The Great Escape
+1963
+95092
+
+8.2
+Inglourious Basterds
+2009
+397729
+
+8.2
+Up
+2009
+294891
+
+8.2
+On the Waterfront
+1954
+59811
+
+8.2
+The Elephant Man
+1980
+94770
+
+8.2
+The Seventh Seal
+1957
+63234
+
+8.2
+Toy Story
+1995
+300945
+
+8.2
+Heat
+1995
+247910
+
+8.2
+The Maltese Falcon
+1941
+71342
+
+8.2
+The General
+1926
+29988
+
+8.2
+Blade Runner
+1982
+282589
+
+8.2
+Gran Torino
+2008
+292495
+
+8.2
+Rebecca
+1940
+52404
+
+8.2
+Wild Strawberries
+1957
+35219
+
+8.2
+The Hobbit: An Unexpected Journey
+2012
+160626
+
+8.2
+Fargo
+1996
+246306
+
+8.2
+The Kid
+1921
+28411
+
+8.2
+Scarface
+1983
+283816
+
+8.2
+The Big Lebowski
+1998
+292563
+
+8.2
+The Avengers
+2012
+430644
+
+8.2
+Touch of Evil
+1958
+46225
+
+8.2
+Ran
+1985
+48441
+
+8.2
+The Deer Hunter
+1978
+139123
+
+8.2
+Cool Hand Luke
+1967
+72547
+
+8.2
+The Gold Rush
+1925
+34974
+
+8.2
+Sin City
+2005
+397790
+
+8.2
+Strangers on a Train
+1951
+54354
+
+8.2
+No Country for Old Men
+2007
+335625
+
+8.2
+It Happened One Night
+1934
+37336
+
+8.1
+Jaws
+1975
+224644
+
+8.1
+Lock Stock and Two Smoking Barrels
+1998
+231658
+
+8.1
+The Sixth Sense
+1999
+401713
+
+8.1
+Platoon
+1986
+173497
+
+8.1
+Hotel Rwanda
+2004
+153199
+
+8.1
+The Thing
+1982
+148507
+
+8.1
+High Noon
+1952
+49357
+
+8.1
+Butch Cassidy and the Sundance Kid
+1969
+88358
+
+8.1
+The Wizard of Oz
+1939
+161687
+
+8.1
+Casino
+1995
+182657
+
+8.1
+Trainspotting
+1996
+257885
+
+8.1
+Kill Bill: Vol. 1
+2003
+395124
+
+8.1
+Warrior
+2011
+143614
+
+8.1
+Annie Hall
+1977
+107196
+
+8.1
+The Secret in Their Eyes
+2009
+59162
+
+8.1
+Notorious
+1946
+45348
+
+8.1
+Good Will Hunting
+1997
+288884
+
+8.1
+Gone with the Wind
+1939
+127206
+
+8.1
+The Grapes of Wrath
+1940
+36040
+
+8.1
+The King's Speech
+2010
+225876
+
+8.1
+Into the Wild
+2007
+211412
+
+8.1
+Life of Brian
+1979
+155944
+
+8.1
+My Neighbor Totoro
+1988
+69008
+
+8.1
+V for Vendetta
+2005
+421171
+
+8.1
+Finding Nemo
+2003
+331224
+
+8.1
+How to Train Your Dragon
+2010
+190411
+
+8.1
+Dial M for Murder
+1954
+53899
+
+8.1
+The Big Sleep
+1946
+41164
+
+8.1
+Ben-Hur
+1959
+91135
+
+8.1
+Network
+1976
+59011
+
+8.1
+The Terminator
+1984
+317777
+
+8.1
+Million Dollar Baby
+2004
+253168
+
+8.1
+There Will Be Blood
+2007
+212426
+
+8.1
+The Night of the Hunter
+1955
+38564
+
+8.1
+Stand by Me
+1986
+151808
+
+8.1
+Donnie Darko
+2001
+342148
+
+8.1
+Black Swan
+2010
+302250
+
+8.1
+Groundhog Day
+1993
+238053
+
+8.1
+Dog Day Afternoon
+1975
+106016
+
+8.1
+Twelve Monkeys
+1995
+269664
+
+8.1
+Amores Perros
+2000
+103399
+
+8.1
+The Bourne Ultimatum
+2007
+271815
+
+8.1
+Mary and Max
+2009
+52704
+
+8.1
+The 400 Blows
+1959
+38911
+
+8.1
+Life of Pi
+2012
+50524
+
+8.1
+Persona
+1966
+30068
+
+8.1
+The Graduate
+1967
+127170
+
+8.1
+Gandhi
+1982
+90408
+
+8.1
+The Killing
+1956
+38289
+
+8.1
+Howl's Moving Castle
+2004
+97461
+
+8.0
+The Princess Bride
+1987
+179274
+
+8.0
+8 1/2
+1963
+46842
+
+8.0
+The Artist
+2011
+101525
+
+8.0
+Slumdog Millionaire
+2008
+350603
+
+8.0
+Argo
+2012
+54673
+
+8.0
+The Hustler
+1961
+37663
+
+8.0
+A Beautiful Mind
+2001
+274742
+
+8.0
+Who's Afraid of Virginia Woolf?
+1966
+32250
+
+8.0
+La strada
+1954
+27658
+
+8.0
+The Manchurian Candidate
+1962
+47598
+
+8.0
+Rocky
+1976
+182140
+
+8.0
+The Wild Bunch
+1969
+44593
+
+8.0
+Anatomy of a Murder
+1959
+26750
+
+8.0
+Stalag 17
+1953
+29063
+
+8.0
+The Exorcist
+1973
+180777
+
+8.0
+Sleuth
+1972
+25837
+
+8.0
+Rope
+1948
+54507
+
+8.0
+Barry Lyndon
+1975
+59708
+
+8.0
+The Man Who Shot Liberty Valance
+1962
+33984
+
+8.0
+District 9
+2009
+314450
+
+8.0
+The Perks of Being a Wallflower
+2012
+34784
+
+8.0
+Infernal Affairs
+2002
+54722
+
+8.0
+Stalker
+1979
+36527
+
+8.0
+Roman Holiday
+1953
+52753
+
+8.0
+The Truman Show
+1998
+319291
+
+8.0
+Pirates of the Caribbean: The Curse of the Black Pearl
+2003
+432415
+
+8.0
+Ip Man
+2008
+64060
+
+8.0
+Ratatouille
+2007
+257735
+
+8.0
+The Diving Bell and the Butterfly
+2007
+58010
+
+8.0
+In the Name of the Father
+1993
+49923
+
+8.0
+Harry Potter and the Deathly Hallows: Part 2
+2011
+237039
+
+8.0
+Monsters Inc.
+2001
+259038
+
+8.0
+A Fistful of Dollars
+1964
+66424
+
+8.0
+A Streetcar Named Desire
+1951
+52139
+
+8.0
+Star Trek
+2009
+274134
+
+8.0
+Incendies
+2010
+25250
+
+8.0
+Beauty and the Beast
+1991
+153162
+
+8.0
+Rosemary's Baby
+1968
+87176
+
+8.0
+Nausicaa of the Valley of the Wind
+1984
+42834
+
+8.0
+Harvey
+1950
+32397
+
+8.0
+La Haine
+1995
+51327
+
+8.0
+All Quiet on the Western Front
+1930
+32879
+
+8.0
+The Wrestler
+2008
+177731
+
+8.0
+Rain Man
+1988
+217034
+
+8.0
+Shutter Island
+2010
+342460
+
+8.0
+Spring Summer Fall Winter... and Spring
+2003
+34624
+
+8.0
+Nosferatu
+1922
+45552
+
+8.0
+Manhattan
+1979
+64927
+
+8.0
+Mystic River
+2003
+213423
+
+8.0
+3 Idiots
+2009
+53751
+
+8.0
+Battleship Potemkin
+1925
+25694
+
+8.0
+Big Fish
+2003
+239428
+
+8.0
+Papillon
+1973
+49421
+
+8.0
+Jurassic Park
+1993
+270725
+
+8.0
+Shadow of a Doubt
+1943
+30753
+
+8.0
+Castle in the Sky
+1986
+44330
+
+8.0
+The Untouchables
+1987
+136957
+
+8.0
+Bringing Up Baby
+1938
+31518
+
+8.0
+In the Heat of the Night
+1967
+32297
