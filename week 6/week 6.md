@@ -1,7 +1,6 @@
 # week 6
+
 ### 內容： freopen, EOF,if else, getchar(), putchar(), switch case, #ifndef
-
-
 
 
 ## 讀取檔案的方法
@@ -41,14 +40,15 @@ int main(void)
     }
 }
 ```
-INPUT:
+
+INPUT
 3
 4
 5
 6
 (ctrl + d or ctrl + z)
-＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-OUTPUT:
+
+OUTPUT
 3
 4
 5
