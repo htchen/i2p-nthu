@@ -5,7 +5,7 @@
 
 
 ## 讀取檔案的方法
-```clike=
+```c=
     freopen("testcase.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 ```
