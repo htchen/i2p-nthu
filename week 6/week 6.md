@@ -28,7 +28,8 @@
 - 檔案的結尾一定會有 EOF 字元，因此可以用 EOF 判斷是否已經將檔案讀完
 - 如果是用手動方式輸入，則要在結束時按下 ctrl + z (windows)或是ctrl + d (mac)
 - 舉例
-```clike=
+
+```c
 #include <stdio.h>
 
 int main(void)
@@ -57,7 +58,8 @@ OUTPUT:
 
 ## if else
 ### 模板：
-```clike=
+
+```c
     if (<#condition#>)
     {
         <#statements#>
@@ -78,7 +80,8 @@ OUTPUT:
 
 ### 要注意的是如果已經符合第一個if（ ）的條件， 他就不會去判斷下一個else if 的條件了
 - 舉個例子來說：
-```clike=
+
+```c
 #include<stdio.h>
 int main(void)
 {
@@ -105,7 +108,8 @@ a > 5
 你會發現a 明明大於7，但是由於他已經符合第一個條件了，所以即便a符合第二個條件，他也不會執行裡面的敘述。
 
 改寫：
-```clike=
+
+```c
 #include<stdio.h>
 int main(void)
 {
@@ -137,7 +141,8 @@ a > 7
 
 ### 小括號裡面的condition 可以放什麼？
 1. expression ： > , < , >= , <= , || , && , == , !=
-```clike=
+
+```c
 #include<stdio.h>
 int main(void)
 {
@@ -165,7 +170,8 @@ m != 0 or d != 0
 one of them is 0
 
 進階用法：
-```clike=
+
+```c
 #include<stdio.h>
 int main(void)
 {
@@ -190,7 +196,7 @@ m is 5 and n is 7
 
 問題： 從1 ~ 100 找出 7 的倍數
 
-```clike=
+```c
 #include<stdio.h>
 int find( int n)
 {
@@ -239,7 +245,7 @@ For example, "AEbW%9Q" consist of 4 uppercase letters, 1 lowercase letter and 2 
 
 原題目：http://acm.cs.nthu.edu.tw/problem/11162/
 
-```clike=
+```c
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -275,19 +281,20 @@ ctype.h裡還有 isspace,isalnum等等，大家可以去試試看。
 
 ### ? : 的語法
 -先看範例code：
-```clike=
+```c
 a = ( b > 0) ? 1 : -1;
 ```
 講解：這是if else 簡單寫法，翻成中文是： 如果 b > 0 了話， a = 1， 如果不是了話， a = -1。
 
 所以換成我們常看的if else 就會變成：
-```clike=
+
+```c
 if ( b > 0) a =  1;
 else        a = -1;
 ```
 
 進階版：
-```clike=
+```c
 a = ( b > 0) ? 1 : ( c > 0) ? 2 : 0;
 ```
 意義相當於：
@@ -314,7 +321,7 @@ if ( b > 0)
 
 在寫迴圈時，常常會搭配if else 來使用，除了可以控制迴圈什麼時候停止，也能控制迴圈要不要執行，先看看下面這個例子
 
-```clike=
+```c
 #include<stdio.h>
 int main(void)
 {
@@ -352,7 +359,7 @@ int main(void)
 寫程式時總會有需要一次只讀取或是輸出一個字元的時候，那這個時候就不能用scanf() 或是 printf()，而要用 getchar() 和 putchar()
 
 先看看下面這個例子：
-```clike=
+```c
 #include<stdio.h>
 
 int main(void)
@@ -389,7 +396,7 @@ c =
 講解： getchar( )不只會讀取字母和數字而已，連空白、tab鍵、enter等等都會讀取進來，所以在句點輸出完了後，會多輸出一個" c = "。
 
 解決的辦法：
-```clike=
+```c
 #include<stdio.h>
 
 int main(void)
@@ -420,7 +427,7 @@ int main(void)
 ps.所謂的空白字元包含1. 空白鍵 2. tab鍵 3. 換行字元（enter鍵）
 reference: http://www.cplusplus.com/reference/cctype/isspace/
 
-```clike=
+```c
 #include<stdio.h>
 #include <ctype.h>
 
@@ -466,7 +473,7 @@ W
 
 ## switch case
 ### 模板
-```clike=
+```c
     switch (<#expression#>)
     {
         case <#constant#>:
@@ -486,7 +493,7 @@ W
 - <#statements#>： 要做的事
 
 ### 範例code
-```clike=
+```c
 #include<stdio.h>
 
 int main(void)
@@ -533,7 +540,7 @@ a is 99
 
 ## ifndef and endif
 - 舉例：
-```clike=
+```c
 #ifndef ONLINE_JUDGE
 freopen("jewels.txt", "r", stdin);
 #endif
