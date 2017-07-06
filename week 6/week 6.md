@@ -300,9 +300,7 @@ ctype.h 是一個很好用的library， 有興趣的人可以去下面的網址�
 
 reference: http://www.cplusplus.com/reference/cctype/
 
-問題：
-
-Given a string, output the number of uppercase letters,lowercase letters and others.（判斷一個字串裡面有幾個大寫字母，小寫字母，跟其他的字元。
+問題：Given a string, output the number of uppercase letters,lowercase letters and others.（判斷一個字串裡面有幾個大寫字母，小寫字母，跟其他的字元。
 
 For example, "AEbW%9Q" consist of 4 uppercase letters, 1 lowercase letter and 2 other letters.
 
