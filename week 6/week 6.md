@@ -40,7 +40,7 @@ int main(void)
     }
 }
 ```
-
+結果：
 INPUT
 3
 4
@@ -164,6 +164,7 @@ int main(void)
     return 0;
 }
 ```
+
 結果：
 m is not equal to d
 m != 0 or d != 0
@@ -232,6 +233,7 @@ int main(void)
 84
 91
 98
+
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 
 3. ctype.h
@@ -273,6 +275,7 @@ ctype.h裡還有 isspace,isalnum等等，大家可以去試試看。
 - isdigit()
 - tolower()
 - toupper()
+
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 
 
@@ -280,7 +283,9 @@ ctype.h裡還有 isspace,isalnum等等，大家可以去試試看。
 
 
 ### ? : 的語法
+
 -先看範例code：
+
 ```c
 a = ( b > 0) ? 1 : -1;
 ```
@@ -294,11 +299,13 @@ else        a = -1;
 ```
 
 進階版：
+
 ```c
 a = ( b > 0) ? 1 : ( c > 0) ? 2 : 0;
 ```
 意義相當於：
-```clike=
+
+```c
 if ( b > 0)
 {
     a = 1;
@@ -376,6 +383,7 @@ int main(void)
 }
 ```
 INPUT
+
 hello world.
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 OUTPUT
@@ -393,9 +401,11 @@ c = d
 c = .
 c = 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
 講解： getchar( )不只會讀取字母和數字而已，連空白、tab鍵、enter等等都會讀取進來，所以在句點輸出完了後，會多輸出一個" c = "。
 
 解決的辦法：
+
 ```c
 #include<stdio.h>
 
@@ -425,6 +435,7 @@ int main(void)
 
 
 ps.所謂的空白字元包含1. 空白鍵 2. tab鍵 3. 換行字元（enter鍵）
+
 reference: http://www.cplusplus.com/reference/cctype/isspace/
 
 ```c
@@ -466,13 +477,16 @@ b
 W
 100
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
 講解：這題不用scanf 讀取字串的方式讀進來的原因在於，用scanf("%s",a)， 了話， 當他遇到white space時，就會停止讀取了，所以這題必須用getchar()，一個字元一個字元慢慢讀進來。
 
 
 
 
 ## switch case
+
 ### 模板
+
 ```c
     switch (<#expression#>)
     {
@@ -488,11 +502,13 @@ W
             break;
     }
 ```
+
 - <#expression#> ： 要判斷的東西
 - <#constant#>    ： 值
 - <#statements#>： 要做的事
 
 ### 範例code
+
 ```c
 #include<stdio.h>
 
@@ -527,7 +543,9 @@ int main(void)
 結果：
 a is 99
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
 講解：switch case 的用法跟 if else 很像， 概念也差不多，而 default 相當等於 if else 裡面的 else，不同的地方在於， case 裡的 statement 不需要用大括號把它匡著，但是必須在後面加上 break， 用意在於， 只要進入這個case 裡面， 他就不能再進入其他的case裡了。
+
 
 - 如果沒加了話：
  他就會每一個case都跑進去檢查一次，這樣速度會以較慢，也容易出錯，所以養成好習慣在寫case時都加入一個break結尾。
@@ -539,12 +557,17 @@ a is 99
 
 
 ## ifndef and endif
+
 - 舉例：
+
 ```c
 #ifndef ONLINE_JUDGE
+
 freopen("jewels.txt", "r", stdin);
+
 #endif
 ```
+
 和 #include 和 #define 一樣
 都屬於 preprocessor directives
 在程式碼被編譯之前會先做的前處理
