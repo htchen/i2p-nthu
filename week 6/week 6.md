@@ -6,8 +6,8 @@
 ## 讀取檔案的方法
 
 ```c
-    freopen("testcase.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+    freopen("testcase.txt", "r", stdin );
+    freopen("output.txt"  , "w", stdout);
 ```
 
 程式碼測試階段，可以在 main 一開始的地方加入這兩行程式碼，這樣每次執行時就不必手動重複輸入測試資料。
