@@ -1,14 +1,19 @@
 # function
 
 ## 前言
+
 ### 種類
+
 - library 裡已經寫好的function, include 後進來呼叫。
+
 - 自己寫function， 在別的function 裡面呼叫他
 
 ### 舉例
+
 - 引用library的
     - scanf( ), printf( ), 
-```clike=
+
+```c
 #include <stdio.h>
 nt main()
 {
@@ -19,7 +24,7 @@ nt main()
 
 - 自己寫的function （如下）
 
-```clike=
+```c
 #include <stdio.h>
 int add ( int m, int n)
 {
@@ -37,11 +42,11 @@ int main()
 }
 ```
 
-
 ## 如何宣告 function
 
 ### 模板：
-```clike=
+
+```c
 [回傳值的型別] [function名稱] ( [傳進來的參數] )
 {
 
