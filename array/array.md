@@ -112,7 +112,7 @@ int main()
 由結果可得，如果我們今天想把一個非glogal array歸零了話，只要將第一個變數設為零，這樣整個array就會全部都是0了。
 
 ### 第四種：不設定大小
-```clike=
+```c
 #include <stdio.h>
 int main()
 {
