@@ -129,7 +129,7 @@ int main()
 
 
 - 舉個例子來說：
-```clike=
+```c
 #include <stdio.h>
 int main()
 {
@@ -164,15 +164,15 @@ int main()
 
 再來看看這個例子：
 
-```clike=
+```c
 #include <stdio.h>
 int main()
 {
     int a[10];
     int b[10][10];
     
-    printf("size of 1d array : %lu bits\n", sizeof( a[0]) );
-    printf("size of 2d array : %lu bits\n", sizeof( b[0]) );
+    printf("size of 1d array : %lu bytes\n", sizeof( a[0]) );
+    printf("size of 2d array : %lu bytes\n", sizeof( b[0]) );
     
     return 0;
 }
@@ -180,7 +180,7 @@ int main()
 ```
 
 結果：
-size of 1d array : 4 bits
-size of 2d array : 40 bits
+size of 1d array : 4 bytes
+size of 2d array : 40 bytes
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
-講解：在一維陣列裡，一個變數大小是 4 bits，也就是一個 int 的大小，而在二維陣列裡， b[0] 裡面則有 10 個 int 的大小， 你也可以想成，在 b[0] 裡面存了 10 個 int 變數。
+講解：在一維陣列裡，一個變數大小是 4 bytes，也就是一個 int 的大小，而在二維陣列裡， b[0] 裡面則有 10 個 int 的大小， 你也可以想成，在 b[0] 裡面存了 10 個 int 變數。
