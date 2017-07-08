@@ -78,6 +78,100 @@ int main(void)
 > `rand()` 會回傳一個偽亂數，型別是`int`，其值介於 0 到`RAND_MAX`之間。  
 > [維基百科對於偽亂數的解釋](https://zh.wikipedia.org/wiki/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7)  
 
+如果想要觀察排序過程，可以執行下面的程式碼看看結果  
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define SIZE 10
+
+int data1[SIZE];
+double data2[SIZE];
+int times;
+
+int compare_int (const void *a, const void *b)
+{
+    const int *va = (const int *) a;
+    const int *vb = (const int *) b;
+    int i;
+
+    times++;
+
+    printf("exchange %2d times:",times);
+    for (i=0; i<SIZE; i++) {
+        printf("%d ", data1[i]);
+    }
+    printf("\n");
+
+    return *va-*vb;
+}
+
+int compare_double (const void *a, const void *b)
+{
+    const double *da = (const double *) a;
+    const double *db = (const double *) b;
+    int i;
+
+    times++;
+
+    printf("exchange %2d times:",times);
+    for (i=0; i<SIZE; i++) {
+	printf("%.2f ", data2[i]);
+    }
+    printf("\n");
+
+    return (*da > *db) - (*da < *db);
+}
+
+int main(void)
+{
+    int i;
+    for (i=0; i<SIZE; i++) {
+        data1[i] = rand()%SIZE;
+        data2[i] = (double)rand()/RAND_MAX;
+    }
+
+    printf("  original:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%d ", data1[i]);
+    }
+    printf("\n\n");
+
+    times = 0;
+    qsort(data1, SIZE, sizeof(int), compare_int);
+
+    printf("\n");
+    printf("  sorted:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%d ", data1[i]);
+    }
+    printf("\n\n");
+
+    printf("  original:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%.2f ", data2[i]);
+    }
+    printf("\n\n");
+
+    times = 0;
+    qsort(data2, SIZE, sizeof(double), compare_double);
+
+    printf("\n");
+    printf("  sorted:	");
+    for (i=0; i<SIZE; i++) {
+        printf("%.2f ", data2[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
+```
+
+> Note:  
+> 上例輸出僅僅只是觀察中間排序的過程，實際上`qsort`的實作並沒有被嚴格規範  
+> 即使是一樣的數列，可能在不同的編譯器上會有不同的結果  
+
 ## 對固定長度的字元陣列排序
 
 ```C
@@ -125,8 +219,8 @@ ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`
 最後`strs`的內容會直接被修改，並由小排到大  
 
 `qsort`第四個引數要強制型別轉換，讓`strcmp`符合參數型別  
-原本`strcmp`的型別是`int strcmp (const char *s1, const char *s2);`  
-經過型別轉換之後變成`int strcmp (const void *s1, const void *s2);`  
+原本`strcmp`的型別是`int (*) (const char*, const char*)`  
+經過型別轉換之後變成`int (*) (const void*, const void*)`  
 
 > Note:  
 > 關於函數指標的型別轉換，其實上文的作法並非那麼妥當  
@@ -297,11 +391,11 @@ int main(void)
 `void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`  
 
 以`qsort`來說，當初這個函式是被設計成對不同型別的資料都能進行排序  
-所以在這邊可以理解成，其實這個函式根本不知道它正在排序的型別是什麼 (`ptr`的型別對`qsort`內部來說是`void*`)  
+在這邊可以理解成，其實這個函式根本不知道它正在排序的型別是什麼 (`ptr`的型別對`qsort`內部來說是`void*`)  
 它只知道一個元素多大、總共有幾個元素和呼叫者提供的函式可以比較兩個元素的先後順序  
-所以會發現要傳入的`comp`才是實際上知道元素的型別，並如何比較兩者大小的關鍵  
+要傳入的`comp`才是實際上知道元素的型別，並如何比較兩者大小的關鍵  
 
-所以，如果想要設計一種函式，是希望能對應不同需求，執行使用者根據規定所設計出不同的函式  
+所以，如果想要設計一種函式，是希望能對應不同需求，執行使用者根據規定所設計出的函式  
 這種時候就可以用函數指標，為程式帶來更大的彈性  
 以`qsort`來說，它對使用者要求`comp`就是接收兩個只能讀取的`void*`指標，並回傳`int`代表比較結果的函式
 
@@ -358,24 +452,36 @@ int main(void)
 
 > Note:  
 > [Stack Overflow 關於函式指標語法的有趣問答](https://stackoverflow.com/questions/6893285/why-do-function-pointer-definitions-work-with-any-number-of-ampersands-or-as)  
+> [如何解讀型別](http://ieng9.ucsd.edu/~cs30x/rt_lt.rule.html)  
 
 ## 在程式執行期間取得記憶體
 [C reference 對於 malloc 的說明](http://en.cppreference.com/w/c/memory/malloc)  
 [C reference 對於 free 的說明](http://en.cppreference.com/w/c/memory/free)  
 
 有的時候，我們需要在執行的時候動態分配記憶體  
-此時可以使用`malloc`跟`free`進行記憶體的分配與回收
+此時可以使用`malloc`跟`free`進行記憶體的分配與釋放  
 
 `void* malloc( size_t size )`  
 *   *size*  
     要分配的記憶體大小  
+*   *回傳值*  
+    如果成功的話，回傳的指標是指向分配的的記憶體的開頭位址  
+    如果失敗的話，回傳一個空指標
 
 `void free( void* ptr )`  
 *   *ptr*  
-    要回收的記憶體的指標，必須是當初分配某塊空間時拿到的那個位址  
+    要釋放的記憶體的指標，必須是當初分配某塊空間時拿到的那個位址；如果`ptr`為`NULL`，則此函式不會做任何事情  
     譬如呼叫`malloc(16);`以後拿到的位址是`0x8BADF00D`，之後若想要將這塊塊記憶體回收  
     在呼叫`free`時必須傳入`0x8BADF00D`，不能是`0x8BADF00F`或其他不是由相關記憶體分配函式所回傳的位址  
-    如果`ptr`為`NULL`，則此函式不會做任何事情  
+
+> Note:  
+> `void*`的意思是指向不特定的型別，通常用來記錄某個實體是位在記憶體的哪裡  
+> 所以針對`void*`是不能進行運算及間接引用  
+> 在轉型時要特別注意，通常是建議如果將`T*`轉為`void*`，最後要間接引用時，應轉回`T*`而非其他型別  
+> `int*`->`void*`->`int*`會得到與原本相同的位址，最後間接取值時會正確  
+> `int*`->`void*`->`float*`不一定會得到與原本相同的位址，最後間接取值時的結果也不一定會正確  
+> [Stack Overflow 關於指標轉換的問答](https://stackoverflow.com/questions/4810417/c-when-is-casting-between-pointer-types-not-undefined-behavior)  
+> [Stack Overflow 關於 void* 轉換的問答](https://stackoverflow.com/questions/20469958/c-when-is-casting-void-pointer-needed)  
 
 ```C
 /* E10_15.c */
@@ -470,6 +576,11 @@ int main(void)
     
     // b is a dangling pointer now !
     ```  
+    > Note:  
+    > 對大多數`malloc`和`free`的 implementation 來說，所謂取得和釋放其實只是改變記憶體的使用狀態  
+    > `malloc`和`free`做的事情只是去記錄哪些記憶體區塊被佔用以及哪些可用  
+    > 所以呼叫`free(a)`之後，乍看之下可能會覺得沒發生什麼變化，因為原先那些記憶體內的資料可能都還存在  
+    > 但是無論如何程式都不該再去存取已經被釋放的記憶體內容  
 
 ## 字元陣列和字串
 [C reference 對於 string literal in C 的說明](http://en.cppreference.com/w/c/language/string_literal)  
