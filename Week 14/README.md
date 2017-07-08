@@ -225,7 +225,7 @@ ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`
 > Note:  
 > 關於函數指標的型別轉換，其實上文的作法並非那麼妥當  
 > 這種強制轉型其實在標準是未定義行為  
-> 較為正確的作法應為再寫一個函式包住`strcmp`，並將一個指向該函式的指標作為引數傳入`qsort`  
+> 較為正確的作法應為再寫一個 function 包住`strcmp`，並將該 function 的指標作為引數傳入`qsort`  
 > [Stack Overflow 關於函數指標轉型的問答](https://stackoverflow.com/questions/559581/casting-a-function-pointer-to-another-type/559671#559671)  
 > [Stack Overflow 關於上文一些名詞的解釋](https://stackoverflow.com/questions/24304459/are-all-pointers-derived-from-pointers-to-structure-types-the-same)  
 
