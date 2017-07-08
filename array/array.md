@@ -20,7 +20,7 @@ int main()
 ```
 
 ## 注意事項
-- array 可以宣告在 function 裡面， 也可以宣告在 global， 差別在於，宣告在 function 裡面的大小有限（約 10^5^ ），不能太大， 而宣告在 global 裡， 則可以大到 2^32^。
+- array 可以宣告在 function 裡面， 也可以宣告在 global， 差別在於，宣告在 function 裡面的大小有限（約 10^5 ），不能太大， 而宣告在 global 裡， 則可以大到 2^32^。
 
 ## 設定初值
 - 一般來說，array 在宣告完之後，基本上不會自動歸零。
