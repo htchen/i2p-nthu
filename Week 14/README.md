@@ -3,7 +3,10 @@
 ## qsort
 [C referecne 對於 qsort 的說明](http://en.cppreference.com/w/c/algorithm/qsort)
 
-`void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`
+```C
+void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )
+```
+
 *   *ptr*  
     指向要排序的陣列的起始位置的指標
 *   *count*  
@@ -12,6 +15,8 @@
     在陣列中每個元素的大小，以 byte 為單位
 *   *comp*  
     比較用的函數，回傳正數代表第一個引數比第二個引數小，回傳負數代表第一個引數比第二個引數大，回傳0代表兩個引數相等
+
+底下的程式碼示範了如何使用`qsort`
 
 ```C
 #include <stdio.h>
@@ -78,7 +83,7 @@ int main(void)
 > `rand()` 會回傳一個偽亂數，型別是`int`，其值介於 0 到`RAND_MAX`之間。  
 > [維基百科對於偽亂數的解釋](https://zh.wikipedia.org/wiki/%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7)  
 
-如果想要觀察排序過程，可以執行下面的程式碼看看結果  
+如果想要觀察排序過程，可以將上面的程式碼改成如下的程式碼  
 
 ```C
 #include <stdio.h>
@@ -205,7 +210,7 @@ int main(void)
 `strs[SIZE][4]`這個二維陣列的內容如下表，`strs[0]`對應到`"aab"`，`strs[1]`對應到`"abc"`  
 但是其實這樣的二維陣列，在記憶體中仍然是用一維方式循序放置  
 
-table           |   ptr[0]  |   ptr[1]  |   ptr[2]  |   ptr[3]
+memory          |   ptr[0]  |   ptr[1]  |   ptr[2]  |   ptr[3]
 ----------------|-----------|-----------|-----------|-----------
 ptr = strs[0]   |   `'a'`   |   `'a'`   |   `'b'`   |   `'0'`    
 ptr = strs[1]   |   `'a'`   |   `'b'`   |   `'c'`   |   `'0'`   
@@ -213,8 +218,8 @@ ptr = strs[2]   |   `'a'`   |   `'a'`   |   `'a'`   |   `'0'`
 ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`   
 ......          |    ...    |    ...    |    ...    |    ...    
 
-陣列總共有10個元素，每個陣列的元素包含 3 個英文字元外加後面跟著一個`'\0'`字元 總共 4 bytes  
-因此我們可以用`qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp);`  
+陣列總共有 10 個元素，每個陣列的元素包含 3 個英文字元外加後面跟著一個`'\0'`字元 總共 4 bytes  
+因此我們可以用`qsort(strs, SIZE, 4*sizeof(char), (int (*) (const void *, const void *))strcmp)`  
 讓`qsort`以陣列元素為基本單位替我們排序，也就是以 4 bytes 為單位進行個別元素的比對與搬動  
 最後`strs`的內容會直接被修改，並由小排到大  
 
@@ -228,7 +233,6 @@ ptr = strs[3]   |   `'a'`   |   `'b'`   |   `'b'`   |   `'0'`
 > 較為正確的作法應為再寫一個 function 包住`strcmp`，並將該 function 的指標作為引數傳入`qsort`  
 > [Stack Overflow 關於函數指標轉型的問答](https://stackoverflow.com/questions/559581/casting-a-function-pointer-to-another-type/559671#559671)  
 > [Stack Overflow 關於上文一些名詞的解釋](https://stackoverflow.com/questions/24304459/are-all-pointers-derived-from-pointers-to-structure-types-the-same)  
-
 
 ## 對非固定長度的字串排序
 
@@ -292,9 +296,10 @@ for (i=0; i<SIZE; i++) {
 
 接下來對指標陣列進行排序  
 依照`ptrs`的每個元素所指到的字串用`strcmp`進行比較以後，將`ptrs`的元素搬動  
-所以只是調換指標的順序(也就是`ptrs`元素的順序)，實際的資料`strs`不會被更改  
+所以只是調換指標的順序 (也就是`ptrs`元素的順序)，實際的資料`strs`不會被更改  
 
 請注意這時候`compare`函數的寫法
+
 ```C
 int compare_str_ptr(const void *a, const void *b)
 {
@@ -312,6 +317,8 @@ int compare_str_ptr(const void *a, const void *b)
 我們可以換個格式顯示陣列內容，執行底下附的程式碼會輸出下表的內容  
 對照記憶體位址以及`strs`的內容就會看出端倪
 
+輸出  
+
 ```
 strs: aab0|abc0|aaa0|abb0|acb0|aab0|abc0|aaa0|abb0|acb0|
 ptrs: 0028FEE4|0028FEE8|0028FEEC|0028FEF0|0028FEF4|0028FEF8|0028FEFC|0028FF00|0028FF04|0028FF08|
@@ -320,6 +327,8 @@ ptrs: 0028FF00|0028FEEC|0028FEE4|0028FEF8|0028FEF0|0028FF04|0028FEE8|0028FEFC|00
 ptrs: aaa0|aaa0|aab0|aab0|abb0|abb0|abc0|abc0|acb0|acb0|
 strs: aab0|abc0|aaa0|abb0|acb0|aab0|abc0|aaa0|abb0|acb0|
 ```
+
+程式碼  
 
 ```C
 #include <stdio.h>
@@ -388,7 +397,9 @@ int main(void)
 
 [The GNU C Programming Tutorial 對於 function pointers 的解釋](http://www.crasseux.com/books/ctutorial/Function-pointers.html)  
 
-`void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )`  
+```C
+void qsort( void *ptr, size_t count, size_t size, int (*comp)(const void *, const void *) )
+```
 
 以`qsort`來說，當初這個函式是被設計成對不同型別的資料都能進行排序  
 在這邊可以理解成，其實這個函式根本不知道它正在排序的型別是什麼 (`ptr`的型別對`qsort`內部來說是`void*`)  
@@ -463,7 +474,7 @@ int main(void)
 
 `void* malloc( size_t size )`  
 *   *size*  
-    要分配的記憶體大小  
+    要分配的記憶體大小，以 byte 為單位  
 *   *回傳值*  
     如果成功的話，回傳的指標是指向分配的的記憶體的開頭位址  
     如果失敗的話，回傳一個空指標
@@ -482,7 +493,6 @@ int main(void)
 > `int*`->`void*`->`float*`不一定會得到與原本相同的位址，最後間接取值時的結果也不一定會正確  
 > [Stack Overflow 關於指標轉換的問答](https://stackoverflow.com/questions/4810417/c-when-is-casting-between-pointer-types-not-undefined-behavior)  
 > [Stack Overflow 關於 void* 轉換的問答](https://stackoverflow.com/questions/20469958/c-when-is-casting-void-pointer-needed)  
-
 ```C
 /* E10_15.c */
 #include <stdio.h>
@@ -594,21 +604,33 @@ int main(void)
 關於 string literal，有幾個需要注意的地方：  
 1.  string literal 的型別是 `char[]`  
 2.  如果是用指標去指向某個 string literal，那麼其指向的內容是不可寫的  
-    `char* str = "Test"; // OK`  
-    `str[0] = 't'; // 未定義行為，但可以通過編譯，可能在執行時出錯`  
+    ```C
+    char* str = "Test"; // OK
+    str[0] = 't'; // 未定義行為，但可以通過編譯，可能在執行時出錯
+    ```
 3.  為了避免類似錯誤發生，通常會建議用：  
-    *  `const char* str = "string"; // 如果寫出 str[0]='t'，在編譯時就會出錯`  
-    *  `char str[] = "string"; // str[0]='S' 是可以的`  
+    *   ```C
+        const char* str = "string"; // 如果寫出 str[0]='t'，在編譯時就會出錯
+        ```
+    *   ```C
+        char str[] = "string"; // str[0]='S' 是可以的
+        ```
 
-對於`const char* str = "string";`：  
+```C
+const char* str = "string";
+```
 *   `"string"`會在程式被載入的時候，一起被載入到某塊記憶體 (常見的狀況是載入到 data segment)  
 *   而`str`指向的位址就是`"string"`被儲存到的記憶體的開頭位址  
 *   標準規定對於 string literal 的寫入是未定義行為，實際上也有實作是將`"string"`載入到一塊只允許讀取的記憶體  
 
-對於`char str[] = "string";`：  
+```C
+char str[] = "string";
+```  
 *   其實該句等同`char str[7] = "string"`，也等同於`char str[7] = {'s', 't', 'r', 'i', 'n', 'g', '\0'};`  
 *   相當於把記憶體中`"string"`複製一份當作`str`這個陣列的初始值  
 *   所以`str[0] = 'S';`就合法了  
+
+試著執行看看下列的程式碼，並了解`str1`與`str2`之間的差別，以及輸出是否如同預期
 
 ```C
 #include <stdio.h>
@@ -650,7 +672,8 @@ int main(void)
 ## 雙重指標
 
 相當於指標的指標  
-如果想要透過一個函式更改外面的`int`變數，會有類似底下的寫法：  
+如果想要透過一個函式更改外面的`int`變數，會有類似底下的寫法  
+
 ```C
 void swap(int* a, int* b)
 {
@@ -698,3 +721,204 @@ int main(void)
     return 0;
 }
 ```
+
+如果希望有更具體的圖片參考，可以看`double_pointer.pdf`中的講解  
+
+---
+
+# 練習題
+
+## qsort-01
+
+用導向方式 (例如：`D:\COURSE\I2P\code>W10_01.exe < test.txt`) 讀入一串整數，整數的個數不超過 100 個  
+每個整數都介於 0 和 1,000,000，將資料存入陣列中，然後一併找出其中的最大值和最小值  
+
+用下列程式碼產生亂數檔`number.txt`  
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int ii,max;
+
+    FILE *random;
+    random=fopen("number.txt","w");
+
+    printf("How many number do you want?\n");
+    scanf("%d",&max);
+    for(ii=0;ii<max;ii++){
+		fprintf(random,"%d\n",rand()%1000000);
+    }
+
+    fclose(random);
+    return 0;
+}
+```
+    
+用下列程式碼找出最大最小值  
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int total=0;
+    int max=0, min=0;
+    int number[100];
+
+    FILE *random;
+
+    random=fopen("number.txt","r");
+
+
+    while(fscanf(random,"%d",&number[total])!=EOF)
+	{
+		if(max<number[total]) max=number[total];
+
+		if(min>number[total]) min=number[total];
+		total++;
+	}
+
+	printf("The max is %7d\n",number[total-1]);
+	printf("The min is %7d\n",number[0]);
+
+    return 0;
+}
+```
+
+## qsort-02
+
+和 [qsort-01](#qsort-01) 的輸入資料相同，將資料從小到大按照順序排好  
+
+用下列程式碼將數列排序  
+
+```C
+#include <stdio.h>
+#include <stdlib.h>
+
+int compare(void *a,void *b)
+{
+	int *c=a;
+	int *d=b;
+
+	if(a>b) return 1;
+	else	return 0;
+}
+
+int main()
+{
+    int total=0;
+    int number[100];
+
+    FILE *random;
+
+    random=fopen("number.txt","r");
+
+
+    while(fscanf(random,"%d",&number[total])!=EOF)
+	{
+		total++;
+	}
+
+	qsort(number,total,sizeof(int),compare);
+
+	printf("The max is %7d\n",number[total-1]);
+	printf("The min is %7d\n",number[0]);
+
+    return 0;
+}
+```
+
+## 在程式執行期間取得記憶體-01
+
+解釋下面的程式碼，並描述會得到什麼樣的輸出結果  
+
+```C
+#include <stdio.h>
+
+int main(void)
+{
+    int *a, **b, i, j, rows, cols;
+    scanf("%d %d", &rows, &cols);
+    
+    a = (int *) malloc(rows * cols * sizeof(int));
+    for (i = 0; i < rows*cols; i++) a[i] = i;
+
+    b = (int **) malloc(rows * sizeof(int *));
+    for (i = 0 ; i < rows; i++) b[i] = &a[i*cols];
+    
+    for (i = 0; i < rows; i++) {
+        for (j = 0; j < cols; j++) {
+            printf("%3d ", b[i][j]);
+        }
+    printf("\n");
+    }
+
+free(b);
+free(a);
+
+return 0;
+}
+```
+
+## 在程式執行期間取得記憶體-02
+
+宣告一個`struct t_point`包含`int x`和`int y`  
+讓使用者輸入 n 和 k 兩個整數，並用`malloc`產生一個型別為`struct t_point`，長度為 n 的陣列，取名為`P`  
+隨機設定每個`P[i]`的`x`和`y` (設定成介於 0 ~ k-1 的整數，總共有 k*k 個格子)，並把落在每個格子內的點的數量顯示出來  
+最後把`P`佔用的記憶體釋放掉  
+
+## 字元陣列和字串-01
+
+說明並圖示下面兩種寫法的差異  
+
+```C
+char str1[] = "piece of cake";
+char *str2 = "piece of cake"; /* 附註：ANSI C 要求 compiler 可以支援到長度 509 的字串`
+```
+
+## 字元陣列和字串-02
+
+假設在`main`裡面有下列三行，請問`str1`、`str2`、`str3`的內容會是什麼？  
+
+```C
+char str1[100];
+char str2[100] = {'a'}; 
+char str3[100] = "";
+```
+
+## 字元陣列和字串-03
+
+寫一個 function，傳入一個字串，判斷是否為 palindrome (像是`level`、`wasitacatisaw`)  
+
+## 字元陣列和字串-04
+
+用圖示表現出下面的字串  
+
+```C
+char *ptrary[] = {"piece", "of", "cake"};
+```
+
+## 字元陣列和字串-05
+
+圖示下面兩種寫法的差別  
+
+```C
+char *str1[] = {"piece", "of", "cake"};
+char str2[][8] = {"piece", "of", "cake"};
+```
+
+## 雙重指標-01
+
+寫一個 function 叫做`sort`，它的作用是讓兩個變數`a`和`b`在經過呼叫`sort`之後  
+`a`的值變成`a`和`b`之中較小的值，`b`的值變成`a`和`b`之中較大的值  
+試著用指標和位址存取方式來寫  
+
+## 雙重指標-02
+
+寫一個 function 叫做`swap_ptr`，它的作用是讓兩個指標變數`a`和`b`在經過呼叫`sqap_ptr`之後  
+`a`所指向的位址變成`b`原先指向的位址，`b`所指向的位址變成`a`原先指向的位址  
+試著用雙重指標的方式來寫  

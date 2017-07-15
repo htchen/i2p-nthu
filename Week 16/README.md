@@ -3,33 +3,41 @@
 ## 關於 static 與 extern
 [Stack Overflow 關於這部分的說明](https://stackoverflow.com/questions/95890/what-is-a-variables-linkage-and-storage-specifier)  
 
-`static`
-函數或是全域變數前面如果加`static`  
-表示這個函數不會被 linker 看到  
-因此不會和其他檔案連結  
+*   **static**  
+    函數或是全域變數前面如果加`static`  
+    表示這個函數不會被 linker 看到  
+    因此不會和其他檔案連結  
 
-區域變數前面如果加`static`  
-表示這個變數從程式開始執行就會存在  
-直到程式結束才會消失  
+    區域變數前面如果加`static`  
+    表示這個變數從程式開始執行就會存在  
+    直到程式結束才會消失  
 
-`extern`
-只在一個原始碼檔案中定義  
-```C
-int x = 0;
-```
-其他原始碼檔案如果要使用 x，應該宣告成  
-```C
-extern int x;
-```
+*   **extern**  
+    只在一個原始碼檔案中定義  
+    
+    ```C
+    int x = 0;
+    ```
+    
+    其他原始碼檔案如果要使用`x`，應該宣告成  
+    
+    ```C
+    extern int x;
+    ```
+    
+    > Note:  
+    > 可以參考底下的資料，進一步了解對於變數來說甚麼時候需要`extern`  
+    > [Stack Overflow 關於 Global Variable in Header File 的問答](https://stackoverflow.com/questions/8108634/global-variables-in-header-file)  
 
 ## 資料處理
-相關函數：
 *   [qsort](http://www.gnu.org/software/libc/manual/html_node/Array-Sort-Function.html#Array-Sort-Function)
 *   [fgets](http://www.cplusplus.com/reference/cstdio/fgets/)
 
 讀取`imdb_top250.txt`檔案，裡面包含了 250 筆電影資料  
 每一筆資料包含四個項目，分別是平均評分、電影名稱、上映年份、參與評分的網友數目  
-每一筆資料之間用空行隔開，例如：  
+
+輸入中的每一筆資料之間用空行隔開  
+
 ```
 9.2
 The Shawshank Redemption
@@ -42,7 +50,8 @@ The Godfather
 641587
 ```
 
-利用底下的 structure 儲存
+並利用底下的 structure 儲存  
+
 ```C
 struct t_movie {
     double rating;
@@ -53,7 +62,8 @@ struct t_movie {
 typedef struct t_movie Movie;
 ```
 
-產生一個 250 個元素的陣列，儲存 250 筆電影資料
+且產生一個 250 個元素的陣列，儲存 250 筆電影資料  
+
 ```C
 Movie top[250];
 ```
@@ -63,9 +73,9 @@ Movie top[250];
 2.  依照上映年份排序，從早期到近期，如果年份相同，則再依照電影名稱的英文字母順序排序
 3.  依照平均評分的高低排序，由高到低，如果評分相同，則再依照參與評分的網友數量排序
 
-將以上三點的的排序結果 分別輸出為`sort1.txt`、`sort2.txt`、`sort3.txt`
+將以上三點的的排序結果分別輸出為`sort1.txt`、`sort2.txt`、`sort3.txt`
 
-範例程式碼
+範例程式碼  
 
 ```C
 #include <stdio.h>
@@ -166,7 +176,7 @@ int main(void)
 }
 ```
 
-另一種透過指標陣列的寫法
+另一種透過指標陣列的寫法  
 
 ```C
 #include <stdio.h>
@@ -269,7 +279,8 @@ int main(void)
 ```
 
 ## 查字典與自動完成
-利用附件`words.txt`
+
+利用附件`words.txt`  
 
 ```C
 #include <stdio.h>
@@ -350,7 +361,7 @@ int lookup(char *word, char *dict[], int nwords)
 ## 實作 Doubly Linked List
 [維基百科對於 doubly linked list 的說明](http://en.wikipedia.org/wiki/Doubly_linked_list)
 
-底下是框架，可以試著實作那些尚未被完成的功能
+底下是框架，可以試著實作那些尚未被完成的功能  
 
 ```C
 ##include <stdio.h>
@@ -462,7 +473,8 @@ int main(void)
 }
 ```
 
-執行之後應該要得到
+執行之後應該要得到  
+
 ```
 10->11->12->13->14->20->21->22->23->24->NULL
 24->23->22->21->20->14->13->12->11->10->NULL
@@ -471,7 +483,7 @@ int main(void)
 
 圖示搭配程式碼可以參考`dll.pptx`
 
-底下是完整的程式碼
+底下是完整的程式碼  
 
 ```C
 #include <stdio.h>
