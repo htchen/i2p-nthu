@@ -852,7 +852,3 @@ Point meanPoint(Point p[], int n);
 ## Linked List-01
 
 [NTHU Online Judge: 10981 - Delete linked list](http://acm.cs.nthu.edu.tw/problem/10981/)
-
-## Linked List-02
-
-[NTHU Online Judge: 9412 - Doubly Linked List](http://acm.cs.nthu.edu.tw/problem/9412/)

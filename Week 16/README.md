@@ -358,7 +358,7 @@ int lookup(char *word, char *dict[], int nwords)
 }
 ```
 
-## 實作 Doubly Linked List
+## Doubly Linked List
 [維基百科對於 doubly linked list 的說明](http://en.wikipedia.org/wiki/Doubly_linked_list)
 
 底下是框架，可以試著實作那些尚未被完成的功能  
@@ -640,3 +640,11 @@ int main(void)
 }
 
 ```
+
+---
+
+# 練習題
+
+## Doubly Linked List-01
+
+[NTHU Online Judge: 9412 - Doubly Linked List](http://acm.cs.nthu.edu.tw/problem/9412/)
