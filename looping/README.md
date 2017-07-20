@@ -1,4 +1,5 @@
 # Week 4 & Week 5
+
 ### 內容：Operators, Expressions, and Statements; Looping
 
 ---
@@ -23,22 +24,20 @@ x = 3 * 4;
 
 ## Operators
 ### Relational Operators
-
-Operator | 意思
-:---: | :---:
-<     | 小於
-<=    | 小於等於
->     | 大於
->=    | 大於等於
-==    | 等於
-!=    | 不等於
-
-比較新奇的應該只有 == 和 !=，其他跟我們在算數學的時候用的寫法一樣。在比較兩個數值的大小關係時，如果比較的是浮點數，要特別注意，只能使用 > 和 <，因為經過一些數學運算，兩個浮點數是否還能完全相等往往會出乎我們意料之外。
+Operator | aa
+-------- | --
+< | aa
+<= | aa
+> | aa
+>= | aa
+== | aa
+!= | aa
+比較新奇的應該只有`==`和`!=`，其他跟我們在算數學的時候用的寫法一樣。在比較兩個數值的大小關係時，如果比較的是浮點數，要特別注意，只能使用`>`和`<`，因為經過一些數學運算，兩個浮點數是否還能完全相等往往會出乎我們意料之外。
 
 
 ## while loop
 ### 先來看一個例子：
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
@@ -94,7 +93,7 @@ The number is 50
 
 ### 範例code：
 
-```clike=
+```C
 #include <stdio.h>
 #define STEP 10
 #define LOWER 0
@@ -137,7 +136,7 @@ Celsius    Fahrenheit
 (celsius <= UPPER)
 ```
 這個式子是在判斷 celsius 是否小於 UPPER，由於在執行到 while 之前的一行，celsius 的值被設為 LOWER (值為 0)，所以目前 celsius 的確小於 UPPER。由於 celsius 與 UPPER 的實際大小關係符合這個式子所描述，所以這個式子會得到 true，表示這個式子是成立的，因此程式就可繼續執行 while 迴圈接下來的敘述。整個 while 迴圈的內容被包含在 {} 所定義的有效範圍內。接下來要執行的程式碼就是
-```clike=
+```C
 fahr = 1.8*celsius + 32;
 printf("%4d %12d\n", celsius, fahr);
 ```
@@ -157,7 +156,7 @@ printf("---------------------\n"); 。
 3. 承上題，假設小明每過一年又會再存入 10000 元，請把新的獲利表列出來。
 
 ### 範例
-```clike=
+```C
 #include <stdio.h>
 #include <string.h>
 #define STAR "**********"
@@ -198,7 +197,7 @@ ABCDE
 ```
 
 ### 參考程式碼：
-```clike=
+```C
 #include <stdio.h>
 #include <???.h>
 int main(void)
@@ -223,7 +222,7 @@ The number 13579 can be written as
 9 + 7*10 + 5*100 + 3*1000 + 1*10000.
 ```
 ### 參考程式碼：
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
@@ -246,7 +245,7 @@ int main(void)
 ## ++ and \-\- operators
 在上面的例子的第31行中，我們看到了一個新的 operator "++"。這邊我們再用一個範例來說明。
 ### 範例code：
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
@@ -276,7 +275,7 @@ lower = 5, upper = 5
 
 ##  \+\+a 與 a\+\+ 的差別？
 ### 範例code：
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
@@ -299,7 +298,7 @@ a   aplus   b   plusb
 - 如果 ++ 寫在後面，相當於先做 b = b + 1；再做 plusb = b 的動作。
 
 ## 利用while迴圈做連續輸入
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
@@ -320,7 +319,7 @@ int main(void)
 }
 ```
 這個程式會不斷要求使用者輸入整數，然後當使用者輸入的資料不是數字時，迴圈就會結束，並且把所有數目的總和算出來，譬如：
-```clike=
+```C
 Please enter an integer to be summed (q to quit): 12
 Please enter next integer (q to quit): 34
 Please enter next integer (q to quit): -56
@@ -333,7 +332,7 @@ Those integers sum to 779.
 
 ## C Style Reading Loop
 前面範例的迴圈，在寫法上通常會被簡化。譬如，原來是：
-```clike=
+```C
    status = scanf("%ld", &num); 
    while (status == 1) {     
       sum = sum + num;
@@ -342,7 +341,7 @@ Those integers sum to 779.
    }
 ```
 會習慣寫成：
-```clike=
+```C
    while (scanf("%ld", &num) == 1) {     
       sum = sum + num;
       printf("Please enter next integer (q to quit): ");
@@ -352,21 +351,21 @@ Those integers sum to 779.
 
 ## 無窮迴圈
 使用 while 迴圈要注意停止條件，看看底下這個錯誤示範
-```clike=
+```C
 int i = 1;
 while (i < 5) {
    printf("Hello!\n");
 }
 ```
 執行這個程式會發生什麼事? 迴圈裡面完全沒有更改 i 的值，所以 i < 5 的條件會一直成立，迴圈無法停下來，只能用暴力手段把程式停掉。而如果程式改成
-```clike=
+```C
 int i = 1;
 while (--i < 5) {
    printf("Hello!\n");
 }
 ```
 程式還是錯的，但是有可能會自己停止。當 i 不斷遞減變成絕對值越來越大的負數，到了極限之後反而變成絕對值最大的正數，等於繞了一圈循環回來，所以 i 的值就比 5 大，迴圈就停止了。底下的程式碼可以看出循環的現象。
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
@@ -378,7 +377,7 @@ int main(void)
    return 0;
 }
 ```
-```clike=
+```C
 #include <stdio.h>
 int main(void)
 {
