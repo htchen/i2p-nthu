@@ -1,41 +1,39 @@
 # week 12 非指標
 ### 內容：
-insertion sort
-複習 permutation
-指標+陣列+遞迴
-FILE 指標
-Sentence reversal
+insertion sort  
+複習 permutation  
+指標+陣列+遞迴  
+FILE 指標  
+Sentence reversal  
 
 ## insertion sort
-先從檔案讀取資料，存入陣列 data 中。接著利用 insertion sort 的方法，將資料排序，由小到大存放在 data 陣列中。
-把排序完之後的資料輸出到檔案 "data_50000_sorted.txt" ，底下是把資料輸出到檔案的方式:
-      freopen("data_50000_sorted.txt", "w", stdout);
+insertion sort reference : [wiki - insertion sort](https://zh.wikipedia.org/wiki/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F)  
+```c
+int main ()
+{
+    int a[10] = {2,23,9,57,19,0,5};
+    int len = 7;
+    int i = 0, j = 0;
+    int temp;
+    for ( i = 1; i < 7; i++)
+    {
+        temp = a[i];
+        j = i - 1;
+        for (; j >= 0 && arr[j] > temp; j--) 
+        {
+            a[j + 1] = a[j];
+        }
+        a[j + 1] = temp;
+    }
 
-     for (i = 0; i < num_data; i++) {
-        printf(" %d", data[i]);
-     }
-
-insertion sort 的概念很簡單，可自行參考 Wikipedia 的敘述。上課的時候也會再講解一次。。
-Wikipedia 提供的 pseudo code 稍做修改
-for i ← 1 to length(A)
-    j ← i
-    while j > 0 and A[j-1] > A[j]
-        swap A[j] and A[j-1]
-        j ← j - 1
-將 swap 展開之後的版本是
- for i = 1 to length(A)
-    x = A[i]
-    j = i
-    while j > 0 and A[j-1] > x
-        A[j] = A[j-1]
-        j = j - 1
-    A[j] = x
-請試著把 pseudo code 轉換成 C 程式碼。
-
+}
+```
+insertion sort 圖解 :
+![](https://i.imgur.com/jzjChVp.gif)
 
 ## 複習 permutation 指標+陣列+遞迴
 
-```clike=
+```c
 #include <stdio.h>
 #include <string.h>
 void show(char *p);
@@ -80,157 +78,230 @@ void permutation(char * p)
 ```
 
 ## FILE 指標
-練習如何使用陣列來儲存資料
-練習如何開檔、讀檔、寫檔。
 
-[前置作業]
-下載附件檔案 data_50000.txt
-檔案裏讀到的第一個整數代表後面總共有多少筆資料必須讀取(data_50000.txt 裏的第一個整數是50000，因此後面共五萬筆資料)，資料的格式是整數，有正有負。
-讀取到的資料用一個 global 整數陣列來儲存。
-global 陣列宣告在 function 之外，不屬於單一 function，每個 function 都可以存取 global 陣列。
-需要這麼做的原因是因為 function 中宣告的陣列大小通常不能太大，
-由於我們還沒學到動態記憶體管理，
-因此目前先暫時用 global 的方式產生陣列，這樣才能夠處裡稍微大量一點的資料。
-
-例如下面的程式碼，產生一個叫作 data 的整數陣列，用來儲存從檔案讀取到的資料:
+請下載檔案夾中的 test.txt，並跟 c 檔放在一起，接著看下面的範例 code
+```c
 #include <stdio.h>
-int data[100000];
+int a[10000];
 int main(void)
 {
     FILE *fin, *fout;
     int i, j, tmp;
-    int num_data;
+    int len;
 
-    fin = fopen("data_50000.txt", "r");
-    fscanf(fin, "%d", &num_data);
-    for (i=0; i<num_data; i++) {
-        fscanf(fin, "%d", &data[i]);
+    fin = fopen("test.txt", "r");
+    for (i = 0; i < len; i++) 
+    {
+        fscanf(fin, "%d", &a[i]);
     }
 
-    for (i=1; i<num_data; i++) {
-        j = i;
-        tmp = data[j];
-        while (j>0 && data[j-1]>tmp) {
-            data[j] = data[j-1];
-            j--;
+    for ( i = 1; i < 7; i++)
+    {
+        temp = a[i];
+        j = i - 1;
+        for (; j >= 0 && arr[j] > temp; j--) 
+        {
+            a[j + 1] = a[j];
         }
-        data[j] = tmp;
+        a[j + 1] = temp;
     }
 
-
-
-    fout = fopen("data_50000_sorted.txt", "w");
-    fprintf(fout, "%d\n", num_data);
-    for (i=0; i<num_data; i++) {
+    fout = fopen("result.txt", "w");
+    
+    for (i=0; i<num_data; i++) 
+    {
         fprintf(fout, "%d ", data[i]);
     }
-
+    fclose (fin);
+    fclose (fout);
     return 0;
 }
+```
+FILE reference : [wiki - stdio.h](https://zh.wikipedia.org/wiki/Stdio.h)  
+(進去裡面後 ctrl + F 搜尋 file )  
+- fopen 的用法 :   
+```
+fopen("檔案路徑和檔名", "開檔方式")
+```
+"r" : read ，對檔案進行讀取  
+"w" : write，對檔案進行寫入  
+> NOTE :   
+> 使用相對位置時需注意程式執行檔和 test.txt 是在同一個資料夾下  
+> 不然就要用絕對路徑  
 
-這段程式碼會產生一個 FILE 指標 (變數名稱是 fin)，
-接著用 fopen() 把檔案開啟並取得資料的起始位置，然後用 fscanf() 讀取資料。
-fopen() 的用法是 fopen("檔案路徑和檔名", "開檔方式"); 若對照上面那段程式碼，其中我們用到的 "r"， 代表 read， 也就是只做讀取， 如果開檔成功會傳回指向檔案內容起始位置的指標。假如沒有指定路徑而只有給檔名，則要確定data_50000.txt 和你的程式執行檔是在同一個資料夾下，才會順利找到檔案並開啟。
-
-fscanf()的用法是 fscanf(檔案指標, "讀取格式", 變數的位址); 和 scanf() 的用法完全一樣，只是前面要多傳一個指標，指向要讀取的資料。檔案讀取完畢要用 fclose() 把檔案關閉。
-
-關於開檔、讀檔、寫檔的方式，雖然上機考試用不到，但是一般寫程式經常會用到。
-
-用迴圈讀取資料的寫法，可以參考講義 [範例 E10_03.c]，把其中的 scanf(...) 換成 fscanf(fin, ...)。
-除錯階段可以先拿小一點的檔案來測試。
+- fscanf 的用法 :   
+```
+fscanf(檔案指標, "讀取格式", 變數的位址)
+```
+fscanf 得用法跟 scanf 一樣，只是前面要多傳一個指標指向要讀取的資料。讀取完後在用 fclose 把檔案關閉  
 
 ## 字串處理
-
-Reference:
-http://www.gnu.org/software/libc/manual/html_node/String-and-Array-Utilities.html#String-and-Array-Utilities
-
-使用 strcmp 和 strncmp
-intstrcmp(const char *s1, const char *s2);
+### strcmp 和 strncmp  
+```c
+int strcmp(const char *s1, const char *s2);
 int strncmp(const char *s1, const char *s2, size_t size);
+```
+reference : [ cplusplus - strcmp](http://www.cplusplus.com/reference/cstring/strcmp/)  
+reference : [ cplusplus - strncmp](http://www.cplusplus.com/reference/cstring/stnrcmp/)  
 
+```c
 #include <stdio.h>
 #include <string.h>
-
 int main(void)
 {
-char str1[30];
-char str2[30];
-int n;
-
-scanf("%29s", str1);
-scanf("%29s", str2);
-
-printf("strcmp(%s, %s) = %d\n", str1, str2, strcmp(str1, str2));
-n = 3;
-printf("strncmp(%s, %s, n) = %d\n", str1, str2, strncmp(str1, str2, n));
-
-return 0;
+    char str1[101];
+    char str2[101];
+    int n = 3;
+    
+    scanf("%100s", str1);   // 限制使用者只能輸入 100 個字
+    scanf("%100s", str2);
+    
+    printf("str1 : %s\n", str1);
+    printf("str2 : %s\n", str2);
+    
+    printf("-------------------\n");
+    
+    printf("strcmp\n");
+    printf("return value : %d\n", strcmp(str1, str2));
+    
+    printf("-------------------\n");
+    
+    printf("strncmp\n");
+    printf("return value : %d\n", strncmp(str1, str2, n));
+    
+    
+    return 0;
 }
-
-輸入:
- 
+```
+輸入  
+```
 abcd
 abce
+```
+輸出  
+```
+str1 : abcd
+str2 : abce
+-------------------
+strcmp
+return value : -1
+-------------------
+strncmp
+return value : 0
+```
+結論：
 
-輸出：
- 
-strcmp(abcd, abce) = -1
-strncmp(abcd, abce, n) = 0
+
+| 回傳的值   | 意義     | 
+| -------- | -------- |  
+| < 0      | 表示前面那個字串的 ASCII code 比較小      |  
+| = 0      | 表示兩字串相同                          |  
+| > 0      | 表示後面那個字串的 ASCII code 比較小      |  
 
 
-使用 strcpy, strcat, strncpy
-char * strcpy(char *restrict to, const char *restrict from);
-char * strncpy(char *restrict to, const char *restrict from, size_t size);
-char * strcat(char *restrict to, const char *restrict from);
-
- 
+### strcpy 跟 strncpy
+```c
+char * strcpy ( char * destination, char * source )
+char * strncpy ( char * destination, char * source, size_t num );
+```
+strcpy 跟 strncpy 兩者皆是用來複製字串的，差別在於 strcpy 是整個字串複製過去，而 strncpy 能指定複製幾個字元  
+範例 1  
+```c
 #include <stdio.h>
 #include <string.h>
-
 int main(void)
 {
-char str1[30];
-char str2[30];
-char str3[60];
-
-
-scanf("%29s", str1);
-scanf("%29s", str2);
-
-strcpy(str3, str1);
-strcat(str3, str2);
-printf("%s\n", str3);
-
-return 0;
+    char a[100] = "A apple a day keeps the doctor away.";
+    char b[100] = "hello world";
+    strcpy(b, a);
+    printf("%s\n", b);
+    
+    return 0;
 }
-
-
- 
+```
+輸出
+```
+A apple a day keeps the doctor away.
+```
+> Note :   
+> 放在前面的字串是要 destination，後面才是原本的字串，在寫程式的時候，記得不要寫錯了  
+  
+範例 2  
+```c
 #include <stdio.h>
 #include <string.h>
-
 int main(void)
 {
-char str1[30];
-char str2[30];
-int n;
-
-scanf("%s", str1);
-
-n = 2;
-strncpy(str2, str1, n);
-str2[n] = '\0';
-printf("%s\n", str2);
-
-return 0;
+    char a[100] = "A apple a day keeps the doctor away.";
+    char b[100];
+    strncpy(b, a, 1);
+    printf("%s\n", b);
+    
+    return 0;
 }
+```
+輸出  
+```
+A
+```
+範例 3   
+```c
+#include <stdio.h>
+#include <string.h>
+int main(void)
+{
+    char a[100] = "A apple a day keeps the doctor away.";
+    char b[100] = "hello world";
+    strncpy(b, a, 1);
+    printf("%s\n", b);
+    
+    return 0;
+}
+```
+輸出  
+```
+Aello world
+```
+由範例二和範例三可以發現，如果 destination 字串原本有東西，那麼再複製時，並不會把後面的東西給刪掉  
+
+### strcat
+```c
+char * strcat ( char * destination, char * source );
+```
+strcat 能將一個字串的東西複製並貼在另一個字串的後面，但在使用時要特別注意字串的長度是否充足，否則程式會出錯
+```c
+#include <stdio.h>
+#include <string.h>
+int main(void)
+{
+    char a[20] = "hello ";
+    char b[20] = "world.";
+    strcat(a, b);
+    printf("%s\n", a);
+    
+    return 0;
+}
+```
+輸出
+```
+hello world.
+```
 
 
-使用 memset, memcpy
-void *memset(void *block, int c, size_t size);
-void * memcpy(void *restrict to, const void *restrict from, size_t size);
 
- 
+
+### memset 跟 memcpy
+```c
+void * memset ( void * ptr, int value, size_t num )
+void * memcpy ( void * destination, const void * source, size_t num );
+```
+
+
+- memeset : Sets the first num bytes of the block of memory pointed by ptr to the specified value (interpreted as an unsigned char).
+- memcpy : Copies the values of num bytes from the location pointed to by source directly to the memory block pointed to by destination.
+
+reference : [cplusplus - memeset](http://www.cplusplus.com/reference/cstring/memset/) , [cplusplus - memcpy](http://www.cplusplus.com/reference/cstring/memcpy/)
+ ```c
 #include <stdio.h>
 #include <string.h>
 #define SIZE 100
@@ -259,6 +330,7 @@ if ((i+1)%10 == 0) printf("\n");
 return 0;
 }
  
+```
 
 ## Sentence reversal
 
