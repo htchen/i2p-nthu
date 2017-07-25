@@ -8,9 +8,13 @@
 <br>是用來將編譯好的 object code 連結成最後的執行檔。因為除了我們自己寫的程式碼之外，無可避免一定會用到許多現成的 library (函式庫)。在現實的情況下，不可能每一東西都要靠自己創造，所以絕大多數的時候我們都會使用內建的或別人寫好的函式庫，來達到自己想要的功能。 linker 就是用來把我們的程式碼和需要的函式庫裡的程式碼連結在一起，形成單一的可執行檔。在 Windows 裡，執行的的副檔名為 ".exe"。</br>    
 ## C語言簡介
 ```C
-#include <stdio.h>int main(void) /* display an integer on screen */
-{int num;num = 40;
-printf("The number is %d.\n", num);return 0;
+#include <stdio.h>  
+int main(void) /* display an integer on screen */
+{
+int num;  
+num = 40;  
+printf("The number is %d.\n", num);  
+return 0;
 }
 ```
 這個簡單的程式會在螢幕上顯示一串文字 The number is 40. 。這個程式包含了每個程式幾乎都會有的幾個主要結構。我們一行一行來解釋它們的作用。程式開頭第一行
@@ -56,8 +60,11 @@ return 0;}
 #include <stdio.h>
 int main(void)
 {
-int feet;int inches;int centimeters;
-feet = 6;inches = 3;
+int feet;  
+int inches;  
+int centimeters;
+feet = 6;  
+inches = 3;
 centimeters = (feet*12 + inches) * 2.54;
 printf("%d feet %d inches = %d centimeters.\n", feet, inches, centimeters);
 return 0;
