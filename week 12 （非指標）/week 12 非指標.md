@@ -28,9 +28,9 @@ int main ()
 
 }
 ```
-insertion sort 圖解 :
-![](https://i.imgur.com/jzjChVp.gif)
-insertion sort 原理 :
+insertion sort 圖解 :  
+![](https://i.imgur.com/jzjChVp.gif)  
+insertion sort 原理 :  
 
 首先將資料分成 **已排序、未排序** 兩部份
 依序由 **未排序** 中的第一筆資料，插入到 **已排序** 中的適當位置
