@@ -30,6 +30,12 @@ int main ()
 ```
 insertion sort 圖解 :
 ![](https://i.imgur.com/jzjChVp.gif)
+insertion sort 原理 :
+
+首先將資料分成 **已排序、未排序** 兩部份
+依序由 **未排序** 中的第一筆資料，插入到 **已排序** 中的適當位置
+插入時由右而左比較，直到遇到第一個比當下的值還小的值
+再插入比較時，若遇到的值比當下的值大或相等，則將值往右移
 
 ## 複習 permutation 指標+陣列+遞迴
 
@@ -224,7 +230,7 @@ int main(void)
 A apple a day keeps the doctor away.
 ```
 > Note :   
-> 放在前面的字串是要 destination，後面才是原本的字串，在寫程式的時候，記得不要寫錯了  
+> 放在前面的字串是 destination，後面才是原本的字串，在寫程式的時候，記得不要寫錯了  
   
 範例 2  
 ```c
@@ -297,8 +303,8 @@ void * memcpy ( void * destination, const void * source, size_t num );
 ```
 
 
-- memeset : Sets the first num bytes of the block of memory pointed by ptr to the specified value (interpreted as an unsigned char).
-- memcpy : Copies the values of num bytes from the location pointed to by source directly to the memory block pointed to by destination.
+- memeset : Sets the first num bytes of the block of memory pointed by ptr to the specified value (interpreted as an unsigned char)
+- memcpy : Copies the values of num bytes from the location pointed to by source directly to the memory block pointed to by destination
 
 reference : [cplusplus - memeset](http://www.cplusplus.com/reference/cstring/memset/) , [cplusplus - memcpy](http://www.cplusplus.com/reference/cstring/memcpy/)
  ```c
@@ -312,7 +318,8 @@ int b[SIZE];
 int i;
 
 memset(a, 0, SIZE*sizeof(int));
-for (i=0; i<SIZE; i++) {
+for (i=0; i<SIZE; i++) 
+{
 printf("%d ", a[i]);
 if ((i+1)%10 == 0) printf("\n");
 }
@@ -331,49 +338,43 @@ return 0;
 }
  
 ```
-
-## Sentence reversal
-
-輸入一個英文句子字串
-包含多個英文單字
-每個英文單字之間用單個空白字元隔開
-沒有其他標點符號
-例如
-this is a book
-
-用程式將上面的句子以單字為單位反轉
 輸出
-book a is this
+```
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 
+    0    1    4    9   16   25   36   49   64   81
+  100  121  144  169  196  225  256  289  324  361
+  400  441  484  529  576  625  676  729  784  841
+  900  961 1024 1089 1156 1225 1296 1369 1444 1521
+ 1600 1681 1764 1849 1936 2025 2116 2209 2304 2401
+ 2500 2601 2704 2809 2916 3025 3136 3249 3364 3481
+ 3600 3721 3844 3969 4096 4225 4356 4489 4624 4761
+ 4900 5041 5184 5329 5476 5625 5776 5929 6084 6241
+ 6400 6561 6724 6889 7056 7225 7396 7569 7744 7921
+ 8100 8281 8464 8649 8836 9025 9216 9409 9604 9801
+ ```
+ memset用來對一段內存空間全部設置為某個字符，一般用在對定義的字符串進行初始化，範例中 memset 將 a[SIZE] 全部初始為0  
+ memcpy用來做內存複製，你可以拿它複製任何數據類型的對象，可以指定複製的數據長度，範例中 memcpy 將平方處理後的 a字串複製到 b字串中
+而 memcpy 與 strcpy 的差別在於 strcpy 就只能複製字符串了，它遇到'\0'就結束複製  
+## Sentence reversal  
+題目：輸入一個英文句子字串然後將它反轉。（其字串包含多個英文單字，每個英文單字用單個空白字元隔開，標點符號只有句點）  
 
-讀取輸入的字串可以用下面的方式
- 
-char a[100];
-
-fgets(a, 99, stdin);
-
-a[strlen(a)-1] = '\0';
-
-不使用 scanf "%s" 讀取字串的原因是因為 scanf 讀到空白字元就會停止
-用 fgets 則會讀到換行才停止
-由於 fgets 會把換行字元也讀進來
-所也要多一個步驟 a[strlen(a)-1] = '\0';
-把換行字元去掉
-詳細使用說明可參考 http://www.gnu.org/software/libc/manual/html_node/Line-Input.html
-char * fgets(char *s, int count, FILE *stream)
-Thefgetsfunction reads characters from the streamstreamup to and including a newline character and stores them in the strings, adding a null character to mark the end of the string. You must supplycountcharacters worth of space ins, but the number of characters read is at mostcount− 1. The extra character space is used to hold the null character at the end of the string.
-
-If the system is already at end of file when you callfgets, then the contents of the arraysare unchanged and a null pointer is returned. A null pointer is also returned if a read error occurs. Otherwise, the return value is the pointers.
-
-Warning:If the input data has a null character, you can't tell. So don't usefgetsunless you know the data cannot contain a null. Don't use it to read files edited by the user because, if the user inserts a null character, you should either handle it properly or print a clear error message. We recommend usinggetlineinstead offgets.
-
-
- 
+```c
 #include <stdio.h>
 #include <string.h>
 void flip(char *b, int k, int l)
 {
     int tmp;
-	for ( ; k<l ; k++, l--) {
+	for ( ; k<l ; k++, l--) 
+    {
 		tmp = b[k];
 		b[k] = b[l];
 		b[l] = tmp;
@@ -387,11 +388,11 @@ int main(void)
 	fgets(a, 99, stdin);
 	a[strlen(a)-1] = ' ';
 
-	//"this is a book \0"
-
 	j = 0;
-	for (i=0; a[i]!='\0'; i++) {
-		if (a[i] == ' ') {
+	for (i = 0; a[i] != '\0'; i++) 
+    {
+		if (a[i] == ' ') 
+        {
 			flip(a, j, i-1);
 			j = i+1;
 		}
@@ -402,3 +403,43 @@ int main(void)
 
 	return 0;
 }
+```
+輸入
+```
+This is a book.
+```
+輸出
+```
+book. a is This
+```
+
+### step 1 輸入
+這裡不使用 scanf "%s" 讀取字串的原因是因為 scanf 讀到空白字元就會停止  
+而 fgets 則不受到空白字元影響   
+  
+fgets reference : [reference - fgets](http://www.cplusplus.com/reference/cstdio/fgets/)  
+
+根據上面的參考資料，fgets 會讀取資料直到讀到下面三種字元才會停止  
+1. '\0'  
+2. 換行  
+3. EOF  
+
+> Note：
+> fgets 會自動在結尾補 '\0'，所以不用自己補
+
+所以輸入的方式可以用下面的方式  
+```c
+char a[100];
+fgets(a, 99, stdin);
+```
+
+
+
+- flip function 重點 ：
+```c
+void flip(char *b, int k, int l)
+```
+>NOTE :  
+>這裡我們傳入的是 char *b ，是記憶體位置，而不是複製一份a[100]字元陣列到 
+>function中，所以在操作上要小心有沒有超出所設的a[100]記憶體上限
+>而倒轉字串時要注意的是只需做到字串的一半即可，否則會再倒轉回一開始的字串
