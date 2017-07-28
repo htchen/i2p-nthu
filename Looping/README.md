@@ -352,7 +352,7 @@ for(i = 0; i < 7; i++)
 ```C
 #include <stdio.h>
 #define ROW 7
-#define COL  25
+#define COL 25
 int main(void)
 {
     int i, j;
@@ -387,7 +387,7 @@ int main(void)
 ```C
 #include <stdio.h>
 #define ROW 7
-#define COL  25
+#define COL 25
 int main(void)
 {
     int i, j;
