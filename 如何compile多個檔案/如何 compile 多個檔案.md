@@ -1,5 +1,5 @@
 # 如何 compile 多個檔案
-到目前為止，我們寫的程式都是把所有的 functions 放在同一個檔案裡，這樣只要 compile 那個檔案就可產生最後我們要的執行檔。但是其實 compiler 允許我們把程式碼 (以 function 為基本單位) 分散在不同檔案裡，然後再個別 compile 並且 link 產生一個執行檔。如果我們把程式碼分散在多個檔案中  
+到目前為止，我們寫的程式都是把所有的 functions 放在同一個檔案裡，這樣只要 compile 那個檔案就可產生最後我們要的執行檔。但是其實 compiler 允許我們把程式碼 (以 function 為基本單位) 分散在不同檔案裡，然後再各別 compile 並且 link 產生一個執行檔。如果我們把程式碼分散在多個檔案中  
 
 在往後 online judge 的題目中，也常常用到這個技巧  
 舉例：[10947 - delete linked list](http://acm.cs.nthu.edu.tw/problem/10947/)  
