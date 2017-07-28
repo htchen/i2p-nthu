@@ -211,11 +211,11 @@ int strcmp(const char * s1, const char * s2);
 int strncmp(const char  * s1, const char * s2, size_t size);
 ```  
 strcmp 和 strncmp 都能拿來將字串做比較，差別在於 strcmp 是拿來比較整個字串，而 strncmp 則是能自行決定要比較幾個字元，最後根據結果回傳值  
-| 回傳的值   | 意義     | 
-| -------- | -------- |  
-| < 0      | 表示前面那個字串的 ASCII code 比較小      |  
-| = 0      | 表示兩字串相同                          |  
-| > 0      | 表示後面那個字串的 ASCII code 比較小      |  
+| 回傳的值   | 意義     
+| -------- | --------  
+| < 0      | 表示前面那個字串的 ASCII code 比較小        
+| = 0      | 表示兩字串相同                            
+| > 0      | 表示後面那個字串的 ASCII code 比較小        
 
 reference : [ cplusplus - strcmp](http://www.cplusplus.com/reference/cstring/strcmp/)  
 reference : [ cplusplus - strncmp](http://www.cplusplus.com/reference/cstring/stnrcmp/)  
