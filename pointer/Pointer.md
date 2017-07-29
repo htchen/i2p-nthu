@@ -1,5 +1,5 @@
 # Pointer
-## 以一句來形容 pointer 
+## 用一句來形容 pointer 
 指標就是一個專門用來儲存位址的變數，但他的功用卻超乎想像，以下會用幾個例子來說明 pointer 的用處  
 
 
@@ -16,22 +16,12 @@ int main(void)
     char* ptr_char;
     double* ptr_double;
     
-    printf("size of ptr_int : %lu bytes\n", sizeof(ptr_int));
-    printf("size of ptr_int : %lu bytes\n", sizeof(ptr_char));
-    printf("size of ptr_int : %lu bytes\n", sizeof(ptr_double));
-    //%lu : unsigned long
-    
     return 0;
 }
 ```
-輸出
-```
-size of ptr_int : 8 bytes
-size of ptr_int : 8 bytes
-size of ptr_int : 8 bytes
-```
-### 符號介紹
 
+
+### 符號介紹
 還記得當初在學 scanf()的時候，在填寫變數時前面要加一個 &，其實就是用位址來當作參數。而任何 C 的 function 如果不想靠 return 方式來傳回值，就只能透過位址來取得 function 執行的結果。我們先來探討一下 & 符號，以及如何取得位址的資訊  
 
 - ＆a  ： 取地址
@@ -148,7 +138,7 @@ int main(void)
 ```
 in function:
 
-addr = 0x7fff5fbff69c
+addr = 0x7fff5fbff71c
 
 a    = 99
 
@@ -156,29 +146,28 @@ a    = 99
 
 in main:
 
-addr = 0x7fff5fbff6c8
+addr = 0x7fff5fbff748
 
 a    = 10
 ```
----
-講解：這個例子把 a 在 main 跟 function 裡的地址都印出來，你會發現，兩個的位置不一樣，表示，我們把值傳進去 function 時，他並不是把原本的那個變數傳進去，而是把值 “ 複製 ” 過去而已。 所以即便我們在 function 裡面更改了 a 的值， 也不會影響到在 main 裡面的 a （畢竟他們兩個根本是不同的 a ，只是剛好名字相同而已）
-
-
+這個例子把 a 在 main 跟 function 裡的地址都印出來，你會發現，兩個的位置不一樣，表示，我們把值傳進去 function 時，他並不是把原本的那個變數傳進去，而是把值 **“ 複製 ”** 過去而已。 所以即便我們在 function 裡面更改了 a 的值， 也不會影響到在 main 裡面的 a （畢竟他們兩個根本是不同的 a ，只是剛好名字相同而已）  
+  
+  
 ## 位置的重要
 
 當我們在寫程式的時候，每個變數對我們來說具有兩項主要性質：
 
-1. 變數名稱
+1. **變數名稱**
 
-2. 變數值
+2. **變數值**
 
 但當程式經過 compile 後 load 到記憶體裡準備執行時，電腦認知的變數所具有的性質變成：
 
-1. 位址
+1. **位址**
 
-2. 變數值
+2. **變數值**
 
-也就是說電腦是以位址來區別變數。在許多語言中，位址完全交給電腦負責就好了，但是在 C 語言裡，程式設計者可以用 & 符號來取得位址的資訊。我們就來試試看透過記憶體位址，達到真正交換兩個變數值的效果  
+也就是說電腦是以 **位址** 來區別變數。在許多語言中，位址完全交給電腦負責就好了，但是在 C 語言裡，程式設計者可以用 & 符號來取得位址的資訊。我們就來試試看透過記憶體位址，達到真正交換兩個變數值的效果  
 
 看下面這個例子：  
 
@@ -222,12 +211,10 @@ swap with ptr
 a : 12
 b : 40
 ```
----
-
 講解：就如同剛剛所說的，對電腦而言，變數的意義在於位置跟變數值，所以，如果我們要交換兩個值了話，只能把他們的位置傳進去 function 裡面，然後進來交換  
 
 
-> 注意： 
+> Note : 
 > 1. 由於我們要傳進去的參數不是值，而是地址，所以在宣告 function 的 prototype 時，也必須用 int *  
 > 
 > 2. 在swap_with_ptr 的 function 裡面，我們要交換的不是兩個位置，而是位置裡面的值， 所以不能寫成 ptr_a = ptr_b ， 而是 *ptr_a = *ptr_b  
@@ -254,7 +241,7 @@ int main(void)
 {
     char a[100];
     scanf("%s", a);
-    printf("%s\n",a);
+    printf("%s\n", a);
     return 0;
 }
 ```
@@ -266,27 +253,29 @@ happy
 ```
 happy
 ```
----
-
-講解：沒錯就是讀字串的時候，我們沒有加 ＆ ，正確來說，是 array 在宣告時，本身就是指標變數  
+沒錯就是讀字串的時候，我們沒有加 &，正確來說，是 array 在宣告時，本身就是指標變數，簡單來說 a 就代表整個 array 得開頭指標
 
 ```c
 #include<stdio.h>
 int main(void)
 {
-    int a[10] = {999};
+    int a[10] = {999, 1544, 985, 11};
     
     printf("*a = %d\n", *a);
     return 0;
 }
 ```
+輸出
+```
+999
+```
 同時他也代表 array 中第一個變數( a[ 0 ] )的地址  
 
 ### 等價寫法
 
-首先各位要有一個認知， array 在跟記憶體要位置時，是一起要的，所以他們的地址也會連再一起。意即 a[ 0 ] 的地址 +1 就會得到 a[ 1 ]地址  
+首先各位要有一個認知， array 在跟記憶體要位置時，是一起要的，所以他們的地址也會連再一起。意即 a[ 0 ] 的地址 +1 就會得到 a[ 1 ] 地址  
 
-如果把它想像成門牌號碼了話會更好懂，a[ 0 ] 的隔壁住 a[ 1 ]，所以我把a[ 0 ] 的門牌號碼（地址）往後數一個就會得到 a[ 1 ] 的門牌號碼了  
+如果把它想像成門牌號碼了話會更好懂，a[ 0 ] 的隔壁住 a[ 1 ]，所以我把 a[ 0 ] 的門牌號碼（地址）往後數一個就會得到 a[ 1 ] 的門牌號碼了  
 
 範例：
 ```c
@@ -317,8 +306,8 @@ a[7] : 0x7fff5fbff6bc
 a[8] : 0x7fff5fbff6c0
 a[9] : 0x7fff5fbff6c4
 ```
----
-講解：你會發現每一個變數的地址都差 4 
+
+講解：以我的 compiler 而言，每個地址都差 4 bytes
 
 
 ```c
@@ -342,8 +331,8 @@ int main(void)
 0x7fff5fbff6a0 : 0
 0x7fff5fbff6a4 : 1
 ```
----
-講解：指標變數 + 1 的意思就是直接跳到下一個人的地址( ptr ++ 也是相同的意思)  
+
+講解：指標變數 ptr++ 的意思就是直接跳到下一個人的地址 
 
 接下來，我們來看下面這兩個式子  
 
@@ -362,7 +351,47 @@ a[5]  <--->  *(a+5)
 
 ### 指標 與 二維陣列
 
+雖然我們在宣告二維陣列時是把他當作一個平面的概念去宣告的，但是對電腦而言，他仍然是把他當作一維陣列在儲存的
+```c
+#include<stdio.h>
+int main(void)
+{
+    int a[3][3];
+    int i, j;
+    int* ptr = a;
+    
+    for (i = 0; i < 3; i++)
+    {
+        for (j = 0; j < 3; j++)
+        {
+            a[i][j] = i * 3 + j;
+        }
+    }
+    
+    for ( ; *ptr < 9; ptr++)
+    {
+        printf ( "%d : %p\n", *ptr, ptr);
+    }
+}
+```
+輸出
+```
+0 : 0x7fff5fbff720
+1 : 0x7fff5fbff724
+2 : 0x7fff5fbff728
+3 : 0x7fff5fbff72c
+4 : 0x7fff5fbff730
+5 : 0x7fff5fbff734
+6 : 0x7fff5fbff738
+7 : 0x7fff5fbff73c
+8 : 0x7fff5fbff740
+```
+在這個例子裡，雖然我們在宣告 array 時，是用二維的方式宣告，但他們的記憶體位置仍然是連再一起的，跟一維陣列一樣
+
+
 ### 指標 與 宣告 function
-
-int sum(int a[], int n);
-
+```c
+int function(int a[], int n);
+int function(int* a, int n);
+```
+在寫 function 的 prototype 時， 可以用上面兩種方法來宣告指標變數，兩個方法的意思是一樣的
