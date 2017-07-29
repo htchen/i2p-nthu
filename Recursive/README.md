@@ -303,7 +303,7 @@ int main(void){
 
 ## Tower of Honoi ##
 
-規則如下 : https://zh.wikipedia.org/zh-tw/%E6%B1%89%E8%AF%BA%E5%A1%94
+規則如下 : [https://zh.wikipedia.org/zh-tw/%E6%B1%89%E8%AF%BA%E5%A1%94](url)
 
 河內塔的步驟可以分解如下：
 
@@ -665,6 +665,7 @@ void find(int number, int head, int tail)
 ```
 
 這樣的例子，我們是已經提供一組排序過的資料。若需要在一組未排序的資料中找值這樣的方法是不行的，唯一的方法是一個一個掃過。這樣的方法在搜尋的數字比較少時沒問題，但壞處是當尋找的數字很多時就很沒效率。但是我們可以先對未排序的資料先排序 (sort) ，再用 binary search 。這樣的優缺點和前面的方法相反，在搜尋的數字少時，因為一開始需要 sort ，所以會多花時間；但是當尋找的數字多時，binary search的速度就會體現出來。而sort的方法有很多種，下面要介紹的就是用遞迴實現Merge Sort。
+
 
 ## Merge Sort (補充) ##
 
