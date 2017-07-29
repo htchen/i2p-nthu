@@ -3,11 +3,11 @@
 
 ## 讀取檔案的方法
 ```c
-    freopen("testcase.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
+freopen("testcase.txt", "r", stdin);
+freopen("output.txt", "w", stdout);
 ```
 
-程式碼測試階段，可以在 main 一開始的地方加入這兩行程式碼，這樣每次執行時就不必手動重複輸入測試資料
+在測試程式碼時，可以在 main 一開始的地方加入這兩行程式碼，這樣每次執行時就不必手動重複輸入測試資料
 
 - testcase.txt 是你自己編輯的測試資料文字檔
 - output.txt 則會由程式自動產生，檔案裡面會是程式執行的結果
