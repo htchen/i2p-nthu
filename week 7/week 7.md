@@ -26,12 +26,12 @@ Learning c language is fun.
 ```
 Learning c language is fun.
 ```
-這裡會出現一個問題，照理來說，這個code理當出現
+這裡會出現一個問題，照理來說，這個 code 理當出現  
 ```
 LLeeaa......
 ```
 
-每當輸入一個字就輸出一次，但程式執行起來卻是輸入一整行之後（按下enter） 才把字元輸出  
+每當輸入一個字就輸出一次，但程式執行起來卻是輸入一整行之後（按下 enter ） 才把字元輸出  
 
 講解：首先得了解 c language 如何處理鍵盤輸入，以及所謂的 buffering 機制。由於 getchar() 會透過 buffer 來緩衝輸入的字元，所以要等到換行字元出現，才會把 buffer 裡的東西送到程式做處理。所以我們會看到鍵盤輸入的字元先被直接回應到螢幕上 (系統為了要讓我們知道究竟打了哪些字)，同時這些輸入的字元會被存在 buffer 中，等到使用者打了 Enter 才把 buffer 裡的字元送到程式，然後程式的迴圈就把字元一一處理  
 
@@ -41,25 +41,25 @@ LLeeaa......
 
 - 好處：可以讓程式可以有統一的介面來處理輸入和輸出，不會因為換到不同系統和不同裝置就變得不能執行  
 
-- 在 stdio.h 裡：訂了兩個標準的檔案串流  
-    - stdin ： 標準輸入裝置 (通常假設是鍵盤)
-    - stdout： 標準輸出裝置 (通常假設為螢幕)
+- 在 stdio.h 裡：訂了兩個標準的檔案串流   
+    - stdin ： 標準輸入裝置 (通常假設是鍵盤)  
+    - stdout： 標準輸出裝置 (通常假設為螢幕)  
 
     
 
 所以如果我們從 stdin 讀取資料，就等於是從鍵盤讀取使用者輸入的內容，如果把資料寫入 stdout 就等於把資料送到螢幕上  
 
-- 我們學過的：
-    - scanf() 和 getchar() 都是預設從 stdin 讀資料
-    -  printf() 和 putchar() 都預設為寫入 stdout
-    -  在 stdio.h 裡面定了一個常數 EOF (End of File)，用來代表檔案結束
+- 我們學過的：  
+    - scanf() 和 getchar() 都是預設從 stdin 讀資料  
+    -  printf() 和 putchar() 都預設為寫入 stdout  
+    -  在 stdio.h 裡面定了一個常數 EOF (End of File)，用來代表檔案結束  
 
 既然輸入被當作檔案來處理，我們在讀取 stdin 的資料的時候，就可以判斷讀入的字元是否等於 EOF，用這個檔案結束符號來判斷使用者是否已經結束輸入的動作  
 
 
-### EOF 在 stdio.h 裡面有定義：
-- 通常它的值被定成 -1，可能因作業系統而有不同
-- 另外，配合 EOF 我們把 c 的型別改成 int 。(其實 getchar() 和 putchar() 的回傳值和參數本來就都是 int 型別)
+### EOF 在 stdio.h 裡面有定義：  
+- 通常它的值被定成 -1，可能因作業系統而有不同  
+- 另外，配合 EOF 我們把 c 的型別改成 int 。(其實 getchar() 和 putchar() 的回傳值和參數本來就都是 int 型別)  
 
 ```c
 #include<stdio.h>
@@ -75,13 +75,13 @@ int main(void)
 }
 ```
 
-### 如何用鍵盤輸入 EOF
-- 不是輸入 E O F 三個字母，也不是直接打 -1
-- windows ： Ctrl + z
-- mac and linux : Ctrl + d
+### 如何用鍵盤輸入 EOF  
+- 不是輸入 E O F 三個字母，也不是直接打 -1  
+- windows ： Ctrl + z  
+- mac and linux : Ctrl + d  
 
-##  redirection 功能
-1. 我們先把下面的範例 code 存檔在c槽並命名為 code.c，然後 compile 並產生執行檔，假設執行檔的名稱叫做 code.exe
+##  redirection 功能  
+1. 我們先把下面的範例 code 存檔在 c 槽並命名為 code.c，然後 compile 並產生執行檔，假設執行檔的名稱叫做 code.exe  
 
 ```c
 #include<stdio.h>
@@ -97,20 +97,20 @@ int main(void)
 }
 ```
 
-2. 儲存下面的內容為 test.txt。
+2. 儲存下面的內容為 test.txt。  
 ```c
 Learning c language is fun.
 ```
 
-3. 在 command line 模式下試試看下面的指令
+3. 在 command line 模式下試試看下面的指令  
 ```
 C:\> code.exe < test.txt
 ```
 
 你會發現 test.txt 的內容會被顯示到螢幕上  
 
-- 不論是在 DOS, Unix, Linux 都提供了所謂 redirection 的功能
-- 這項功能可以把作業系統裡一般的檔案 (譬如純文字檔)，導向成為標準輸入裝置 (對我們的程式來說就是 stdin)  
+- 不論是在 DOS, Unix, Linux 都提供了所謂 redirection 的功能  
+- 這項功能可以把作業系統裡一般的檔案 (譬如純文字檔)，導向成為標準輸入裝置 (對我們的程式來說就是 stdin )  
   
 - 以上面的例子來說：  
 
@@ -124,9 +124,9 @@ C:\> code.exe < test.txt
 C:\> code.exe > result.txt
 ```
 
-- 用 > 符號接上我們要輸出的檔案名稱
-- 之後我們再把command line 裡面輸入字元，最後按 ctrl + z(or ctrl + d)
-- 你會發現在c槽裡多了一個 result.txt的檔案
+- 用 > 符號接上我們要輸出的檔案名稱  
+- 之後我們再把command line 裡面輸入字元，最後按 ctrl + z(or ctrl + d)  
+- 你會發現在c槽裡多了一個 result.txt 的檔案  
 
 - 把兩個指令合起來就變成：
 ```
@@ -196,7 +196,7 @@ I got it
 ```
 講解：這個程式有一個bug，他會一次跑兩行出來。原因就在於我們除了輸入 n 以外， 後面還按了一個 enter（\n ） ， 所以他才會多輸出一行  
 
-修改：
+修改：  
 ```c
 #include <stdio.h>
 int main(void)
@@ -300,12 +300,11 @@ Input a certain date
 press 'a' to start the program or press enter to quit
 Bye
 ```
----
-講解：你會發現這個題目沒辦法重複輸入，原因就在於scanf() 只會讀取他想要的東西，而其他東西就會一直留在buffer 裡面，等到下一個讀取資料時，才會再從buffer 拿出來。  
+講解：你會發現這個題目沒辦法重複輸入，原因就在於 scanf() 只會讀取他想要的東西，而其他東西就會一直留在 buffer 裡面，等到下一個讀取資料時，才會再從buffer 拿出來。  
 
-所以當我們在輸入1997 10 8 時，後面所按的 enter ，會一直留在buffer裡面（因為 scanf只會讀取 %d %d %d ），這時就會留一個\n在buffer裡面。  
+所以當我們在輸入1997 10 8 時，後面所按的 enter ，會一直留在 buffer 裡面（因為 scanf 只會讀取 %d %d %d ），這時就會留一個 \n 在 buffer 裡面。  
 
-修改：
+修改：  
 ```c
 #include <stdio.h>
 int a[12]={31,29,31,30,31,30,31,31,30,31,30,31};//閏年
@@ -365,7 +364,7 @@ int main(void)
 
 
 ## scanf 的格式化輸入
-在寫程式的時候，有時為了更人性化，會有一些特殊的輸入格式，例如在輸入日期時，常常會寫成 年/月/日，而不會只是 年 月 日，這時，就可以用 scanf 的格式化輸入來解決這個問題  
+在寫程式的時候，有時為了更人性化，會有一些特殊的輸入格式，例如在輸入日期時，常常會寫成 年 / 月 / 日，而不會只是 年 月 日，這時，就可以用 scanf 的格式化輸入來解決這個問題  
 
 讓我們修改一下上面那個例子  
 
