@@ -1,5 +1,6 @@
 # week 7
-### 內容：Character Input/Output and Input Validation
+### 內容
+Character Input/Output and .Input Validation
 
 ## 前言
 我們已經學會用 printf()，scanf()，putchar()，getchar() 來做輸入輸出。這些用來處理 I/O 的 functions 並不是 C 語言內建的，而是由 C library 提供，我們接著就來解釋輸入輸出的運作機制  
