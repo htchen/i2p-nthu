@@ -1,4 +1,10 @@
-﻿# Week 16
+﻿# Supplementary Material 3
+
+目錄  
+*	[關於 static 與 extern](#關於-static-與-extern)  
+*	[資料處理](#資料處理)  
+*	[查字典與自動完成](#查字典與自動完成)  
+*	[Doubly Linked List](#doubly-linked-list)  
 
 ## 關於 static 與 extern
 [Stack Overflow 關於這部分的說明](https://stackoverflow.com/questions/95890/what-is-a-variables-linkage-and-storage-specifier)  
@@ -648,3 +654,4 @@ int main(void)
 ## Doubly Linked List-01
 
 [NTHU Online Judge: 9412 - Doubly Linked List](http://acm.cs.nthu.edu.tw/problem/9412/)
+

@@ -1,4 +1,13 @@
-﻿# Week 14
+﻿# Supplementary Material 1
+
+目錄  
+*	[qsort](#qsort)  
+*	[對固定長度的字元陣列排序](#對固定長度的字元陣列排序)  
+*	[對非固定長度的字串排序](#對非固定長度的字串排序)  
+*	[Pointers to Functions](#pointers-to-functions)  
+*	[在程式執行期間取得記憶體](#在程式執行期間取得記憶體)  
+*	[字元陣列和字串](#字元陣列和字串)  
+*	[雙重指標](#雙重指標)  
 
 ## qsort
 [C referecne 對於 qsort 的說明](http://en.cppreference.com/w/c/algorithm/qsort)
@@ -922,3 +931,4 @@ char str2[][8] = {"piece", "of", "cake"};
 寫一個 function 叫做`swap_ptr`，它的作用是讓兩個指標變數`a`和`b`在經過呼叫`sqap_ptr`之後  
 `a`所指向的位址變成`b`原先指向的位址，`b`所指向的位址變成`a`原先指向的位址  
 試著用雙重指標的方式來寫  
+
