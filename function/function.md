@@ -9,7 +9,7 @@
     - scanf( ), printf( )
 ```c
 #include <stdio.h>
-nt main()
+int main()
 {
     printf("Y.O.L.O.\n");
     return 0;
