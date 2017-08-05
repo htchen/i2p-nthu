@@ -235,6 +235,7 @@ post : 2
 ## Operator "sizeof"  
 
 使用`sizeof`這個運算符號，可以查看某個型別或某個資料所占用的 byte 數，而`sizeof`所回傳的值 (byte 數) 的型別為`size_t`。  
+
 [C reference 對於 size_t 的說明](http://en.cppreference.com/w/c/types/size_t)  
 
 下面我們來看個簡單的例子：
@@ -271,8 +272,7 @@ real x;
 ```
 宣告變數`x`。乍看之下`x`屬於一個新的型別 **real**，但是其實 compiler 知道`x`的型別就是標準的`double`。  
 
-對於不同的實作來說，可能會將`size_t`定義成其他型別。  
-為了保障可攜性、或是不必要的實作依賴，建議不應該直接將`size_t`與`unsigned int`視作相等。  
+對於不同的實作來說，可能會將`size_t`定義成其他型別。為了保障可攜性、或是不必要的實作依賴，建議不應該直接將`size_t`與`unsigned int`視作相等。  
 
 
 
