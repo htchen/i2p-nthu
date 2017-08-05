@@ -115,7 +115,10 @@ while(status = 1)
 > 總之，在寫終止條件時要特別小心，千萬不要讓 expression 變成出乎我們意料的數值，**尤其是`==`和`=`不要錯用**。
 
 ## True and False
-另外值得一提的是，在 C 語言中任何 expression 的值，除了整數 0 代表 false ，其他的整數值都代表 true 。請看以下的範例：
+以 Relational operators 而言，如果其邏輯判斷為 true 則回傳 1，其型別為`int`；反之其邏輯判斷為 false 則回傳 0，其型別亦為`int`。
+而在像是`if( expr )`判斷句中的`expr`，其值如果轉換後等同於整數 0 則視同 false；反之則視同 true。
+
+這邊的 true 與 false 主要是指邏輯判斷上的真偽，而非指 C99 中所定義的`true`與`false`。
 
 **範例 code ：**
 ```C
