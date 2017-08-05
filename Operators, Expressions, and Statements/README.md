@@ -232,9 +232,10 @@ post : 2
 - 如果將`++`寫在前面，相當於先讓`x`遞增 1 ，再去做乘以 2 的動作。
 - 如果將`++`寫在後面，相當於先做乘以 2 的動作，然後才讓`y`遞增 1 。
 
-## Operator "sizeof"
+## Operator "sizeof"  
 
-使用`sizeof`這個運算符號，可以查看某個型別或某個資料所占用的 byte 數，而`sizeof`所回傳的值 (byte 數) 的型別為`size_t` (其實相當於`unsigned int`) 。
+使用`sizeof`這個運算符號，可以查看某個型別或某個資料所占用的 byte 數，而`sizeof`所回傳的值 (byte 數) 的型別為`size_t`。  
+[C reference 對於 size_t 的說明](http://en.cppreference.com/w/c/types/size_t)  
 
 下面我們來看個簡單的例子：
 
@@ -258,7 +259,9 @@ int main(void)
 This character 'a' has 1 byte;
 Each 'char' takes up 1 byte of space.
 ```
-在上述例子中，`char_size`是一個宣告成`size_t`型別的變數，用來儲存`sizeof (char)`所計算出來的值。此外，`%u`代表顯示的格式是`unsigned decimal integer`。其實`size_t`這個型別只是透過`typedef`的方式，來將它變成`unsigned int`的同義辭。當 compiler 遇到`size_t`的時候，它就會想起`size_t`其實就是`unsigned int`。假如我們今天打了這行程式碼：
+在上述例子中，`char_size`是一個宣告成`size_t`型別的變數，用來儲存`sizeof (char)`所計算出來的值。此外，`%u`代表顯示的格式是`unsigned decimal integer`。
+
+以筆者所使用的實作來說，其實`size_t`這個型別只是透過`typedef`的方式，來將它變成`unsigned int`的同義辭。當 compiler 遇到`size_t`的時候，它就會想起`size_t`其實就是`unsigned int`。假如我們今天打了這行程式碼：
 ```
 typedef double real;
 ```
@@ -266,7 +269,10 @@ typedef double real;
 ```
 real x;
 ```
-宣告變數`x`。乍看之下`x`屬於一個新的型別 **real**，但是其實 compiler 知道`x`的型別就是標準的`double`。
+宣告變數`x`。乍看之下`x`屬於一個新的型別 **real**，但是其實 compiler 知道`x`的型別就是標準的`double`。  
+
+對於不同的實作來說，可能會將`size_t`定義成其他型別。  
+為了保障可攜性、或是不必要的實作依賴，建議不應該直接將`size_t`與`unsigned int`視作相等。  
 
 
 
