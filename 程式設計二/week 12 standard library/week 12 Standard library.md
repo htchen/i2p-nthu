@@ -157,10 +157,10 @@ Map reference : [list - cplusplus](http://www.cplusplus.com/reference/list/list/
 ### 實作
 題目：There are four types of command:
 
-- “1 integerA” represents inserting a node with int value A at the head of the list.
-- ”2 integerB” represents inserting a node with int value B at the end of the list.
-- “3” represents removing the node at the head of the list
-- “4“ represents removing the node at the end of the list
+- `1 integerA` represents inserting a node with int value A at the head of the list.
+- `2 integerB` represents inserting a node with int value B at the end of the list.
+- `3` represents removing the node at the head of the list
+- `4` represents removing the node at the end of the list
   
 Input terminated by EOF and finally output the list.  
   
