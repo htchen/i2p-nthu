@@ -1,10 +1,10 @@
 # Water Jugs Problem （倒水問題）
 在進入 Water Jugs Problem 之前，我們先來練習 library 的使用  
 ### 內容
-map 應用
-vector 應用
-set 應用
-Water Jugs Problem（倒水問題）
+map 應用  
+vector 應用  
+set 應用  
+Water Jugs Problem（倒水問題） 
 ## map library 練習
 雖然前面講過 map 了，但這裡再藉著 map library 替大家建立幾個重要的觀念  
   
