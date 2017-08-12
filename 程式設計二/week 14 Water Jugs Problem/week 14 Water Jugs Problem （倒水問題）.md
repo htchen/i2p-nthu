@@ -67,7 +67,7 @@ output
 ```
  
 ### 觀念二 map 的輸入
-除了可以用之前所教的 `Map[ key_value] = mapped_value; ` 這樣的輸入方法， map 本身也有 `.insert( )` 的功能，但裡面放的東西必須是成對的，也就是 (key_value, mapped_value）這樣，所以 insert 時，要使用 `pair` 來處理  
+除了可以用之前所教的 `Map[key_value] = mapped_value; ` 這樣的輸入方法， map 本身也有 `.insert( )` 的功能，但裡面放的東西必須是成對的，也就是 (key_value, mapped_value）這樣，所以 insert 時，要使用 `pair` 來處理  
 
 ### 觀念三 大括號在 c++ 的意義
 這部分可能是許多人在大一結束後，仍不知道的觀念（至少我認識的人幾乎都沒有這個觀念）  
