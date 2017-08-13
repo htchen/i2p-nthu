@@ -47,7 +47,7 @@ LLeeaa......
 
     
 
-所以如果我們從 stdin 讀取資料，就等於是從鍵盤讀取使用者輸入的內容，如果把資料寫入 stdout 就等於把資料送到螢幕上  
+所以如果我們從 stdin 讀取資料，就等於是從鍵盤讀取使用者輸入的內容，如果用 stdout 把資料寫入，就等於把資料送到螢幕上  
 
 - 我們學過的：
     - scanf() 和 getchar() 都是預設從 stdin 讀資料
@@ -78,7 +78,7 @@ int main(void)
 ### 如何用鍵盤輸入 EOF
 - 不是輸入 E O F 三個字母，也不是直接打 -1
 - windows ： Ctrl + z
-- mac and linux : Ctrl + d
+- macOS and linux : Ctrl + d
 
 ##  redirection 功能
 1. 我們先把下面的範例 code 存檔在c槽並命名為 code.c，然後 compile 並產生執行檔，假設執行檔的名稱叫做 code.exe
@@ -303,7 +303,7 @@ Bye
 ---
 講解：你會發現這個題目沒辦法重複輸入，原因就在於scanf() 只會讀取他想要的東西，而其他東西就會一直留在buffer 裡面，等到下一個讀取資料時，才會再從buffer 拿出來。  
 
-所以當我們在輸入1997 10 8 時，後面所按的 enter ，會一直留在buffer裡面（因為 scanf只會讀取 %d %d %d ），這時就會留一個\n在buffer裡面。  
+當我們在輸入1997 10 8 時，因為 scanf 只會讀取 %d %d %d ，會將最後按的 enter 留在buffer裡面。之後的 getchar() 就會讀取到最後留存在 buffer 裡面的\n而結束程式。
 
 修改：
 ```c
