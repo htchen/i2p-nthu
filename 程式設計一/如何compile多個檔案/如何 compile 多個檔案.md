@@ -97,5 +97,5 @@ gcc code.c function.c function.h
 
 ![](https://i.imgur.com/c0EcqHX.png)  
 
-接著直接 compile 即可  
+接著直接 compile 即可
 
