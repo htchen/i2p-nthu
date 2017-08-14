@@ -420,7 +420,7 @@ int main(void)
 舉例：輸入一字串，然後1. 把空白字元拿掉 2. 把大寫換成小寫，小寫化成大寫 3. 數字了話，把原數字加2後輸出  
   
 ps.所謂的空白字元包含1. 空白鍵 2. tab鍵 3. 換行字元（enter鍵）  
-reference: [referece = isspace] (http://www.cplusplus.com/reference/cctype/isspace/)  
+reference: [referece = isspace](http://www.cplusplus.com/reference/cctype/isspace/)  
 
 ```c
 #include<stdio.h>
