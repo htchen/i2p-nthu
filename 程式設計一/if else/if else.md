@@ -275,7 +275,6 @@ ctype.h裡還有 isspace,isalnum等等，大家可以去試試看。
 - toupper()
 
 
-4. 等等
 
 
 ## ? : 的語法
@@ -373,11 +372,11 @@ int main(void)
 ```
 輸入
 ```
-hello world.
+Hello world.
 ```
 輸出
 ```
-c = h
+c = H
 c = e
 c = l
 c = l
@@ -525,10 +524,10 @@ int main(void)
 ```
 a is 99
 ```
-講解：switch case 的用法跟 if else 很像， 概念也差不多，而 default 相當等於 if else 裡面的 else，不同的地方在於， case 裡的 statement 不需要用大括號把它匡著，但是必須在後面加上 break， 用意在於， 只要進入這個case 裡面， 他就不能再進入其他的case裡了
+講解：switch case 的用法跟 if else 很像， 概念也差不多，而 default 類似於 if else 裡面的 else ，只是若前面的 case 沒有加上 break ，則 default 裡面的東西都會被執行到。 case 裡的 statement 不需要用大括號把它匡著，但是必須在後面加上 break， 用意在於， 只要進入這個case 裡面， 他就不能再進入其他的case裡了
 
 - 如果沒加了話：
- 他就會每一個case都跑進去檢查一次，這樣速度會以較慢，也容易出錯，所以養成好習慣在寫case時都加入一個break結尾。
+ 他就會每一個 case 都跑進去檢查一次，且只要前面的 case 是 true ，後面的 case 也會全都被判斷成 true 。所以養成好習慣在寫case時都加入一個break結尾。
 
 
 
