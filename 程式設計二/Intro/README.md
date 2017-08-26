@@ -51,7 +51,7 @@ cout << "Hello, World!" << endl;
 ```
 
 
-### Hello, World!
+## Hello, World!
 
 就讓我們開始第一個C++程式吧
 
@@ -184,6 +184,30 @@ for(int i=0; i<10; i++){
  	...
 }
 ```
+
+### decltype
+
+簡單的說，decltype可以查詢變數的類型，並可以宣告變數，其宣告的變數型態和查詢到的變數形態相同。它的功用和 auto 很像，但是有些細節卻不太一樣，使用時需要多注意。請看下方範例
+
+```c++
+int a;
+decltype(a) b;	        //type of b is int
+auto c = a;             //type of c is int
+
+const float d = 2.3;
+decltype(d) e = 5.1;    //type of d is const float
+auto f = d;             //type of f is float
+```
+
+decltype 也有延伸的應用，例如
+
+```c++
+int a=1;
+float b=2.3;
+decltype(a+b) c = a+b;	//type of c is float
+decltype(a>b) d;	    //type of d is bool
+```
+
 
 ### Reference &
 
