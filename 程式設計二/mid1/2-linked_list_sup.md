@@ -55,18 +55,28 @@ void insert_increase_list(Node** hp, int data)
 
 
 *上述 2.1 的情況如下*
+
 原本是
+
 ![Alt text](images/10945_1.png)
+
 變成
+
 ![Alt text](images/10945_2.png)
 
 
 *上述 2.2 的情況如下*
+
 原本是
+
 ![Alt text](images/10945_3.png)
+
 變成
+
 ![Alt text](images/10945_4.png)
+
 然後是
+
 ![Alt text](images/10945_5.png)
 
 
