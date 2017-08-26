@@ -1,10 +1,10 @@
-## Josephus problem
+# Josephus problem
 
 這是一個不知道從哪裡來的故事 : 
 
 Flavius Josephus is a Jewish historian living in the 1st century.  According to his account, he and his 40 comrade soldiers were trapped in a cave, surrounded by Romans. They chose suicide over capture and decided that they would form a circle and start killing themselves using a step of three. As Josephus did not want to die, he was able to find the safe place, and stayed alive with his comrade, later joining the Romans who captured them. 
 
-#### Problem description
+### Problem description
 
 + n people form a circle, numbered from 1 to n.  Starting from the number 1-st person, killing every m-th person, who will be the last one?
 
@@ -31,7 +31,7 @@ Flavius Josephus is a Jewish historian living in the 1st century.  According to 
 
 這個問題的詳細描述與數學解 : https://en.wikipedia.org/wiki/Josephus_problem
 
-#### Algorithm
+## Algorithm
 
 An **effective** method for **solving a problem** using a **finite** sequence of **instructions**.
 
@@ -49,7 +49,7 @@ An **effective** method for **solving a problem** using a **finite** sequence of
 
    對於同一個問題，我們可以設計出很多不一樣的方法，而他們都是正確的。這時候我們會嘗試去比較這些演算法的效率，而我們最常用的方法是時間複雜度。
 
-#### Time Complexity
+## Time Complexity
 
 + The efficiency of an algorithm is usually measured by the **number of operations**
   + assignment, comparison, arithmetic operation
@@ -75,7 +75,7 @@ An **effective** method for **solving a problem** using a **finite** sequence of
   + bubble sort $O(n^2)$
   + matrix multiply $O(n^3)$
 
-#### 模擬過程 方法一
+### 模擬過程 方法一
 
 演算法採用模擬的方式，資料結構則採用 Array。
 
@@ -105,9 +105,9 @@ int main(){
 // output : 3 6 9 12 15 18 21 24 27 30 33 36 39 1 5 10 14 19 23 28 32 37 41 7 13 20 26 34 40 8 17 29 38 11 25 2 22 4 35 16 31 
 ```
 
-#### 模擬過程 方法二
+### 模擬過程 方法二
 
-和 Method 1 一樣，演算法也是採用模擬的方式，資料結構採用Array。
+和 Method 1 一樣，演算法也是採用模擬的方式，資料結構採用 Array。
 
 和 Method 1 不同的地方在於，移除了某個人之後，只將原本的陣列元素標記為 -1，不移動其他陣列元素。
 
@@ -136,7 +136,7 @@ int main(){
 }
 ```
 
-#### Circular Linked List 1
+### Circular Linked List 1
 
 演算法也是採用模擬的方式，資料結構採用 Circular Linked List。
 
@@ -186,13 +186,11 @@ int main(){
 
 這個方法的時間複雜度就很好分析了，因為我們不會經過那些已經死掉的人了，所以我們每次都剛好數 m 次就可以殺一個人，我們總共有 n 個人要殺，所以總共的時間複雜度是 $O(mn)$。
 
-#### Circular Linked List 2
+### Circular Linked List 2
 
 演算法也是採用模擬的方式，資料結構採用 Array 來模擬 Linked List。
 
-主要的想法是利用 Array 模擬 Circular Linked List，自己維持 next  的連接順序。從這個例子也可以看出 Array 與 指標之間相通之處。此外，使用 Array 模仿 Linked
-List 與真正的 Linked List 還有一個不同的地方：Linked List 可以動態產生和移除
-Node，如果是用 Array 模仿則會占用固定大小的空間，沒用到的 Node 其實還在原位，沒有真的被移除掉，只是靠 next 跳過而已。
+主要的想法是利用 Array 模擬 Circular Linked List，自己維持`next`的連接順序。從這個例子也可以看出 Array 與 指標之間相通之處。此外，使用 Array 模仿 Linked List 與真正的 Linked List 還有一個不同的地方：Linked List 可以動態產生和移除`Node`，如果是用 Array 模仿則會占用固定大小的空間，沒用到的`Node`其實還在原位，沒有真的被移除掉，只是靠`next`跳過而已。
 
 ```C
 #include <stdio.h>
@@ -222,7 +220,7 @@ int main(){
 
 時間複雜度一樣是 $O(mn)$
 
-#### Recursion
+### Recursion
 
 來看遞迴的做法。底下的寫法只能列出最後一個留下來的人，不能列出 Inverse Josephus Permutation。
 
@@ -241,19 +239,19 @@ int main(){
 }
 ```
 
-上面的函數 `F(n, m)` 傳回的值是最後能夠存留下來的人的編號，也就是如果總共 n個人，每m個移除掉一人，最後能夠剩下的人他的編號會是 `F(n,m)`。同樣地，`F(n-1,m)`  則是總共 n-1 個人、每 m 個移除掉一人，最後留下的人的編號。
+上面的函數`F(n, m)`傳回的值是最後能夠存留下來的人的編號，也就是如果總共 n個人，每m個移除掉一人，最後能夠剩下的人他的編號會是`F(n,m)`。同樣地，`F(n-1,m)`則是總共 n-1 個人、每 m 個移除掉一人，最後留下的人的編號。
 
-遞迴的關鍵在於找出 `F(n,m)` 和 `F(n-1,m)` 之間的關聯。原本有 n 個人，移除掉一個之後，剩下 n-1 個人。假如我們有辦法知道 `F(n-1,m)` 是多少，那麼我們該如何推算出 `F(n,m) ` ?
+遞迴的關鍵在於找出`F(n,m)`和`F(n-1,m)`之間的關聯。原本有 n 個人，移除掉一個之後，剩下 n-1 個人。假如我們有辦法知道`F(n-1,m)`是多少，那麼我們該如何推算出`F(n,m)`?
 
-如果我們知道 `F(n-1, m)`，也就是最後留下的那個人，我們就能換算出他在原本的 n個人的相對位置。以 `F(41,3)`為例，如果我們知道 `F(40,3) `的值是 28，對應到原本 41 人的情況中，`F(40,3) ` 其實是從原本的編號 4 的人開始數，因為原本 41人如果是從編號 1 開始數，一開始第一個被移除的人編號應該是 3 ，所以接下來剩下的 40 個人中的第一個人 (新的編號 1)，在原本 41 人中的編號是 4。這樣我們就可以看得出新舊編號的對應關係 ，所以如果 `F(40,3) ` 是 28，則 `F(41,3)`應該是 31。
+如果我們知道`F(n-1, m)`，也就是最後留下的那個人，我們就能換算出他在原本的 n個人的相對位置。以`F(41,3)`為例，如果我們知道`F(40,3)`的值是 28，對應到原本 41 人的情況中，`F(40,3)`其實是從原本的編號 4 的人開始數，因為原本 41人如果是從編號 1 開始數，一開始第一個被移除的人編號應該是 3 ，所以接下來剩下的 40 個人中的第一個人 (新的編號 1)，在原本 41 人中的編號是 4。這樣我們就可以看得出新舊編號的對應關係 ，所以如果`F(40,3)`是 28，則`F(41,3)`應該是 31。
 
 時間複雜度 $O(n)$
 
-#### Magic (補充)
+### Magic (補充)
 
 上面的方法不是效率不好，最快的 Linked List 需要 $O(mn)$ ，就是知道的資訊太少，像是遞迴只能算出最後一個，沒辦法算出被殺的順序。所以我們將題目延伸一下，我們要能知道誰是第幾個死的，第幾個死的又是誰 ? 
 
-輸出 `JP(n,m)`
+輸出`JP(n,m)`
 
 ```C++
 #include <stdio.h>
@@ -269,7 +267,7 @@ int main(){
 }
 ```
 
-輸出 `IJP(n,m)`
+輸出`IJP(n,m)`
 
 ```C++
 #include <stdio.h>
@@ -296,4 +294,4 @@ int main(){
 
 手寫證明 : 
 
-![joseohus證明](C:\Users\user\Google 雲端硬碟\講義下學期\images\joseohus證明.jpg)
+![image](images/josephus_proof.jpg)

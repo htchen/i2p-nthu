@@ -8,14 +8,12 @@
 - Memory(記憶體)
 ![image](images/6-1.jpg)
 ## How is a program executed? ##
-![image](images/6-2.jpg)
+![image](images/6-2.JPG)
 ## from C CODE to ASSEMBLY CODE to MACHINE CODE ##
 ### What is an assembly code? ###
-Consider the language translation from Chinese to English?
-```
-For example:
-一個程式是如何被執行?(C code)  =>  如何 是 一個 程式 被執行?(Assembly code)  =>  How is a program executed?(Machine code)
-```
+- Consider the language translation from Chinese to English?
+- 一個程式是如何被執行?(C code)  =>  如何 是 一個 程式 被執行?(Assembly code)  =>  How is a program executed?(Machine code)
+
 ### Why assembly ###
 C codes (or any high level programs) are very different from the machine code
 For example :
@@ -58,7 +56,7 @@ For example :
 ```
 #### Discrimination ####
 | Name           | Example        | Meaning                                  |
-| -------------- | -------------- | ---------------------------------------- |
+| -------------- | :------------: | ---------------------------------------- |
 | Variable       | a,b,c          | The high level naming of memory space.   |
 | Value          | 1,2,3          | The value stored in the memory space.    |
 | Memory address | [21],[63],[D8] | The address of memory where data are stored. |
@@ -66,8 +64,9 @@ For example :
 ### Instruction format ###
 Instructions are encoded in binary numbers.
 For example:
+
 | 0011    | 0101    | 1010    | 0111    |
-| ------- | ------- | ------- | ------- |
+| :-----: | :-----: | :-----: | :-----: |
 | op-code | operand | operand | operand |
 | 3       | 5       | A       | 7       |
 
@@ -94,63 +93,65 @@ Operand: Gives more detailed information about the operation
   - Again, logic circuits
 ## FROM LOGIC CIRCUIT TO GATE TO SEMI-CONDUCTOR ##
 ### Music analogy ###
-![image](images/6-3.jpg)
+![image](images/6-3.JPG)
 
 Like different kinds of instruments have different tabs;
 different kinds of computers(CPUs)have different instruction
-![image](images/6-4.jpg)
+![image](images/6-4.JPG)
 
 ### Who plays the music? ###
 A computer is more like a music box, but the songs can be “programmed”.
+
 | Computer           | Music box           |
 | ------------------ | ------------------- |
 | 1/0                | Touched/not         |
 | Electronic         | Mechanic            |
 | Gates,circuits,... | Gears,screws,...... |
-![image](images/6-5.jpg)
+
+![image](images/6-5.JPG)
 ### AND Gate ###
-![image](images/6-6.jpg)
+![image](images/6-6.JPG)
 ### OR Gate ###
-![image alt](images/6-7.jpg)
+![image](images/6-7.JPG)
 ### XOR(exclusive OR) Gate ###
-![image alt](images/6-8.jpg)
+![image](images/6-8.JPG)
 ### NOT Gate ###
-![image alt](images/6-9.jpg)
+![image](images/6-9.JPG)
 ### Boolean operators ###
-![image alt](images/6-10.jpg)
+![image](images/6-10.JPG)
 They are good for logic operations (bit operations), but how about arithmetic operations: +, -, *, /
 ### Boolean functions ###
 - Almost all binary operations of computers can be carried out by logic gates
 - Eample:One bit adder
   - Two inputs and two outputs(S:sum,C:carry out)
-   ![image alt](images/6-11.jpg)
+   ![image](images/6-11.JPG)
 ### Implementation of one bit adder ###
 - The truth table of an one-bit adder
-  ![image alt](images/6-12.jpg)
+  ![image](images/6-12.JPG)
 - Compare it to the truth table of Boolean function AND,OR,XOR,NOT
   - S = A.XOR.B
   - C = A.XOR.B
-    ![image alt](images/6-13.jpg)
+    ![image](images/6-13.JPG)
 ### 4 bit parallel adder ###
-![image alt](images/6-14.jpg)
+![image](images/6-14.JPG)
 ### CPU ###
-![image alt](images/6-15.jpg)
+![image](images/6-15.JPG)
 ### What can be a gate? ###
 - LEGO's "mechanical gates"
   - The AND gate
-   ![image alt](images/6-16.jpg) 
+   ![image](images/6-16.JPG) 
 ### Ciruit gates ###
-![image alt](images/6-17.jpg)
+![image](images/6-17.JPG)
 ### Electronic switch ###
 - The earliest one is the vacuum tube 
   - 1184,Thomas Edison
-    ![image alt](images/6-18.jpg)
-    ![image alt](images/6-19.jpg)
+    ![image](images/6-18.JPG)
+    ![image](images/6-19.JPG)
 ### Transistor ###
 - The problem of vacuum tubes are slow, large, expensive, and easy to break
 - Transistor can make it faster, smaller,and more robust.
 
-![image](images/6-20.jpg)
+![image](images/6-20.JPG)
 ### Transistors for logic gates ###
 ![image](images/6-21.png)
 ![image](images/6-22.png)
@@ -170,10 +171,3 @@ They are good for logic operations (bit operations), but how about arithmetic op
 | Boolean value      | TRUE,FALSE                | Math (logic) concept                     |
 | Electronic signal  | Ex: voltage               | high or low                              |
 | Bit                | 0,1                       | Basic unit of data in computer system    |
-
-
-
-
-
-
-
