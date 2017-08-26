@@ -3,6 +3,7 @@
 我們可以利用 C 語言的指標 (pointers)，將資料串起來，造出 linked list 這種資料結構。最標準的形式是 singly linked list，長得像底下這樣：
 
 Singly linked list (from wikipedia)
+
 ![Singly Linked List](images/612px-Singly-linked-list.svg.png)
 
 最後面的方框代表`NULL`，用來標記 linked list 的結尾。
@@ -10,6 +11,7 @@ Singly linked list (from wikipedia)
 也可以讓最後一筆資料再接回開頭，形成環狀的結構，像底下這樣：
 
 Circular linked list (from wikipedia)
+
 ![Circular Linked List](images/525px-Circularly-linked-list.svg.png)
 
 ## Singly Linked List 實作
@@ -85,7 +87,7 @@ List* addToLast(List* head, List* np)
 ```
 傳入的兩個參數都是指標，第一個指標`head`指向要被修改的`List`，第二個指標`np`則是指向要被加入的資料，我們想將`np`所指到的資料加入`head`所指到的`List`的最後面。
 1. 假如`head`是`NULL`，也就是原本的`List`是空的，這種情況就讓`head`指向`np`所指的那筆資料，如此一來就有等於得到了一個`List`，而且這個`List`只包含一筆資料。
-2. 假如`head`所指到的`List`原本已經有資料，則要先從頭開始，走到`List`的最後，我們利用迴圈來達成 (如下面的程式碼) 。一開始 `ptr = head`，然後持續做 `ptr = ptr->next`，讓指標移到下一筆資料所在的位址，當指標找到最後一筆資料，這時候 `ptr->next` 的值應該會是 `NULL`，所以迴圈可以停止，然後做 `ptr->next = np;` 把新的資料加在原有的最後一筆資料後面。(我們已經假定 `np->next` 會是 `NULL`，所以整個 `List` 經過 `addToLast` 後，仍然是一個具備正常結尾的 `List`。)
+2. 假如`head`所指到的`List`原本已經有資料，則要先從頭開始，走到`List`的最後，我們利用迴圈來達成 **(如下面的程式碼)** 。一開始 `ptr = head`，然後持續做 `ptr = ptr->next`，讓指標移到下一筆資料所在的位址，當指標找到最後一筆資料，這時候 `ptr->next` 的值應該會是 `NULL`，所以迴圈可以停止，然後做 `ptr->next = np;` 把新的資料加在原有的最後一筆資料後面。(我們已經假定 `np->next` 會是 `NULL`，所以整個 `List` 經過 `addToLast` 後，仍然是一個具備正常結尾的 `List`。)
 ```C
 while (ptr->next != NULL) {
     ptr = ptr->next;
@@ -321,8 +323,6 @@ List* getData(void)
 
 ![Circular Linked List](images/single_node.png)
 
----
-
 `main`的內容如下
 ```C
 int main(void)
@@ -402,11 +402,12 @@ Head removeFirst(Head head)
 ```
 1. 如果`head.first`不是`NULL`才有移除的必要，否則就直接`return head;`
 2. 接下來分成兩種情況：
-2.1 如果只有一筆資料，也就是`head.first == head.last`，就把那筆資料移除，`free(head.first)`。移除之後，`List`變成空的，所以要設定`head.first = NULL;`而且`head.last = NULL;`。最後會把更新過後的`head`傳回去。
-2.2 如果有超過一筆資料，則`head.first`和`head.last`會各自指向不同的地方，這時候的移除需要三個步驟 (如下面的程式碼) ，順序不能亂掉，否則會遺失需要的資訊。
-2.2.1 先是把`(head.last)->next`(原本只到第一筆資料)，改成指向第二筆資料。第二筆資料的位址可以用 `(head.first)->next` 取得。
-2.2.2 再來就可以把第一筆資料去掉，`free(head.first);`
-2.2.3 然後更新 `head.first`，讓它指向原本的第二筆資料 (現在變成了第一筆資料)，該筆資料的位址我們剛才已經用 `(head.last)->next` 記住。
+
++ 2.1如果只有一筆資料，也就是`head.first == head.last`，就把那筆資料移除，`free(head.first)`。移除之後，`List`變成空的，所以要設定`head.first = NULL;`而且`head.last = NULL;`。最後會把更新過後的`head`傳回去。
++ 2.2 如果有超過一筆資料，則`head.first`和`head.last`會各自指向不同的地方，這時候的移除需要三個步驟 **(如下面的程式碼)** ，順序不能亂掉，否則會遺失需要的資訊。
+   + 2.2.1 先是把`(head.last)->next`(原本只到第一筆資料)，改成指向第二筆資料。第二筆資料的位址可以用 `(head.first)->next` 取得。
+   + 2.2.2 再來就可以把第一筆資料去掉，`free(head.first);`
+   + 2.2.3 然後更新 `head.first`，讓它指向原本的第二筆資料 (現在變成了第一筆資料)，該筆資料的位址我們剛才已經用 `(head.last)->next` 記住。
 
 ```C
 (head.last)->next = (head.first)->next;
