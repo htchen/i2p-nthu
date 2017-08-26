@@ -56,7 +56,7 @@ For example :
 ```
 #### Discrimination ####
 | Name           | Example        | Meaning                                  |
-| -------------- | -------------- | ---------------------------------------- |
+| -------------- | :------------: | ---------------------------------------- |
 | Variable       | a,b,c          | The high level naming of memory space.   |
 | Value          | 1,2,3          | The value stored in the memory space.    |
 | Memory address | [21],[63],[D8] | The address of memory where data are stored. |
@@ -66,7 +66,7 @@ Instructions are encoded in binary numbers.
 For example:
 
 | 0011    | 0101    | 1010    | 0111    |
-| ------- | ------- | ------- | ------- |
+| :-----: | :-----: | :-----: | :-----: |
 | op-code | operand | operand | operand |
 | 3       | 5       | A       | 7       |
 
