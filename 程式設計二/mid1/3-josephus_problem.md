@@ -294,4 +294,4 @@ int main(){
 
 手寫證明 : 
 
-![image](images\josephus_proof.jpg)
+![image](images/josephus_proof.jpg)
