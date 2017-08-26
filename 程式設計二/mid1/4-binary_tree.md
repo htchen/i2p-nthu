@@ -95,7 +95,7 @@ in-order right: 11
 ```
 如此繼續做下去，最終我們可以把 pre-order 和 in-order 的每個數都看過一遍，而且可以依照對應的順序，把 binary tree 建構起來。
 
-值得一提的是，如果給定 in-order 與 post-order 序列，我們也能建出唯一的 binary tree ，但是如果給定 post-order 與 pre-order 序列，我們卻無法建出一棵 binary tree，因為是我們無法確定 root 的位置，所以沒辦法像上面一樣把序列切成 left subtree 跟 right subtree。
+值得一提的是，如果給定 in-order 與 post-order 序列，我們也能建出唯一的 binary tree ，但是如果給定 post-order 與 pre-order 序列，我們卻無法建出一棵 binary tree，原因是我們無法確定 root 的位置，所以沒辦法像上面一樣把序列切成 left subtree 跟 right subtree。
 
 
 ## 寫程式
