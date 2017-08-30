@@ -74,5 +74,7 @@ len equ $ - msg
  ```
  What's differences between ex1 and ex2 ?
 ### Registers in x86 CPU ###
+![image](image/7-1.jpg)
+
 
 
