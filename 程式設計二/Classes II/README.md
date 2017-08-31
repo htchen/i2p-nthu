@@ -1,5 +1,14 @@
 ﻿# Classes II
 
+目錄  
+
+*   [Special Member Function](##special-member-function)  
+*   [Destructor](#destructor)  
+*   [Copy Constructor, Copy Assignment Operator](#copy-constructor-copy-assignment-operator)  
+*   [Move Constructor, Move Assignment Operator](#move-constructor-move-assignment-operator)  
+*   [Initializer List](#initializer-list)  
+*   [總結](#總結)  
+
 ## Special Member Function
 
 我們已經提到了 default constructor 屬於 special member functions 中的其中一種  
@@ -845,7 +854,7 @@ int main()
 最後，有個程式碼可以讓讀者執行看看，並試著解釋一下理由  
 
 ```C++
-/* Vector defined as above*/
+/* Vector defined as above */
 
 struct Foo
 {
