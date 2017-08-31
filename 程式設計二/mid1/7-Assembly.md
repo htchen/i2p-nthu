@@ -254,6 +254,181 @@ push   DWORD PTR [ebp+8]
 3. 指令 `leave` 則是做 `mov esp, ebp` 然後 `pop ebp`，用來將 Stack Frame 還原到呼叫函數之前的狀態。
 
 我們模擬函數 `f` 和函數 `g` 的執行過程，把 Stack  Frame 的變化畫出來。
+
+![image](images/7-1.png)
+
+## 問題 8: 呃 … 遞迴 …？
+答：請看下面的例子，不難發現，其實遞迴就是用 `call _f` 重複呼叫自己。可想而知，Stack Frame 會因此而不斷成長，如果停止條件沒寫好，可能會造成 Stack Overflow。 
+
+C 程式碼：
+```C
+int f(int x)
+{
+    if (x>0) return x+f(x-1);
+    else return 0;
+}
+int main(void)
+{
+    int a;
+    a = f(3);
+=======
+```C
+int main(void)
+{
+    int a;
+    int *pa;
+    pa = &a;
+    *pa = 3;
+    return 0;
+}
+```
+
+
+組合語言程式碼：
+```
+_f:
+    push	ebp
+    mov	ebp, esp
+    sub	esp, 8
+    cmp	DWORD PTR [ebp+8], 0
+    jle	L2
+    mov	eax, DWORD PTR [ebp+8]
+    dec	eax
+    sub	esp, 12
+    push	eax
+    call	_f
+    add	esp, 16
+    add	eax, DWORD PTR [ebp+8]
+    jmp	L3
+    L2:
+    mov	eax, 0
+L3:
+    leave
+    ret
+```
+
+我們可以做一個額外的測試，編譯的時候多加 –O2 的參數，意思是編譯的時候要做最佳化：
+```
+gcc -S -masm=intel -fno-common -fno-asynchronous-unwind-tables -mno-stack-arg-probe -mpush-args -mno-accumulate-outgoing-args –O2 test.c
+```
+得到的組語程式碼如下。看起來像是迴圈！
+```
+_f:
+    mov	edx, DWORD PTR [esp+4]
+    xor	eax, eax
+    test	edx, edx
+    jle	L4
+    .p2align 2,,3
+L3:
+    add	eax, edx
+    dec	edx
+    jne	L3
+    ret
+L4:
+    ret
+```
+
+確實如此，因為 `–O2` 最佳化做了 Tail Call Elimination。如此一來，只需使用同一塊 Stack Frame，用迴圈就可以達到原本遞迴呼叫的效果。如果是自己手動改寫 Tail  Recursion 版本，會長得像底下的程式碼，也就是遞迴呼叫之後，不再做任何計算，直接 return。 對比原來和新的寫法的差異 `return x+f(x-1);`  與 `return f(x-1, ans+x);` 原本呼叫 `f` 結束之後還要再多作加法才 return。改寫過的 Tail Recursion 版本的 C 程式用 `gcc –O2` 編譯，得到的組語和上面的原版結果只差一行。可見 gcc 對遞迴的最佳化能力頗強。
+
+C 程式碼：
+```C
+=======
+上面 C 程式中第 5 行的 `pa = &a;` 對應的組合語言如下
+```
+lea  eax, [ebp-16]
+mov  DWORD PTR [ebp-12], eax
+```
+上面兩行組語代表將 `[ebp-16]` 所代表的位址，記錄在自位址 `[ebp-12]` 開始，的 4 Bytes 空間中。
+
+而下一行的 `*pa = 3;` 對應的組合語言如下
+```
+mov  eax, DWORD PTR [ebp-12]
+mov  DWORD PTR [eax], 3
+```
+上面兩行組語代表先取出自位址 `[ebp-12]` 開始的 4 Bytes 空間中所儲存的資訊，將該項資訊放在暫存器 `eax` 中，接著把該項資訊當作記憶體位址來看待 (也就是 `[eax]`)，將 3 存入自 `[eax]` 位址開始的 4 Bytes 空間中。
+
+## 問題 7：C 語言的函數呼叫如何轉成組語？
+答：這個問題牽涉到 Stack，我們必須更進一步探討 Stack 在程式執行過程中如何變化。先看底下的 C 程式碼與對應的組語。我們只需要看函數 `f` 和 `g` 所屬的那一段組語程式碼。
+
+C 程式碼：
+```C
+int g(int i, int j)
+{
+    return i+j;
+}
+int f(int x)
+{
+    int y;
+    y = g(x, x) + 1;
+    return y;
+}
+int main(void)
+{
+    int a;
+    a = f(1);
+    return 0;
+}
+```
+
+組合語言程式碼：
+```
+_g:
+    push   ebp
+    mov    ebp, esp
+    mov    eax, DWORD PTR [ebp+12]
+    mov    edx, DWORD PTR [ebp+8]
+    add    eax, edx
+    pop    ebp
+    ret
+```
+```
+_f:
+    push   ebp
+    mov    ebp, esp
+    sub    esp, 16
+    push   DWORD PTR [ebp+8]
+    push   DWORD PTR [ebp+8]
+    call   _g
+    add    esp, 8
+    inc    eax
+    mov    DWORD PTR [ebp-4], eax
+    mov    eax, DWORD PTR [ebp-4]
+    leave
+    ret
+```
+
+我們可以看到，在 `f` 裡面呼叫 `g`，會跳到 `_g:` 所在的程式碼區段。進入 `g` 函數之後要做的第一件事情是 `push ebp`，用意是要把原本 `f` 的 Frame 起點記住，因為接下來 `ebp` 將會改指向 `g` 所擁有的 Frame 的起點，但是等到 `g` 結束，必須要能夠再回到 `f`，所以要設法把呼叫 `g` 之前原本的 `ebp` 記住，而記住的方式就是用 `push ebp` 把 `ebp` 的值存到 Stack 上。做完 `push ebp` 再來就是做 `mov ebp, esp`，這樣就可以把 `ebp` 設定為新的 Frame Base (目前的 Stack 的頂點)。
+由於函數 `g` 沒有局部變數，因此不用調整 `esp` (不用挪出 Stack 空間給局部變數)。
+
+接下來的兩行
+```
+mov    eax, DWORD PTR [ebp+12]
+mov    edx, DWORD PTR [ebp+8]
+```
+是為了讀取從 `f` 傳入 `g` 的參數，從目前的 `ebp` 往前看 (Stack 是從高位址往低位址疊)，所以 `[ebp+8]` 和 `[ebp+12]` 其實是在目前堆疊的下方，裡面放的東西是由 `f` 呼叫 `g` 之前利用 `push` 放入的參數。函數 `g` 將兩個參數相加，把總和存放在 `eax` 暫存器，函數的回傳值，就會透過 `eax` 暫存器來傳遞，之後函數 `f` 只需要查看 `eax`，就能知道呼叫函數 `g` 所得到的計算結果。
+
+再看一下函數 `g` 結束之前做了甚麼事:
+```
+pop    ebp
+ret
+```
+所以會先把當初存入 Stack 的 `ebp` 值取回來，然後用 `ret` 跳回 `f` (關於 `ret` 稍後會再解釋)。
+
+接下來看函數 `f` 裡面做了甚麼事情。大致和函數 `g` 相同，不過因為函數 `f` 有局部變數，所以一開始除了 `push ebp` 和 `mov ebp, esp` 之外，還要多做 `sub esp, 16` 把 `esp` 的值減去 16，也就是讓 Stack 往 “上” 長 16 Bytes，保留空間給局部變數。
+
+接下來
+```
+push   DWORD PTR [ebp+8]
+push   DWORD PTR [ebp+8]
+```
+就是將呼叫函數 `g` 所需要的參數放入堆疊 (因為是 `g(x, x)` 剛好兩個參數都相同，都在 `[ebp+8]`)。呼叫函數 `g` 的指令是 `call _g`，等到函數 `g` 結束的時候，會回到 `call _g` 的下一行，這時候先做 `add esp, 8` 把當初呼叫 `g` 時用來疊放兩個參數的 Stack 空間降回來。前面提過，呼叫 `g` 之後得到的結果是放在 `eax`，所以接下來會從 `eax` 取出結果做後續的計算。
+
+再來我們來細看 `call`、`ret`、和 `leave` 三個指令。
+1. 指令 `call` 做了兩件事: `push eip` 然後 `jmp <func addr>`。先把 Program Counter 存起來 (存在 Stack 上)，這樣之後才能回到原本執行的程式碼所在位置，存好之後就用 jmp 跳到要呼叫的函數的程式碼位址。
+2. 指令 `ret` 做的事情和 `call` 互補: 先 `pop eip` 再 `jmp eip`。也就是先把舊的 Program Counter 從堆疊上取回來，然後跳回當時的程式碼位址。
+3. 指令 `leave` 則是做 `mov esp, ebp` 然後 `pop ebp`，用來將 Stack Frame 還原到呼叫函數之前的狀態。
+
+我們模擬函數 `f` 和函數 `g` 的執行過程，把 Stack  Frame 的變化畫出來。
 ![image](images/7-1.png)
 
 ## 問題 8: 呃 … 遞迴 …？
