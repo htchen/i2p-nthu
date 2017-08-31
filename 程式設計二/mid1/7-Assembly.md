@@ -254,6 +254,7 @@ push   DWORD PTR [ebp+8]
 3. 指令 `leave` 則是做 `mov esp, ebp` 然後 `pop ebp`，用來將 Stack Frame 還原到呼叫函數之前的狀態。
 
 我們模擬函數 `f` 和函數 `g` 的執行過程，把 Stack  Frame 的變化畫出來。
+
 ![image](images/7-1.png)
 
 ## 問題 8: 呃 … 遞迴 …？
