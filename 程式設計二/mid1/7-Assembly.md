@@ -18,8 +18,7 @@
 ```
 更進一步，為了讓產生的組語看起來比較簡單易懂便於講解，我們還可以關閉一些選項，免得 gcc 產生一堆額外的資訊，我們接下來的範例都會使用底下這一段命令來編譯程式碼
 ```
- gcc -S -masm=intel -fno-common -fno-asynchronous-unwind-tables -mno-stack-arg-probe 
--mpush-args -mno-accumulate-outgoing-args test.c
+ gcc -S -masm=intel -fno-common -fno-asynchronous-unwind-tables -mno-stack-arg-probe -mpush-args -mno-accumulate-outgoing-args test.c
 ```
 （Mac 可用 `clang -S -mllvm --x86-asm-syntax=intel -fno-common test.c` ，不過產生 code 會不一樣）
 
@@ -79,7 +78,7 @@ int main(void)
 ```
 在上面的程式碼中， `a` 先設定初始值等於 5。組譯之後應該會發現 `a` 被改放在 `.data` Section，因為 “`a` 等於 5” 這項資訊必須被記錄下來，成為 Object File 的內容的一部分，不能等到程式執行時才設定。
 
-還可以再進一步把 `int a = 5;` 改成 `int a[10000000] = {0};` 或是 `int a[10000000];` ，也就是設定一個很大的陣列，但是不初始化或只把陣列的第一個元素設定為 0。我們之前學 C 的時候知道，其餘的陣列元素也會被自動清為 0。對照組語程式碼會發現 `a` 被放在 `.bss` 未初始化的全域變數或某個函數裡面宣告為 `static` 的變數，都會被歸類到 `.bss` Section，程式開始執行時他們的值就會是 0。反之如果將陣列設定為非零 的初值，使得陣列被放在 `.data` Section，最後得到的 Object File 和執行檔的大小就會變得很大，因為必須放下整個陣列，而不像 `.bss` 是到了程式開始執行載入記憶體才取得所需的陣列空間 (反正他們的值是 0，所以沒必要先記住)。
+再進一步，我們把 `int a = 5;` 改成 `int a[10000000] = {0};` 或是 `int a[10000000];` ，也就是設定一個很大的陣列，但是不初始化或只把陣列的第一個元素設定為 0。
 ```C
 int a[10000000] = {0};
 int main(void)
@@ -88,16 +87,18 @@ int main(void)
     return 0;
 }
 ```
+我們之前學 C 的時候知道，其餘的陣列元素也會被自動清為 0。對照組語程式碼會發現 `a` 被放在 `.bss` 未初始化的全域變數或某個函數裡面宣告為 `static` 的變數，都會被歸類到 `.bss` Section，程式開始執行時他們的值就會是 0。反之如果將陣列設定為非零的初值，使得陣列被放在 `.data` Section，最後得到的 Object File 和執行檔的大小就會變得很大，因為必須放下整個陣列，而不像 `.bss` 是到了程式開始執行載入記憶體才取得所需的陣列空間 (反正他們的值是 0，所以沒必要先記住)。
 
-接下來要看上一頁的組合語言程式碼第 21 行，對應到 C 程式的 `a = 3;` 這個句子。所以我們可以發現把全域變數的值改成 3 的指令是 `mov DWORD PTR _a, 3` 。其中 `mov` 的語法是 **mov destination, source**，把第二個參數搬到第一個參數，第一個參數可以是 Register 或是 Memory Address，第二個參數則可以是常數，總共有下列五種組合。
+
+接下來要看組合語言程式碼第 21 行，對應到 C 程式的 `a = 3;` 這個句子。我們可以發現把全域變數的值改成 3 的指令是 `mov DWORD PTR _a, 3` 。其中 `mov` 的語法是 **mov destination, source**，把第二個參數搬到第一個參數，第一個參數可以是 Register 或是 Memory Address，第二個參數則可以是常數，總共有下列五種組合。
 
 valid MOV syntax |
 ---------------- |
-mov <reg>,<reg> |
-mov <reg>,<mem> |
-mov <mem>,<reg> |
-mov <reg>,<const> |
-mov <mem>,<const> |
+mov \<reg>, \<reg> |
+mov \<reg>, \<mem> |
+mov \<mem>, \<reg> |
+mov \<reg>, \<const> |
+mov \<mem>, \<const> |
     
 ## 問題 3：局部變數 (Local Variable) 轉成組語後會變成甚麼樣子？
 答：局部變數只有當函數被呼叫後的執行期間會存在記憶體中，執行結束就不能再使用。局部變數所在的記憶體區塊叫做 **堆疊 (Stack)**。堆疊是從高位址往低位址的方向成長，也就是說，當堆疊的內容越疊越多，其實對應的記憶體位址越低。堆疊有兩個基本操作指令： **push** 和 **pop**，分別是將資料放入堆疊 (`push <reg>`)，以及將資料從堆疊移出 (`pop <reg>`)。
@@ -132,10 +133,10 @@ int main(void)
 ## 問題 4：加法運算轉成組語後會變成甚麼樣子？
 答：假設有三個 `int` 局部變數 `a`, `b`, `c`。`c = a + b;` 對應的組合語言會長得像右邊這樣:
 ```
-    mov  eax, DWORD PTR [ebp-16]
-    mov  edx, DWORD PTR [ebp-12]
-    add  eax, edx
-    mov  DWORD PTR [ebp-20], eax
+mov  eax, DWORD PTR [ebp-16]
+mov  edx, DWORD PTR [ebp-12]
+add  eax, edx
+mov  DWORD PTR [ebp-20], eax
 ```
 
 前面提過，`[ebp-12]`, `[ebp-16]`, `[ebp-20]` 分別對應到 `a`, `b`, `c`。將局部變數 `b` 和 `a` 的內容分別放入暫存器 `eax` 和 `edx` ，接著執行 `add eax, edx` 指令，將兩個參數所指定的暫存器中的數值相加，然後存回第一個參數指定的暫存器 (在此例為 `eax`)，最後再將 `eax` 的值搬到變數 `c` 所在的位址裡。
@@ -157,22 +158,23 @@ int main(void)
 }
 ```
 
-`pa = &a;`
+上面 C 程式中第 5 行的 `pa = &a;` 對應的組合語言如下
 ```
 lea  eax, [ebp-16]
 mov  DWORD PTR [ebp-12], eax
 ```
-將 `[ebp-16]` 所代表的位址，記錄在自位址 `[ebp-12]` 開始，的 4 Bytes 空間中。
+上面兩行組語代表將 `[ebp-16]` 所代表的位址，記錄在自位址 `[ebp-12]` 開始，的 4 Bytes 空間中。
 
-`*pa = 3;`
+而下一行的 `*pa = 3;` 對應的組合語言如下
 ```
 mov  eax, DWORD PTR [ebp-12]
 mov  DWORD PTR [eax], 3
 ```
-先取出自位址 `[ebp-12]` 開始的 4 Bytes 空間中所儲存的資訊，將該項資訊放在暫存器 `eax` 中，接著把該項資訊當作記憶體位址來看待 (也就是 `[eax]`)，將 3 存入自 `[eax]` 位址開始的 4 Bytes 空間中。
+上面兩行組語代表先取出自位址 `[ebp-12]` 開始的 4 Bytes 空間中所儲存的資訊，將該項資訊放在暫存器 `eax` 中，接著把該項資訊當作記憶體位址來看待 (也就是 `[eax]`)，將 3 存入自 `[eax]` 位址開始的 4 Bytes 空間中。
 
 ## 問題 7：C 語言的函數呼叫如何轉成組語？
 答：這個問題牽涉到 Stack，我們必須更進一步探討 Stack 在程式執行過程中如何變化。先看底下的 C 程式碼與對應的組語。我們只需要看函數 `f` 和 `g` 所屬的那一段組語程式碼。
+
 C 程式碼：
 ```C
 int g(int i, int j)
@@ -220,21 +222,26 @@ _f:
     ret
 ```
 
-在 `f` 裡面呼叫 `g`，會跳到 `_g:` 所在的程式碼區段。進入 `g` 函數之後要做的第一件事情是 `push ebp`，用意是要把原本 `f` 的 Frame 起點記住，因為接下來 `ebp` 將會改指向 `g` 所擁有的 Frame 的起點，但是等到 `g` 結束，必須要能夠再回到 `f`，所以要設法把呼叫 `g` 之前原本的 `ebp` 記住，而記住的方式就是用 `push ebp` 把 `ebp` 的值存到 Stack 上。做完 `push ebp` 再來就是做 `mov ebp, esp`，這樣就可以把 `ebp` 設定為新的 Frame Base (目前的 Stack 的頂點)。
-由於函數 `g` 沒有局部變數，因此不用調整 `esp` (不用挪出 Stack 空間給局部變數)。接下來的兩行
+我們可以看到，在 `f` 裡面呼叫 `g`，會跳到 `_g:` 所在的程式碼區段。進入 `g` 函數之後要做的第一件事情是 `push ebp`，用意是要把原本 `f` 的 Frame 起點記住，因為接下來 `ebp` 將會改指向 `g` 所擁有的 Frame 的起點，但是等到 `g` 結束，必須要能夠再回到 `f`，所以要設法把呼叫 `g` 之前原本的 `ebp` 記住，而記住的方式就是用 `push ebp` 把 `ebp` 的值存到 Stack 上。做完 `push ebp` 再來就是做 `mov ebp, esp`，這樣就可以把 `ebp` 設定為新的 Frame Base (目前的 Stack 的頂點)。
+由於函數 `g` 沒有局部變數，因此不用調整 `esp` (不用挪出 Stack 空間給局部變數)。
+
+接下來的兩行
 ```
 mov    eax, DWORD PTR [ebp+12]
 mov    edx, DWORD PTR [ebp+8]
 ```
 是為了讀取從 `f` 傳入 `g` 的參數，從目前的 `ebp` 往前看 (Stack 是從高位址往低位址疊)，所以 `[ebp+8]` 和 `[ebp+12]` 其實是在目前堆疊的下方，裡面放的東西是由 `f` 呼叫 `g` 之前利用 `push` 放入的參數。函數 `g` 將兩個參數相加，把總和存放在 `eax` 暫存器，函數的回傳值，就會透過 `eax` 暫存器來傳遞，之後函數 `f` 只需要查看 `eax`，就能知道呼叫函數 `g` 所得到的計算結果。
-再看一下函數 g 結束之前做了甚麼事:
+
+再看一下函數 `g` 結束之前做了甚麼事:
 ```
 pop    ebp
 ret
 ```
 所以會先把當初存入 Stack 的 `ebp` 值取回來，然後用 `ret` 跳回 `f` (關於 `ret` 稍後會再解釋)。
 
-接下來看函數 `f` 裡面做了甚麼事情。大致和函數 `g` 相同，不過因為函數 `f` 有局部變數，所以一開始除了 `push ebp` 和 `mov ebp, esp` 之外，還要多做 `sub esp, 16` 把 `esp` 的值減去 16，也就是讓 Stack 往 “上” 長 16 Bytes，保留空間給局部變數。接下來
+接下來看函數 `f` 裡面做了甚麼事情。大致和函數 `g` 相同，不過因為函數 `f` 有局部變數，所以一開始除了 `push ebp` 和 `mov ebp, esp` 之外，還要多做 `sub esp, 16` 把 `esp` 的值減去 16，也就是讓 Stack 往 “上” 長 16 Bytes，保留空間給局部變數。
+
+接下來
 ```
 push   DWORD PTR [ebp+8]
 push   DWORD PTR [ebp+8]
