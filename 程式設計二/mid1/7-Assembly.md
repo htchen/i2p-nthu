@@ -330,9 +330,6 @@ L4:
 
 確實如此，因為 `–O2` 最佳化做了 Tail Call Elimination。如此一來，只需使用同一塊 Stack Frame，用迴圈就可以達到原本遞迴呼叫的效果。如果是自己手動改寫 Tail  Recursion 版本，會長得像底下的程式碼，也就是遞迴呼叫之後，不再做任何計算，直接 return。 對比原來和新的寫法的差異 `return x+f(x-1);`  與 `return f(x-1, ans+x);` 原本呼叫 `f` 結束之後還要再多作加法才 return。改寫過的 Tail Recursion 版本的 C 程式用 `gcc –O2` 編譯，得到的組語和上面的原版結果只差一行。可見 gcc 對遞迴的最佳化能力頗強。
 
-C 程式碼：
-```C
-=======
 上面 C 程式中第 5 行的 `pa = &a;` 對應的組合語言如下
 ```
 lea  eax, [ebp-16]
