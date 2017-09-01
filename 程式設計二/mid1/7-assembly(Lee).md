@@ -206,3 +206,172 @@ L2:
    jle L3
    leave
 ```
+### jmp instruction ###
+- jmp <label> transfers program control flow to the instruction at the memory location indicated by the operand (<label>).
+- Instruction jmp is called “unconditional jump”
+### Different implementation ###
+The implementation is not unique.
+```C
+int main(void){
+int a, b;
+while(a<=3) b++;
+}
+```
+```C
+L3:
+  cmp DWORD PTR [esp+8], 3
+  jg L2
+  add DWORD PTR [esp+12], 1
+    jmp L3
+L2:
+  leave
+```
+## GCC INLINE ASSEMBLY ##
+### Combine C and assembly　###
+- Sometime we need to combine C and assembly code
+    * To improve the performance
+    * To write the code for low level device drivers
+- How to combine C and assembly is compiler dependent, not a standard.
+   * We will use gcc’s inline assembly to introduce the idea.
+### Basic structure of inline assembly ###
+- Basic structure
+```
+asm(
+   assembler template //組合語言程式
+   : output operands  //輸出參數列表
+   : input iperands   // 輸入參數列表
+   : list of clobbered registers
+);                    //被更改的暫存器列表
+```
+### Example 7: inline assembly ###
+![image](images/7-3.JPG)
+## ADVANCED SYNTAXES IN ASSEMBLY ##
+### Example 8: pointer ###
+- C code 
+```C
+int main(void){
+int a;
+int *pa;
+pa = &a;
+}
+```
+- Assembly code
+```C
+lea eax, [esp+8]
+mov DWORD PTR [esp+12], eax
+```
+### lea instruction ###
+- The lea (Load effective address) instruction places the address specified by its second operand into the register specified by its first operand.
+  * Note, the contents of the memory location are not loaded, only the effective address is computed and placed into the register.
+  * This is useful for obtaining a pointer into a memory region.
+### Example 9: pointer 2 ###
+- C code 
+```C
+int main(void){
+int a;
+int *pa;
+pa = &a;
+*pa = 3;
+}
+```
+- Assembly code
+```C
+lea eax, [esp+8]
+mov DWORD PTR [esp+12], eax
+mov eax, DWORD PTR [esp+12]
+mov DWORD PTR [eax], 3
+lea eax, [esp+8]
+mov DWORD PTR [esp+12], eax
+mov eax, DWORD PTR [esp+12]
+mov DWORD PTR [eax], 3
+```
+![image](images/7-4.JPG)
+### Example 10: array ###
+- C code 
+```C
+int main(void){
+int a[3];
+a[0] = 2;
+a[1] = -6;
+a[2] = 10000;
+```
+- Assembly code
+```C
+mov DWORD PTR [esp+4], 2
+mov DWORD PTR [esp+8], -6
+mov DWORD PTR [esp+12], 10000
+```
+### Array and pointer ###
+![image](images/7-5.JPG)
+### Example 11: function call ###
+- C code 
+```C
+int foo(int a){
+return a+1;
+}
+int main(void){
+foo(3);
+}
+```
+- Assembly code
+```C
+mov DWORD PTR [esp], 3
+call _foo
+```
+### C language calling convention ###
+- The calling convention is a protocol about how to call and return from functions.
+- Two instructions for function call and return
+  * Call: push the current code location onto the hardware supported stack; unconditional jump to the code location indicated by the label operand.
+  * Ret: pop the current code location from the hardware supported stack; unconditional jump to the popped code location.
+### Stack ###
+- A stack is a data structure that has two operations: push and pop
+  * push adds an element to the collection;
+  * pop removes the last element that was added.
+- Elements are only allowed to be added and removed from the “top” of a stack
+    * First come last out
+![image](images/7-6.JPG)
+### Hardware supported stack ###
+- x86 CPU has a hardware support stack
+    * Two instructions: push and pop
+    * Register esp (stack pointer): point to the stack top
+    * Register ebp (base pointer): point to the stack base
+- Used for function calls
+    * Subroutine parameters are passed on the stack.
+    * Registers are saved on the stack, and
+    * local variables used by subroutines are placed in memory on the stack.
+### The flow of a function call ###
+- Caller: the one makes the function call
+- Callee: the called function
+### Caller rules to call function ###
+1. Before calling a function, push the contents of certain registers to the stack.
+   - The caller-saved registers are EAX, ECX, EDX.
+2. To pass parameters to the subroutine, push them onto the stack before the call.
+3. To call the function, use the call instruction.
+    - Instruction call pushes the return address on top of the parameters on the stack, and jumps to the function code.
+### Callee rules to start a function ###
+1. Push the value of EBP onto the stack, and copy the value of ESP into EBP
+2. Allocate local variables by making space on the stack.
+3. Push the values of the callee-saved registers that will be used by the function.
+    - The callee-saved registers are EBX, EDI, and ESI
+### Function call memory layout ###
+![image](images/7-7.JPG)
+### Callee rules to return ###
+1. Leave the return value in EAX.
+2. Restore the old values of any callee-saved registers (EDI and ESI) that were modified.
+3. Deallocate local variables.
+4. Before returning, restore the caller's base pointer value by popping EBP off the stack.
+5. Return to the caller by executing a ret instruction.
+### Caller rules to restore ###
+- Find the return value of function in the register EAX.
+- Remove the parameters from stack.
+- This restores the stack to its state before the call was performed.
+- Pop off the contents of caller-saved registers(EAX, ECX, EDX) from the stack.
+   - The caller can assume that no other registers were modified by the callee.
+## References ##
+http://www.cs.virginia.edu/~evans/cs216/guides/x86.html
+http://www.nasm.us/pub/nasm/releasebuilds/2.09.02/win32/nasm-2.09.02-win32.zip
+http://eli.thegreenplace.net/2011/02/04/where-the-top-of-the-stack-is-on-x86/
+http://www.ibiblio.org/gferg/ldp/GCC-Inline-Assembly-HOWTO.html
+http://ccckmit.wikidot.com/as:inlinec
+陳鍾誠 (2010年10月11日)，(網頁標題) 組合語言 — 在 C 語言當中內嵌組合語言，(網站標題) 陳鍾誠的網站，取自
+http://ccckmit.wikidot.com/as:inlinec ，網頁修改第0版
