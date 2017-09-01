@@ -83,7 +83,7 @@ mov DWORD PTR [esp+12], 3
 ```
 What’s differences between ex1 and ex2?
 ### Registers in x86 CPU ###
-![image][images/7-1.JPG]
+![image](images/7-1.JPG)
 ### Indirect memory access ###
 - Register esp holds an address of memory.
 - [esp+12] is a memory address, whose cell is 12 bytes below the memory cell addressed [esp].
@@ -94,7 +94,7 @@ What’s differences between ex1 and ex2?
 - Change the number of esp, and ask again.
 ### Global variable vs. local variable ###
 Variable a in example 1 is a global variable,and in example 2 is a local variable.
-![image alt][images/7-2.JPG]
+![image](images/7-2.JPG)
 ### Example 3: assignment 3 ###
 - C code
 ```C
