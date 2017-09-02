@@ -2,28 +2,28 @@
 
 ## Derived Classes, Abstract Classes
 
-這份講義想要解釋 base class (superclass) 和 derived classes (subclasses)。
+這份講義想要解釋 base class (superclass) 和 derived classes (subclasses)。  
 
-我們從 "Stroustrup, Bjarne (2013-07-10). The C++ Programming Language (4th Edition)" 書中，節錄關於這個主題需要知道的幾個重點。
+我們從 "Stroustrup, Bjarne (2013-07-10). The C++ Programming Language (4th Edition)" 書中，節錄關於這個主題需要知道的幾個重點。  
 
-##### 關於 virtual function
-* 用來達到 run-time polymorphic type 的效果 (要搭配 pointers 或 references)
-* 作者的話: "By default, a function that overrides a virtual function itself becomes virtual. We can, but do not have to, repeat virtual in a derived class. I don’t recommend repeating virtual. If you want to be explicit, use override."
-* Compiler 通常是利用所謂的 virtual function table (`vtbl`) 來記錄指標，透過指標指向對應的 virtual functions。
-* 作者的話: "If a class has a virtual function, it needs a virtual destructor."
+##### 關於 virtual function  
+* 用來達到 run-time polymorphic type 的效果 (要搭配 pointers 或 references)  
+* 作者的話: "By default, a function that overrides a virtual function itself becomes virtual. We can, but do not have to, repeat virtual in a derived class. I don’t recommend repeating virtual. If you want to be explicit, use override."  
+* Compiler 通常是利用所謂的 virtual function table (`vtbl`) 來記錄指標，透過指標指向對應的 virtual functions。  
+* 作者的話: "If a class has a virtual function, it needs a virtual destructor."  
 
-##### 關於 pure virtual function 和 abstract class
-* 一個 class 只要包含了任何 pure virtual function，就是一個 abstract class。Abstract class 不能產生物件，只能當作其他 classes 的 interface。
+##### 關於 pure virtual function 和 abstract class  
+* 一個 class 只要包含了任何 pure virtual function，就是一個 abstract class。Abstract class 不能產生物件，只能當作其他 classes 的 interface。  
 
-##### 關於 access control
-一個 class 的 member 可以分成 `private` `protected` `public`
-* 如果是 `private`、則只有同一個 class 的其他 member functions，或是該 class 的 friends 才能使用。
-* 如果是 `protected`：則只有同一個 class 的其他 member functions，或是該 class 的 friends，或是 derived classes 的 member functions 才能使用。
-* 如果是 `public`: 大家都可以用。
-* 繼承的時候，在 class 名稱後面可以用  `: public base_class_name` 、`: protected base_class_name` 、 `:private base_class_name` 的形式，來指定繼承而來的 public functions，要放在自己的哪個區域。
-* 詳細的整理可參考 https://www.programiz.com/cpp-programming/public-protected-private-inheritance
+##### 關於 access control  
+一個 class 的 member 可以分成 `private` `protected` `public`  
+* 如果是 `private`、則只有同一個 class 的其他 member functions，或是該 class 的 friends 才能使用。  
+* 如果是 `protected`：則只有同一個 class 的其他 member functions，或是該 class 的 friends，或是 derived classes 的 member functions 才能使用。  
+* 如果是 `public`: 大家都可以用。  
+* 繼承的時候，在 class 名稱後面可以用  `: public base_class_name` 、`: protected base_class_name` 、 `:private base_class_name` 的形式，來指定繼承而來的 public functions，要放在自己的哪個區域。  
+* 詳細的整理可參考 https://www.programiz.com/cpp-programming/public-protected-private-inheritance  
 
-底下的例子涵蓋上述概念。
+底下的例子涵蓋上述概念。  
 
 ```C++
 #include <iostream>
@@ -147,14 +147,16 @@ int main()
 }
 ```
 
----
+## Template
+
+[template 的基本語法](https://www.dropbox.com/sh/jim7z4r33bxoqfg/AADZBzvIvodrAK69U8JS0Qeza?dl=0)  
 
 ## 自己定 List
 
-這個範例的程式碼稍微多一點，可能要分兩次講解。 
-用到了 template、smart pointers、lambda functions。
+這個範例的程式碼稍微多一點，可能要分兩次講解。  
+用到了 template、smart pointers、lambda functions。  
 
-實作 List 常用的功能，例如 map、fold (reduce)、filter 等等。
+實作 List 常用的功能，例如 map、fold (reduce)、filter 等等。  
 
 ```C++
 #include <iostream>
@@ -308,11 +310,11 @@ int main()
 }
 ```
 
-延伸閱讀：C++17 fold expression
-https://baptiste-wicht.com/posts/2015/05/cpp17-fold-expressions.html
+延伸閱讀：C++17 fold expression  
+https://baptiste-wicht.com/posts/2015/05/cpp17-fold-expressions.html  
 
-延伸閱讀：關於 explicit，copy-initialization 和 direct-initialization 的說明
-http://en.cppreference.com/w/cpp/language/explicit
+延伸閱讀：關於 explicit，copy-initialization 和 direct-initialization 的說明  
+http://en.cppreference.com/w/cpp/language/explicit  
 
-延伸閱讀：關於 lambda function
-http://en.cppreference.com/w/cpp/language/lambda
+延伸閱讀：關於 lambda function  
+http://en.cppreference.com/w/cpp/language/lambda  
