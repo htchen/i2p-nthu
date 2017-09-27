@@ -8,22 +8,22 @@
 
 int main(void)
 {
-float minutes, distance;
-int size, letters;
-char name[10];
-printf("Hi! What's your first name? ");
-scanf("%s", name);
-printf("\n%s, how many minutes does it take to walk from\n", name);
-printf("your dormitory to the CS building? ");
-scanf("%f", &minutes);
-size = sizeof(name);
-letters = strlen(name);
-distance = minutes * SPEED;
-printf("\nThe distance from your dormitory to the CS building\n");
-printf("is about %.3f kilometers.\n\n", distance);
-printf("By the way, your first name has %d letters,\n", letters);
-printf("and we have %d bytes to store it in.\n", size);
-return 0;
+    float minutes, distance;
+    int size, letters;
+    char name[10];
+    printf("Hi! What's your first name? ");
+    scanf("%s", name);
+    printf("\n%s, how many minutes does it take to walk from\n", name);
+    printf("your dormitory to the CS building? ");
+    scanf("%f", &minutes);
+    size = sizeof(name);
+    letters = strlen(name);
+    distance = minutes * SPEED;
+    printf("\nThe distance from your dormitory to the CS building\n");
+    printf("is about %.3f kilometers.\n\n", distance);
+    printf("By the way, your first name has %d letters,\n", letters);
+    printf("and we have %d bytes to store it in.\n", size);
+    return 0;
 }
 ```
 我們來看看這個程式做了哪些事情以及用到了哪些新的東西。執行這個程式會得到類似下面的結果:
@@ -63,10 +63,10 @@ char name[10];　佔用十個 bytes，型別為 char
   #include <stdio.h>
   int main(void)
   {
-   printf("%d\n", '7');
-   printf("%c\n", '7');
-   printf("%s\n", "7");
-   return 0;
+      printf("%d\n", '7');
+      printf("%c\n", '7');
+      printf("%s\n", "7");
+      return 0;
   }
 ```
 最需要注意的是 '7' 代表的是字元 (ASCII 碼是 55)，但是 "7" 是字串，它除了包含 '7' 這個字元之外，還多藏了一個'\0' 字元。
@@ -78,9 +78,9 @@ char name[10];　佔用十個 bytes，型別為 char
 #include <string.h>
 int main(void)
 {
-printf("The length of string is %d, but %d bytes are occupied.\n",
-strlen("Stevie"), sizeof("Stevie"));
-return 0;
+    printf("The length of string is %d, but %d bytes are occupied.\n",
+    strlen("Stevie"), sizeof("Stevie"));
+    return 0;
 }
 ```
 ## Constants and the C Preprocessor ##
@@ -94,7 +94,7 @@ return 0;
 #define speed 0.083
 int main()
 {
-distance = minutes * speed;
+    distance = minutes * speed;
 }
 ```
 => preprocessing
@@ -102,7 +102,7 @@ distance = minutes * speed;
 #define speed 0.083
 int main()
 {
-distance = minutes * s0.083;
+    distance = minutes * 0.083;
 }
 ```
 =>compiling
@@ -122,13 +122,13 @@ distance = minutes * s0.083;
 
 int main(void)
 {
-printf("Number of bits in the mantissa of a float: %d\n", FLT_MANT_DIG);
-printf("Minimum number of significant decimal digits for a float: %d\n", FLT_DIG);
-printf("Minimum value for a positive float retaining full precision: %e\n", FLT_MIN);
-printf("Maximum value for a positive float: %e\n", FLT_MAX);
-printf("Difference between 1.00 and the least float value greater than 1.00: %e\n",FLT_EPSILON);
+    printf("Number of bits in the mantissa of a float: %d\n", FLT_MANT_DIG);
+    printf("Minimum number of significant decimal digits for a float: %d\n", FLT_DIG);
+    printf("Minimum value for a positive float retaining full precision: %e\n", FLT_MIN);
+    printf("Maximum value for a positive float: %e\n", FLT_MAX);
+    printf("Difference between 1.00 and the least float value greater than 1.00: %e\n",FLT_EPSILON);
 
-return 0;
+    return 0;
 }
 ```
 
@@ -158,16 +158,16 @@ printf(": %d ft %d in\n", "LeBron James", foot, inches);
 
 int main(void)
 {
-printf("~%f~\n", ENGINE);
-printf("~%e~\n", ENGINE);
-printf("~%4.2f~\n", ENGINE);
-printf("~%3.1f~\n", ENGINE);
-printf("~%10.3f~\n", ENGINE);
-printf("~%-10.3f~\n", ENGINE);
-printf("~%12.3e~\n", ENGINE);
-printf("~%+4.2f~\n", ENGINE);
-printf("~%010.2f~\n", ENGINE);
-return 0;
+    printf("~%f~\n", ENGINE);
+    printf("~%e~\n", ENGINE);
+    printf("~%4.2f~\n", ENGINE);
+    printf("~%3.1f~\n", ENGINE);
+    printf("~%10.3f~\n", ENGINE);
+    printf("~%-10.3f~\n", ENGINE);
+    printf("~%12.3e~\n", ENGINE);
+    printf("~%+4.2f~\n", ENGINE);
+    printf("~%010.2f~\n", ENGINE);
+    return 0;
 }
 ```
 從輸出結果可以猜出每種格式的功用。第三個 `printf()`，`%4.2f` 表示最少要顯示出四個字元寬度，而小數點後要顯示二位小數。第四個 `printf()` 用的是 `%3.1f`，所以最少要顯示出三個字元寬，而小數點後只顯示一位小數，這麼做會使得原本的數字被自動四捨五入。第五個 `printf()` 因為用了 `%10.3f` 所以最少要顯示十個字元寬 (不足的會補空白)，然後小數點後顯示三位小數；可以數數看在兩個 ~ 符號中間是否正好包含十個字元 (包含空白字元和小數點)。接下來 `%-10.3f` 意思和 `%10.3f` 相同，差別只是變成要向左靠齊 (這是加了 – 號的效果)。第七個 `printf()` 用的是 `%12.3e` 所以總寬度是12 個字元，一樣可以數數看是否有 12 個字元，不足的也會用空白來填補。而由於小數點後只顯示三位小數，所以無法完整表示成 `1.49999e+003`，會被自動四捨五入成 `1.500e+003`。第八個 `printf()` 用 `%+4.2f` 多了 + 號只是表示要在數
@@ -201,13 +201,13 @@ scanf("%s", name);
 #include <stdio.h>
 int main(void)
 {
-char name[10];
-int x = -1;
-scanf("%d", &x);
-scanf("%s", name);
-printf("x = %d\n", x);
-printf("name: '%s'\n", name);
-return 0 ;
+    char name[10];
+    int x = -1;
+    scanf("%d", &x);
+    scanf("%s", name);
+    printf("x = %d\n", x);
+    printf("name: '%s'\n", name);
+    return 0 ;
 }
 ```
 1. 如果先輸入一堆空白字元 (例如按下空白鍵或 Enter 鍵)，然後再輸入一個數字，接著再打一堆空白字元，然後輸入一串字母，得到的結果會像下面這樣 (加底線的是使用者輸入的資料)：
@@ -238,12 +238,12 @@ return 0 ;
 #include <stdio.h>
 int main(void)
 {
-int width, precision;
-double rate = 123.45;
-printf("Enter a width and a precision: ");
-scanf("%d %d", &width, &precision);
-printf("rate: '%*.*f'\n", width, precision, rate);
-return 0 ;
+    int width, precision;
+    double rate = 123.45;
+    printf("Enter a width and a precision: ");
+    scanf("%d%d", &width, &precision);
+    printf("rate: '%*.*f'\n", width, precision, rate);
+    return 0 ;
 }
 ```
 先讓使用者輸入想要顯示的浮點數的寬度和精確度(小數點後的位數)，把這兩個數據存在 width 和 precision 中，例如使用者輸入的分別是 8 和 3。然後在 printf() 裡用 %*.*f 的方式，按照 width 和 precision 所指定的
@@ -255,11 +255,11 @@ return 0 ;
 
 int main(void)
 {
-int x;
-printf("Please enter three integers:\n");
-scanf("%*d %*d %d", &x);
-printf("Only the last one is stored: %d\n", x);
-return 0 ;
+    int x;
+    printf("Please enter three integers:\n");
+    scanf("%*d %*d %d", &x);
+    printf("Only the last one is stored: %d\n", x);
+    return 0 ;
 }
 ```
 程式要求使用者輸入三個整數，但是在 scanf() 裡面，前兩個位置是用 %*d 格式，意思是忽略這兩個被輸入的整數。只有
@@ -271,10 +271,10 @@ return 0 ;
 #include <stdio.h>
 int main(void)
 {
-char word[46];
-scanf("%45s", word);
-printf("%.4s\n", word);
-return 0 ;
+    char word[46];
+    scanf("%45s", word);
+    printf("%.4s\n", word);
+    return 0 ;
 }
 ```
 因為 `printf()` 裡面用了 %.4s ，如果對照浮點數的用法 `%.4f` 表示顯示時精確度是 4，套用到字串上，意思變成只要顯示前四個字元，所以螢幕上會顯示 Miss 四個字元，而不是整個 word 字串 Mississippi。至於 `scanf()` 裡面用到 `%45s` 則是表示輸入的字串最長不超過 45 個字元 (第 46 個要留給 '\0')。
