@@ -1025,6 +1025,9 @@ int main()
 其實更精確一點的說法是，其型別是`cv_qualifier class_type*`  
 以`Foo::Nothing`來說，就是期待收到型別為`const Foo*`  
 
+以下例的`Foo a`來說，呼叫`Foo::Nothing`是可以透過預設的轉型  
+使得`Foo*`轉為`const Foo*`並傳給`Foo::Nothing`，是故為合法的  
+
 ```C++
 struct Foo
 {
@@ -1051,8 +1054,6 @@ int main()
 }
 ```
 
-所以如果以`Foo a`來說()，呼叫`Foo::Nothing`是可以透過預設的轉型  
-使得`Foo*`轉為`const Foo*`並傳給`Foo::Nothing`，所以可以成功呼叫  
 請參考底下這個例子，並試著思考一下其結果  
 
 ```C++
