@@ -930,7 +930,7 @@ int main()
 而不是可以做為`this`所指向的 address 的線索  
 
 最後，本節要介紹的就是 const member functions  
-`const`代表常數，試圖直接更改 const object 將會引起編譯錯誤，間接更改也可能引起 undefined behavior  
+`const`代表唯讀，試圖直接更改 const object 將會引起編譯錯誤，間接更改也可能引起 undefined behavior  
 而一個屬於`class`的 const object 是不能更動到 data members，也不能呼叫 non-const member functions  
 
 ```C++
@@ -992,7 +992,7 @@ int main()
 其中`Foo::Modify`如果把註解中的`const`保留，也會引發編譯錯誤  
 對於 const member functions 來說，`this`的型別是`const class_type*`  
 那麼從這個 pointer 來說，也就無法更改 data members  
-如果真的想要讓 data members 在該 instance 也為`const`所修飾時被改動，只要在前面加上`mutable`即可  
+如果真的想要讓 data members 在該 instance 或`this`也為`const`所修飾時被改動，只要在前面加上`mutable`即可  
 
 ```C++
 struct Foo
@@ -1025,7 +1025,33 @@ int main()
 其實更精確一點的說法是，其型別是`cv_qualifier class_type*`  
 以`Foo::Nothing`來說，就是期待收到型別為`const Foo*`  
 
-所以如果以`const Foo a`來說，呼叫`Foo::Nothing`是可以透過預設的轉型  
+```C++
+struct Foo
+{
+    void Modify()
+    {
+        num = 100;
+    }
+    
+    void Nothing() const
+    {
+    }
+    
+    int num;
+};
+
+int main()
+{
+    Foo a;
+    a.Modify();
+    a.num = 0;
+    a.Nothing();
+
+    return 0;
+}
+```
+
+所以如果以`Foo a`來說()，呼叫`Foo::Nothing`是可以透過預設的轉型  
 使得`Foo*`轉為`const Foo*`並傳給`Foo::Nothing`，所以可以成功呼叫  
 請參考底下這個例子，並試著思考一下其結果  
 
