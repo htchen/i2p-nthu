@@ -3,7 +3,9 @@ Contributors: 陳其威、蔡忠翰、盧奕豪、林楷宸、潘奕廷、高紀
 
 
 
-<H2> 課程影片與上課教材 </H2>
+
+
+<H2> 補充資料</H2>
 
 * 程式設計一
   - [影片清單連結](https://youtube.com/playlist?list=PL00TEQQ40g-PqcT1Ix4OJZSXTBwlR5dcJ)
